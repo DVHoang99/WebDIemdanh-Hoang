@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddInfoSubject</title>
+</head>
+<body>
+    <div>
+        <br />
+        @using (Html.BeginForm("AddInfoSubject", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="postedFile" />
+            <input type="submit" value="Import" />}
+    </div>
+    @ViewBag.Mess
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WebApplication1.Models.FORMLUUTRU>
+
+@{
+    ViewBag.Title = "StudentCheckIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>StudentCheckIn</h2>
+
+<p>
+    @ViewBag.Mess
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên giảng viên
+        </th>
+        <th>
+            Mã môn học
+        </th>
+        <th>
+            Tên môn học
+        </th>
+        <th>
+            Ca
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GIANGVIEN.TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TKB.MONHOC.IDMONHOC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TKB.MONHOC.TENMONHOC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CA)
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Điểm danh nào!!!
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Điểm danh nào!!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/CheckIn/StudentCheckIn" method="post">
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Mã sinh viên</span>
+                        </div>
+                        <input type="text" name="masv" class="form-control" value="@ViewBag.Masv">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Tên sinh viên</span>
+                        </div>
+                        <input type="text" name="tensinhvien" class="form-control" value="@ViewBag.Tensv">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Mã xác nhận</span>
+                        </div>
+                        <input type="text" name="maxacnhan" class="form-control">
+                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="input-group" style="display: none">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">mã giảng viên</span>
+                            </div>
+                            <input type="text" name="magv" class="form-control" value="@item.MAGIANGVIEN">
+                        </div>
+                        <div class="input-group" style="display: none">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">mã giảng viên</span>
+                            </div>
+                            <input type="text" name="mamh" class="form-control" value="@item.TKB.MAMH">
+                        </div>
+                        <div class="input-group" style="display: none">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">mã giảng viên</span>
+                            </div>
+                            <input type="text" name="id" class="form-control" value="@item.ID">
+                        </div>
+
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

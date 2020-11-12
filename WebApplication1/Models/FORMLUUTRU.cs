@@ -15,18 +15,26 @@ namespace WebApplication1.Models
 using System;
     using System.Collections.Generic;
     
-public partial class sysdiagram
+public partial class FORMLUUTRU
 {
 
-    public string name { get; set; }
+    public int ID { get; set; }
 
-    public int principal_id { get; set; }
+    public string MAGIANGVIEN { get; set; }
 
-    public int diagram_id { get; set; }
+    public Nullable<int> IDTKB { get; set; }
 
-    public Nullable<int> version { get; set; }
+    public Nullable<int> MAXACNHAN { get; set; }
 
-    public byte[] definition { get; set; }
+    public Nullable<int> TRANGTHAI { get; set; }
+
+    public Nullable<int> CA { get; set; }
+
+
+
+    public virtual TKB TKB { get; set; }
+
+    public virtual GIANGVIEN GIANGVIEN { get; set; }
 
 }
 

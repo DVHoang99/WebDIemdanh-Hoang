@@ -1,0 +1,30 @@
+﻿@model WebApplication1.Models.TKB
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+<form action="/CheckIn/Create" method="post">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Mã giảng viên</span>
+        </div>
+        <input type="text" name="magv" class="form-control" value="@ViewBag.Magv">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Mã thời khóa biểu</span>
+        </div>
+        <input type="text" name="idtkb" class="form-control">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Mã xác nhận</span>
+        </div>
+        <input type="text" name="maxacnhan" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@ViewBag.Mess

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebApplication1.Models.TKB>
+
+@{
+    ViewBag.Title = "ManageSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageSchedule</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ngày bắt đầu
+        </th>
+        <th>
+            Ngày kết thúc
+        </th>
+        <th>
+            Tên giảng viên
+        </th>
+        <th>
+            Tên lớp
+        </th>
+        <th>
+            Mã môn học
+        </th>
+        <th>
+            Tên môn học
+        </th>
+        <th>
+            Năm học
+        </th>
+        <th>
+            Phòng học
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYBATDAU)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYKETHUC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.GIANGVIEN.TEN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LOP.TENLOP)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MONHOC.IDMONHOC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MONHOC.TENMONHOC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NHOM1.NAMHOC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PHONG1.MAPHONG)
+    </td>
+    @*<td>
+        @Html.ActionLink("Edit", "EditSchedule", new { id = item.ID })
+    </td>*@
+</tr>
+}
+
+</table>

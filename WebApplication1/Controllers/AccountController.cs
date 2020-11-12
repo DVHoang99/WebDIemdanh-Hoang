@@ -27,32 +27,67 @@ namespace WebApplication1.Controllers
             if (test1 == 0)
             {
                 TAIKHOAN t = new TAIKHOAN();
-                int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
-                if(test2 == 1)
+                if(a.Role == 2 )
                 {
-                    t.USERNAME = a.UserName;
-                    if (a.PassWord == RePassWord)
+                    int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
+                    if (test2 == 1)
                     {
-                        
-                        t.PASSWORD = a.PassWord;
-                        t.Name = a.Name;
-                        t.ROLE1 = a.Role;
-                        data.TAIKHOANs.Add(t);
-                        data.SaveChanges();
-                        ViewBag.a = "Đăng kí thành công !!!";
-                        return View();
-                        
+                        t.USERNAME = a.UserName;
+                        if (a.PassWord == RePassWord)
+                        {
+
+                            t.PASSWORD = a.PassWord;
+                            t.Name = a.Name;
+                            t.ROLE1 = a.Role;
+                            data.TAIKHOANs.Add(t);
+                            data.SaveChanges();
+                            ViewBag.a = "Đăng kí thành công !!!";
+                            return View();
+
+                        }
+                        else
+                        {
+                            ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                            return View();
+                        }
                     }
                     else
                     {
-                        ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                        ViewBag.a = "Nhập sai mã giảng viên !!!";
                         return View();
                     }
-                }else
-                {
-                    ViewBag.a = "Nhập sai mã sinh viên hoặc giảng viên !!!";
-                    return View();
                 }
+                else
+                {
+                    int test2 = data.SINHVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
+                    if (test2 == 1)
+                    {
+                        t.USERNAME = a.UserName;
+                        if (a.PassWord == RePassWord)
+                        {
+
+                            t.PASSWORD = a.PassWord;
+                            t.Name = a.Name;
+                            t.ROLE1 = a.Role;
+                            data.TAIKHOANs.Add(t);
+                            data.SaveChanges();
+                            ViewBag.a = "Đăng kí thành công !!!";
+                            return View();
+
+                        }
+                        else
+                        {
+                            ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.a = "Nhập sai mã sinh viên !!!";
+                        return View();
+                    }
+                }
+                
                 
 
 
