@@ -806,6 +806,39 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        //=======================         ManageTeacherIndex        =======================//
+
+        public ActionResult ManageTeacherIndex()
+        {
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                if (b.ROLE1 == 2)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Message", new { tenaction = "Không thể truy cập" });
+                }
+            }
+            
+        }
+        [HttpPost]
+        public ActionResult EditProfileAccount(string id, string password, string name)
+        {
+            var test = data.TAIKHOANs.Where(x => x.USERNAME.Equals(id)).FirstOrDefault();
+            TAIKHOAN tk = new TAIKHOAN();
+            tk.PASSWORD = password;
+            tk.Name = name;
+            data.SaveChanges();
+            return View();
+        }
+
 
     }
 }

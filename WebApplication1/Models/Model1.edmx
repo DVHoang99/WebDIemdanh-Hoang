@@ -22,8 +22,9 @@
           <Property Name="MASINHVIEN" Type="varchar" MaxLength="20" />
           <Property Name="TENSINHVIEN" Type="varchar(max)" />
           <Property Name="MAGIANGVIEN" Type="varchar" MaxLength="30" />
-          <Property Name="MAMON" Type="varchar" MaxLength="20" />
-          <Property Name="NGAYDIENDANH" Type="date" />
+          <Property Name="IDTKB" Type="int" />
+          <Property Name="CA" Type="int" />
+          <Property Name="NGAYDIEMDANH" Type="date" />
         </EntityType>
         <EntityType Name="DONVI">
           <Key>
@@ -157,7 +158,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DIEMDANH__MAGIAN__4B7734FF">
+        <Association Name="FK__DIEMDANH__5C6CB6D7">
+          <End Role="TKB" Type="Self.TKB" Multiplicity="0..1" />
+          <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TKB">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="CA" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="IDTKB" />
+              <PropertyRef Name="CA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIEMDANH__MAGIAN__5B78929E">
           <End Role="GIANGVIEN" Type="Self.GIANGVIEN" Multiplicity="0..1" />
           <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,19 +184,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DIEMDANH__MAMON__4C6B5938">
-          <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="0..1" />
-          <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MONHOC">
-              <PropertyRef Name="IDMONHOC" />
-            </Principal>
-            <Dependent Role="DIEMDANH">
-              <PropertyRef Name="MAMON" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DIEMDANH__MASINH__4A8310C6">
+        <Association Name="FK__DIEMDANH__MASINH__5A846E65">
           <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="0..1" />
           <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
           <ReferentialConstraint>
@@ -338,15 +341,15 @@
             <End Role="TKB" EntitySet="TKB" />
             <End Role="CHITIETMONHOC" EntitySet="CHITIETMONHOC" />
           </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MAGIAN__4B7734FF" Association="Self.FK__DIEMDANH__MAGIAN__4B7734FF">
+          <AssociationSet Name="FK__DIEMDANH__5C6CB6D7" Association="Self.FK__DIEMDANH__5C6CB6D7">
+            <End Role="TKB" EntitySet="TKB" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIEMDANH__MAGIAN__5B78929E" Association="Self.FK__DIEMDANH__MAGIAN__5B78929E">
             <End Role="GIANGVIEN" EntitySet="GIANGVIEN" />
             <End Role="DIEMDANH" EntitySet="DIEMDANH" />
           </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MAMON__4C6B5938" Association="Self.FK__DIEMDANH__MAMON__4C6B5938">
-            <End Role="MONHOC" EntitySet="MONHOC" />
-            <End Role="DIEMDANH" EntitySet="DIEMDANH" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MASINH__4A8310C6" Association="Self.FK__DIEMDANH__MASINH__4A8310C6">
+          <AssociationSet Name="FK__DIEMDANH__MASINH__5A846E65" Association="Self.FK__DIEMDANH__MASINH__5A846E65">
             <End Role="SINHVIEN" EntitySet="SINHVIEN" />
             <End Role="DIEMDANH" EntitySet="DIEMDANH" />
           </AssociationSet>
@@ -397,7 +400,6 @@
       <Schema Namespace="WEBATTENDANCEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WEBATTENDANCEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CHITIETMONHOCs" EntityType="WEBATTENDANCEModel.CHITIETMONHOC" />
-          <EntitySet Name="DIEMDANHs" EntityType="WEBATTENDANCEModel.DIEMDANH" />
           <EntitySet Name="DONVIs" EntityType="WEBATTENDANCEModel.DONVI" />
           <EntitySet Name="FORMLUUTRUs" EntityType="WEBATTENDANCEModel.FORMLUUTRU" />
           <EntitySet Name="GIANGVIENs" EntityType="WEBATTENDANCEModel.GIANGVIEN" />
@@ -417,18 +419,6 @@
           <AssociationSet Name="FK__CHITIETMONHOC__28ED12D1" Association="WEBATTENDANCEModel.FK__CHITIETMONHOC__28ED12D1">
             <End Role="TKB" EntitySet="TKBs" />
             <End Role="CHITIETMONHOC" EntitySet="CHITIETMONHOCs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MAGIAN__4B7734FF" Association="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__4B7734FF">
-            <End Role="GIANGVIEN" EntitySet="GIANGVIENs" />
-            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MAMON__4C6B5938" Association="WEBATTENDANCEModel.FK__DIEMDANH__MAMON__4C6B5938">
-            <End Role="MONHOC" EntitySet="MONHOCs" />
-            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DIEMDANH__MASINH__4A8310C6" Association="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__4A8310C6">
-            <End Role="SINHVIEN" EntitySet="SINHVIENs" />
-            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
           </AssociationSet>
           <AssociationSet Name="FK__GIANGVIEN__MADON__3587F3E0" Association="WEBATTENDANCEModel.FK__GIANGVIEN__MADON__3587F3E0">
             <End Role="DONVI" EntitySet="DONVIs" />
@@ -470,6 +460,19 @@
             <End Role="ROLE" EntitySet="ROLEs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
           </AssociationSet>
+          <EntitySet Name="DIEMDANHs" EntityType="WEBATTENDANCEModel.DIEMDANH" />
+          <AssociationSet Name="FK__DIEMDANH__5C6CB6D7" Association="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7">
+            <End Role="TKB" EntitySet="TKBs" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIEMDANH__MAGIAN__5B78929E" Association="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E">
+            <End Role="GIANGVIEN" EntitySet="GIANGVIENs" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIEMDANH__MASINH__5A846E65" Association="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65">
+            <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CHITIETMONHOC">
           <Key>
@@ -481,20 +484,6 @@
           <Property Name="CA" Type="Int32" />
           <NavigationProperty Name="SINHVIEN" Relationship="WEBATTENDANCEModel.FK__CHITIETMON__MASV__29E1370A" FromRole="CHITIETMONHOC" ToRole="SINHVIEN" />
           <NavigationProperty Name="TKB" Relationship="WEBATTENDANCEModel.FK__CHITIETMONHOC__28ED12D1" FromRole="CHITIETMONHOC" ToRole="TKB" />
-        </EntityType>
-        <EntityType Name="DIEMDANH">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MASINHVIEN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TENSINHVIEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MAGIANGVIEN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MAMON" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NGAYDIENDANH" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="GIANGVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__4B7734FF" FromRole="DIEMDANH" ToRole="GIANGVIEN" />
-          <NavigationProperty Name="MONHOC" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAMON__4C6B5938" FromRole="DIEMDANH" ToRole="MONHOC" />
-          <NavigationProperty Name="SINHVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__4A8310C6" FromRole="DIEMDANH" ToRole="SINHVIEN" />
         </EntityType>
         <EntityType Name="DONVI">
           <Key>
@@ -526,10 +515,10 @@
           <Property Name="CHUCVU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BANGCAP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MADONVI" Type="Int32" />
-          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__4B7734FF" FromRole="GIANGVIEN" ToRole="DIEMDANH" />
           <NavigationProperty Name="DONVI" Relationship="WEBATTENDANCEModel.FK__GIANGVIEN__MADON__3587F3E0" FromRole="GIANGVIEN" ToRole="DONVI" />
           <NavigationProperty Name="FORMLUUTRUs" Relationship="WEBATTENDANCEModel.FK__FORMLUUTRU__CA__4C364F0E" FromRole="GIANGVIEN" ToRole="FORMLUUTRU" />
           <NavigationProperty Name="TKBs" Relationship="WEBATTENDANCEModel.FK__TKB__MAGIANGVIEN__1D7B6025" FromRole="GIANGVIEN" ToRole="TKB" />
+          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" FromRole="GIANGVIEN" ToRole="DIEMDANH" />
         </EntityType>
         <EntityType Name="LOP">
           <Key>
@@ -546,7 +535,6 @@
           <Property Name="IDMONHOC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TENMONHOC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SOTC" Type="Int32" />
-          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAMON__4C6B5938" FromRole="MONHOC" ToRole="DIEMDANH" />
           <NavigationProperty Name="TKBs" Relationship="WEBATTENDANCEModel.FK__TKB__MAMH__1C873BEC" FromRole="MONHOC" ToRole="TKB" />
         </EntityType>
         <EntityType Name="NHOM">
@@ -581,8 +569,8 @@
           <Property Name="TEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TENLOP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CHITIETMONHOCs" Relationship="WEBATTENDANCEModel.FK__CHITIETMON__MASV__29E1370A" FromRole="SINHVIEN" ToRole="CHITIETMONHOC" />
-          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__4A8310C6" FromRole="SINHVIEN" ToRole="DIEMDANH" />
           <NavigationProperty Name="LOP" Relationship="WEBATTENDANCEModel.FK__SINHVIEN__TENLOP__30C33EC3" FromRole="SINHVIEN" ToRole="LOP" />
+          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" FromRole="SINHVIEN" ToRole="DIEMDANH" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -626,6 +614,7 @@
           <NavigationProperty Name="MONHOC" Relationship="WEBATTENDANCEModel.FK__TKB__MAMH__1C873BEC" FromRole="TKB" ToRole="MONHOC" />
           <NavigationProperty Name="NHOM1" Relationship="WEBATTENDANCEModel.FK__TKB__NHOM__1B9317B3" FromRole="TKB" ToRole="NHOM" />
           <NavigationProperty Name="PHONG1" Relationship="WEBATTENDANCEModel.FK__TKB__PHONG__1F63A897" FromRole="TKB" ToRole="PHONG" />
+          <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" FromRole="TKB" ToRole="DIEMDANH" />
         </EntityType>
         <Association Name="FK__CHITIETMON__MASV__29E1370A">
           <End Type="WEBATTENDANCEModel.SINHVIEN" Role="SINHVIEN" Multiplicity="0..1" />
@@ -650,42 +639,6 @@
             <Dependent Role="CHITIETMONHOC">
               <PropertyRef Name="IDTKB" />
               <PropertyRef Name="CA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DIEMDANH__MAGIAN__4B7734FF">
-          <End Type="WEBATTENDANCEModel.GIANGVIEN" Role="GIANGVIEN" Multiplicity="0..1" />
-          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GIANGVIEN">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DIEMDANH">
-              <PropertyRef Name="MAGIANGVIEN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DIEMDANH__MAMON__4C6B5938">
-          <End Type="WEBATTENDANCEModel.MONHOC" Role="MONHOC" Multiplicity="0..1" />
-          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MONHOC">
-              <PropertyRef Name="IDMONHOC" />
-            </Principal>
-            <Dependent Role="DIEMDANH">
-              <PropertyRef Name="MAMON" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DIEMDANH__MASINH__4A8310C6">
-          <End Type="WEBATTENDANCEModel.SINHVIEN" Role="SINHVIEN" Multiplicity="0..1" />
-          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SINHVIEN">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DIEMDANH">
-              <PropertyRef Name="MASINHVIEN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -811,6 +764,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DIEMDANH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MASINHVIEN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TENSINHVIEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MAGIANGVIEN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IDTKB" Type="Int32" />
+          <Property Name="CA" Type="Int32" />
+          <Property Name="NGAYDIEMDANH" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TKB" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" FromRole="DIEMDANH" ToRole="TKB" />
+          <NavigationProperty Name="GIANGVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" FromRole="DIEMDANH" ToRole="GIANGVIEN" />
+          <NavigationProperty Name="SINHVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" FromRole="DIEMDANH" ToRole="SINHVIEN" />
+        </EntityType>
+        <Association Name="FK__DIEMDANH__5C6CB6D7">
+          <End Type="WEBATTENDANCEModel.TKB" Role="TKB" Multiplicity="0..1" />
+          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TKB">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="CA" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="IDTKB" />
+              <PropertyRef Name="CA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIEMDANH__MAGIAN__5B78929E">
+          <End Type="WEBATTENDANCEModel.GIANGVIEN" Role="GIANGVIEN" Multiplicity="0..1" />
+          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIANGVIEN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="MAGIANGVIEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIEMDANH__MASINH__5A846E65">
+          <End Type="WEBATTENDANCEModel.SINHVIEN" Role="SINHVIEN" Multiplicity="0..1" />
+          <End Type="WEBATTENDANCEModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SINHVIEN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="MASINHVIEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -823,18 +829,6 @@
                 <ScalarProperty Name="CA" ColumnName="CA" />
                 <ScalarProperty Name="MASV" ColumnName="MASV" />
                 <ScalarProperty Name="IDTKB" ColumnName="IDTKB" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DIEMDANHs">
-            <EntityTypeMapping TypeName="WEBATTENDANCEModel.DIEMDANH">
-              <MappingFragment StoreEntitySet="DIEMDANH">
-                <ScalarProperty Name="NGAYDIENDANH" ColumnName="NGAYDIENDANH" />
-                <ScalarProperty Name="MAMON" ColumnName="MAMON" />
-                <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
-                <ScalarProperty Name="TENSINHVIEN" ColumnName="TENSINHVIEN" />
-                <ScalarProperty Name="MASINHVIEN" ColumnName="MASINHVIEN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -952,6 +946,19 @@
                 <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
                 <ScalarProperty Name="MAMH" ColumnName="MAMH" />
                 <ScalarProperty Name="NHOM" ColumnName="NHOM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIEMDANHs">
+            <EntityTypeMapping TypeName="WEBATTENDANCEModel.DIEMDANH">
+              <MappingFragment StoreEntitySet="DIEMDANH">
+                <ScalarProperty Name="NGAYDIEMDANH" ColumnName="NGAYDIEMDANH" />
+                <ScalarProperty Name="CA" ColumnName="CA" />
+                <ScalarProperty Name="IDTKB" ColumnName="IDTKB" />
+                <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
+                <ScalarProperty Name="TENSINHVIEN" ColumnName="TENSINHVIEN" />
+                <ScalarProperty Name="MASINHVIEN" ColumnName="MASINHVIEN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

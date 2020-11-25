@@ -26,15 +26,17 @@ public partial class DIEMDANH
 
     public string MAGIANGVIEN { get; set; }
 
-    public string MAMON { get; set; }
+    public Nullable<int> IDTKB { get; set; }
 
-    public Nullable<System.DateTime> NGAYDIENDANH { get; set; }
+    public Nullable<int> CA { get; set; }
+
+    public Nullable<System.DateTime> NGAYDIEMDANH { get; set; }
 
 
+
+    public virtual TKB TKB { get; set; }
 
     public virtual GIANGVIEN GIANGVIEN { get; set; }
-
-    public virtual MONHOC MONHOC { get; set; }
 
     public virtual SINHVIEN SINHVIEN { get; set; }
 

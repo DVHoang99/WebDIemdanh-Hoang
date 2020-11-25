@@ -26,6 +26,8 @@ public partial class TKB
 
         this.FORMLUUTRUs = new HashSet<FORMLUUTRU>();
 
+        this.DIEMDANHs = new HashSet<DIEMDANH>();
+
     }
 
 
@@ -68,6 +70,10 @@ public partial class TKB
     public virtual NHOM NHOM1 { get; set; }
 
     public virtual PHONG PHONG1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
 
 }
 

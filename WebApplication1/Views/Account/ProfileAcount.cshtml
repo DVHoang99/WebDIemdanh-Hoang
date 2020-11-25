@@ -1,0 +1,67 @@
+﻿@model WebApplication1.Models.TAIKHOAN
+
+@{
+    ViewBag.Title = "ProfileAcount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ProfileAcount</h2>
+
+<div>
+    <h4>TAIKHOAN</h4>
+    <hr />
+    <form method="post" action="Manage/EditProfileAccount" >
+        <input style="display: none" type="Text"  class="form-control" name="id" value="@Html.DisplayFor(model => model.USERNAME)" />
+        <dl class="dl-horizontal">
+            <dt>
+                Tài Khoản
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.USERNAME)
+            </dd>
+            <dt>
+                Mật Khẩu
+            </dt>
+            q
+            <dd>
+                <input type="Text"  class="form-control" name="password" value="@Html.DisplayFor(model => model.PASSWORD)" />
+            </dd>
+
+            <dt>
+                Tên
+            </dt>
+
+            <dd>
+                <input type="Text"  class="form-control" name="name" value="@Html.DisplayFor(model => model.Name)" />
+                @*@Html.DisplayFor(model => model.Name)*@
+            </dd>
+
+            <dt>
+                Chức Vụ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ROLE.ROLE1)
+            </dd>
+
+        </dl>
+        <button type="submit">Sửa</button>
+    </form>
+    @*<form method="post" action="/Account/Register" class="register-form">
+        <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
+        <select id="cars" name="Role">
+            <option value="2">Giảng Viên</option>
+            <option value="3">Sinh Viên</option>
+        </select>
+        <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
+        <input type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
+        <input type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
+        <button type="submit">create</button>
+        <p class="message">Already registered? <a href="#">Sign In </a></p>
+    </form>*@
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.USERNAME }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

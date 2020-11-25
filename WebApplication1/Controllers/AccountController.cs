@@ -114,6 +114,11 @@ namespace WebApplication1.Controllers
                     Session["Login"] = test1;
                     return RedirectToAction("ManageAccount", "Manage");
                 }
+                else if (test1.ROLE1 == 2)
+                {
+                    Session["Login"] = test1;
+                    return RedirectToAction("ManageTeacherIndex", "Manage");
+                }
                 else
                 {
                     Session["Login"] = test1;
@@ -125,6 +130,22 @@ namespace WebApplication1.Controllers
                 ViewBag.a = "sai ten tai khoan mat khau";
             }
             return View();
+        }
+
+        public ActionResult ProfileAcount()
+        {
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                    var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(b.USERNAME)).FirstOrDefault();
+                    return View(result);
+            
+            }
+
         }
     }
 }

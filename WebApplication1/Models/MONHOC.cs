@@ -22,8 +22,6 @@ public partial class MONHOC
     public MONHOC()
     {
 
-        this.DIEMDANHs = new HashSet<DIEMDANH>();
-
         this.TKBs = new HashSet<TKB>();
 
     }
@@ -36,10 +34,6 @@ public partial class MONHOC
     public Nullable<int> SOTC { get; set; }
 
 
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

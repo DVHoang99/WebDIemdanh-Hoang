@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "FormDiemDanh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form điểm danh môn @ViewBag.tenmonhoc</h2>
+<form action="/CheckIn/Form" method="post">
+    <div style="display: none" class="form-group">
+        <label for="exampleInputEmail1">id</label>
+        <input type="text" class="form-control" id="1" name="id" placeholder="Tên giảng viên" value="@ViewBag.id">
+    </div>
+
+    <div style="display: none" class="form-group">
+        <label for="exampleInputEmail1">id</label>
+        <input type="text" class="form-control" id="1" name="idtkb" placeholder="Tên giảng viên" value="@ViewBag.idtkb">
+    </div>
+
+    <div style="display:none" class="form-group">
+        <label for="exampleInputEmail1">ID giảng viên</label>
+        <input type="text" class="form-control" id="2" name="idgv" placeholder="Tên giảng viên" value="@ViewBag.idgiangvien">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Tên Giảng viên</label>
+        <input type="text" class="form-control" id="3" name="tengiangvien" placeholder="Tên giảng viên" value="@ViewBag.a">
+    </div>
+
+    <div class="form-group">
+        <label>Tên môn học</label>
+        <input type="text" class="form-control" id="5" placeholder="Tên môn học" value="@ViewBag.b">
+    </div>
+    <div class="form-group">
+        <label>Mã sinh viên</label>
+        <input type="text" class="form-control" name="masv" id="6" placeholder="masv">
+    </div>
+    <div class="form-group">
+        <label>Tên sinh viên</label>
+        <input type="text" class="form-control" name="tensv" id="7" placeholder="Tên sinh viên">
+    </div>
+    <div class="form-group">
+        <label>mã xác nhận</label>
+        <input type="text" class="form-control" name="maxn" id="7" placeholder="Mã xác nhận">
+    </div>
+    <button type="submit" class="btn btn-primary">Điểm danh !!!</button>
+</form>
+
+@*<form action="CheckIn/Form" method="post">
+    <div style="display: none" class="form-group">
+        <label for="exampleInputEmail1">id</label>
+        <input type="text" class="form-control" id="1" name="id" placeholder="Tên giảng viên" value="@ViewBag.id">
+    </div>
+
+    <div style="display: none" class="form-group">
+        <label for="exampleInputEmail1">id</label>
+        <input type="text" class="form-control" id="1" name="idtkb" placeholder="Tên giảng viên" value="@ViewBag.idtkb">
+    </div>
+
+    <div style="display:none" class="form-group">
+        <label for="exampleInputEmail1">ID giảng viên</label>
+        <input type="text" class="form-control" id="2" name="idgv" placeholder="Tên giảng viên" value="@ViewBag.idgiangvien">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Tên Giảng viên</label>
+        <input type="text" class="form-control" id="3" name="tengiangvien" placeholder="Tên giảng viên" value="@ViewBag.a">
+    </div>
+
+    <div class="form-group">
+        <label>Tên môn học</label>
+        <input type="text" class="form-control" id="5" placeholder="Tên môn học" value="@ViewBag.b">
+    </div>
+    <div class="form-group">
+        <label>Mã sinh viên</label>
+        <input type="text" class="form-control" name="masv" id="6" placeholder="masv">
+    </div>
+    <div class="form-group">
+        <label>Tên sinh viên</label>
+        <input type="text" class="form-control" name="tensv" id="7" placeholder="Tên sinh viên">
+    </div>
+    <div class="form-group">
+        <label>mã xác nhận</label>
+        <input type="text" class="form-control" name="maxn" id="7" placeholder="Mã xác nhận">
+    </div>
+    <button type="submit" class="btn btn-primary">Điểm danh !!!</button>
+</form>*@
