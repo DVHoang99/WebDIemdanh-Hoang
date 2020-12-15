@@ -5,6 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>QrCodeGenarate</title>
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
 <h2>TeacherCheckIn</h2>
 
 <p>
@@ -28,10 +41,7 @@
             Tên môn học
         </th>
         <th>
-            Mã xác nhận
-        </th>
-        <th>
-            Trạng thái
+            Buổi điểm danh
         </th>
 
     </tr>
@@ -41,38 +51,35 @@
         <form action="/checkIn/EditTeacherCheckIn" method="post">
             <tr>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.MAGIANGVIEN)
                 </td>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.GIANGVIEN.TEN)
                 </td>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.IDTKB)
                 </td>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.TKB.MAMH)
                 </td>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.TKB.MONHOC.TENMONHOC)
                 </td>
                 <td>
-                    <input type="number" name="maxacnhan" value="@item.MAXACNHAN" />
-                </td>
-                <td>
-                    <select id="cars" name="trangthai">
-                        <option value="1">Hoạt động</option>
-                        <option value="0">Không hoạt động</option>
-                    </select>
+                    @Html.DisplayFor(modelItem => item.NGAYHOCTHU)
                 </td>
                 <td style="display:none">
-                    <input type="text" name="id" value="@item.ID" />
+                    <input type="text" id="iditem" name="id" value="@item.ID" />
+                    <input type="text" name="trangthai" value="@item.TRANGTHAI" />
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-primary">Thay đổi</button> | <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.ID">Tạo mã QR</button>
+                    <button type="submit" class="btn btn-primary">Thay đổi</button> |<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.ID">Tạo mã QR</button><button onclick="myFunction()" id="DeleteButton" class="btn btn-danger">Xóa</button><butto id="kiemtra" class="btn btn-primary">@Html.ActionLink("Kiểm tra", "kiemtra", new {id = item.IDTKB})</butto>
                 </td>
-                @*<td>
-                        @Html.ActionLink("Tạo mã QR", "Test", new { id = item.ID, xyz = item.MAGIANGVIEN, abc =  item.MAXACNHAN })
-                    </td>*@
             </tr>
         </form>
         <!-- Modal -->
@@ -87,16 +94,22 @@
                     </div>
                     <form action="/CheckIn/QrCodeGenarate" method="post">
                         <div class="modal-body">
+                            <div class="input-group" style="display: none;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">id</span>
+                                </div>
+                                <input type="text" name="id" class="form-control" value="@item.ID">
+                            </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Mã sinh viên</span>
                                 </div>
-                                <input type="text" name="txtQRCode" class="form-control" value="https://localhost:44349/CheckIn/Form/@item.ID">
+                                <input type="text" name="txtQRCode" class="form-control" value="https://localhost:44349/CheckIn/Form/@item.ID?b=@item.NGAYHOCTHU">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Tạo mã</button>
                         </div>
                     </form>
                 </div>
@@ -106,4 +119,37 @@
     }
 
 </table>
+
+<script>
+    function myFunction() {
+        let thisbtn = $(this);
+        let id = document.getElementById("iditem").value;
+        //let fileImg = document.getElementById("fileImg").files[0];
+        //var file = $("#fileImg")[0].files[0];
+        var formData = new FormData();
+        formData.append('id', id)
+        //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+        //console.log(id);
+        $.ajax({
+            url: "/CheckIn/XoaFormLuuTru",
+            type: "POST",
+
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data) {
+                    alert("Xoá thành công");
+                    window.location.reload();
+                }
+                else
+                    alert("Xóa thất bại");
+                window.location.reload();
+            }
+        })
+    }
+
+
+    
+</script>
 

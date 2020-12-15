@@ -22,11 +22,11 @@ public partial class GIANGVIEN
     public GIANGVIEN()
     {
 
+        this.DIEMDANHs = new HashSet<DIEMDANH>();
+
         this.FORMLUUTRUs = new HashSet<FORMLUUTRU>();
 
         this.TKBs = new HashSet<TKB>();
-
-        this.DIEMDANHs = new HashSet<DIEMDANH>();
 
     }
 
@@ -43,6 +43,10 @@ public partial class GIANGVIEN
 
 
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
+
     public virtual DONVI DONVI { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -52,10 +56,6 @@ public partial class GIANGVIEN
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<TKB> TKBs { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
 
 }
 

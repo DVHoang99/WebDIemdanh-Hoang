@@ -9,13 +9,101 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>QrCodeGenarate</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div>
-        @if (ViewBag.imageBytes != null)
-        {
-            <img style="max-height: 150px; max-width:150px" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.imageBytes))" />
-        }
+    <div class="container">
+        <h1>HUTECH</h1>
+        <div id="countdown"></div>
+        <div class="row">
+            <div class="col-sm-6" ">
+                <input style="display:none;" id="id" value="@ViewBag.id" />
+                <input style="display:none;" id="trangthai" value="0" />
+                <h3><b>Tên giảng viên: </b>@ViewBag.Tengv</h3>
+                <h3><b>Môn học: </b>@ViewBag.Tenmh</h3>
+                <h3><b>Quét mã QR </b>và truy cập vào điểm danh</h3>
+                <h3><b>50 giây </b>Điền đầy đủ thông tin</h3>
+                <h3><b>10 giây cuối </b>mã xác nhận sẽ xuất hiện</h3>
+                <h2>Mã xác nhận: <span id="code" style="display: none;">@ViewBag.Code </span></h2>
+            </div>
+            <div class="col-sm-6">
+                @if (ViewBag.imageBytes != null)
+                {
+                    <img style="max-height: 300px; max-width:300px;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.imageBytes))" />
+                }
+            </div>
+        </div>
     </div>
 </body>
 </html>
+<script type="text/javascript">
+    var timeleft = 190;
+    var downloadTimer = setInterval(function () {
+        if (timeleft == 10) {
+            //clearInterval(downloadTimer);
+            document.getElementById("code").style.display = "block";
+        }
+        else if (timeleft == -1) {
+            if (confirm("Đã hết thời gian điểm danh")) {
+                let thisbtn = $(this);
+                let id = document.getElementById("id").value;
+                let trangthai = document.getElementById("trangthai").value;
+                var formData = new FormData();
+                //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+                formData.append('id', id);
+                formData.append('trangthai', trangthai);
+                //console.log(file);
+                $.ajax({
+                    url: "/CheckIn/Suathongtin",
+                    type: "POST",
+
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data) {
+                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn";
+                        }
+                        else
+                            window.location = "https://localhost:44349/Manage/ManageTeacherIndex";
+                    }
+                })
+            }
+            else {
+                let thisbtn = $(this);
+                let id = document.getElementById("id").value;
+                let trangthai = document.getElementById("trangthai").value;
+                var formData = new FormData();
+                //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+                formData.append('id', id);
+                formData.append('trangthai', trangthai);
+                //console.log(file);
+                $.ajax({
+                    url: "/CheckIn/Suathongtin",
+                    type: "POST",
+
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data) {
+                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn";
+                        }
+                        else
+                            window.location = "https://localhost:44349/Manage/ManageTeacherIndex";
+                    }
+                })
+            }
+
+        }
+        else {
+            document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+        }
+        timeleft -= 1;
+    }, 1000);
+</script>
+
+

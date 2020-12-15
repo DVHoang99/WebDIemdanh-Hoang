@@ -828,16 +828,16 @@ namespace WebApplication1.Controllers
             }
             
         }
-        [HttpPost]
-        public ActionResult EditProfileAccount(string id, string password, string name)
-        {
-            var test = data.TAIKHOANs.Where(x => x.USERNAME.Equals(id)).FirstOrDefault();
-            TAIKHOAN tk = new TAIKHOAN();
-            tk.PASSWORD = password;
-            tk.Name = name;
-            data.SaveChanges();
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult EditProfileAccount(string id, string password, string name)
+        //{
+        //    var test = data.TAIKHOANs.Where(x => x.USERNAME.Equals(id)).FirstOrDefault();
+        //    TAIKHOAN tk = new TAIKHOAN();
+        //    tk.PASSWORD = password;
+        //    tk.Name = name;
+        //    data.SaveChanges();
+        //    return View();
+        //}
 
 
     }

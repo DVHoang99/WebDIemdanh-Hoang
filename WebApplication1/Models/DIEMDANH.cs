@@ -30,7 +30,15 @@ public partial class DIEMDANH
 
     public Nullable<int> CA { get; set; }
 
-    public Nullable<System.DateTime> NGAYDIEMDANH { get; set; }
+    public Nullable<System.DateTime> NGAYDIEMDANH1 { get; set; }
+
+    public Nullable<System.DateTime> NGAYDIEMDANH2 { get; set; }
+
+    public Nullable<System.DateTime> NGAYDIEMDANH3 { get; set; }
+
+    public Nullable<System.DateTime> NGAYDIEMDANH4 { get; set; }
+
+    public Nullable<System.DateTime> NGAYDIEMDANH5 { get; set; }
 
 
 

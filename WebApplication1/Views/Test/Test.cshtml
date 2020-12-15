@@ -1,24 +1,8 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Test</title>
-</head>
-<body>
-    <div>
-        <br />
-        @using (Html.BeginForm("Test", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="postedFile" />
-            <input type="submit" value="Import" />
-        }
-    </div>
-    @ViewBag.Success
-</body>
-</html>
+<h2>Test</h2>
+@ViewBag.a

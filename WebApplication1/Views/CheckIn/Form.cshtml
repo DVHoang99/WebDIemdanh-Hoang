@@ -3,84 +3,128 @@
     ViewBag.Title = "FormDiemDanh";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Form điểm danh</title>
+    <meta charset="utf-8">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
 <h2>Form điểm danh môn @ViewBag.tenmonhoc</h2>
-<form action="/CheckIn/Form" method="post">
-    <div style="display: none" class="form-group">
-        <label for="exampleInputEmail1">id</label>
-        <input type="text" class="form-control" id="1" name="id" placeholder="Tên giảng viên" value="@ViewBag.id">
-    </div>
+<body>
+    <form action="/CheckIn/Form" method="post">
+        <div style="display: none" class="form-group">
+            <label for="exampleInputEmail1">id</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="Tên giảng viên" value="@ViewBag.id">
+        </div>
 
-    <div style="display: none" class="form-group">
-        <label for="exampleInputEmail1">id</label>
-        <input type="text" class="form-control" id="1" name="idtkb" placeholder="Tên giảng viên" value="@ViewBag.idtkb">
-    </div>
+        <div style="display: none" class="form-group">
+            <label for="exampleInputEmail1">id</label>
+            <input type="text" class="form-control" id="idtkb" name="idtkb" placeholder="Tên giảng viên" value="@ViewBag.idtkb">
+        </div>
 
-    <div style="display:none" class="form-group">
-        <label for="exampleInputEmail1">ID giảng viên</label>
-        <input type="text" class="form-control" id="2" name="idgv" placeholder="Tên giảng viên" value="@ViewBag.idgiangvien">
-    </div>
+        <div style="display:none" class="form-group">
+            <label for="exampleInputEmail1">ID giảng viên</label>
+            <input type="text" class="form-control" id="magv" name="idgv" placeholder="Tên giảng viên" value="@ViewBag.idgiangvien">
+        </div>
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">Tên Giảng viên</label>
-        <input type="text" class="form-control" id="3" name="tengiangvien" placeholder="Tên giảng viên" value="@ViewBag.a">
-    </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Tên Giảng viên</label>
+            <label> @ViewBag.a</label>
+            @*<input type="text" class="form-control" id="3" name="tengiangvien" placeholder="Tên giảng viên" value="@ViewBag.a">*@
+        </div>
 
-    <div class="form-group">
-        <label>Tên môn học</label>
-        <input type="text" class="form-control" id="5" placeholder="Tên môn học" value="@ViewBag.b">
-    </div>
-    <div class="form-group">
-        <label>Mã sinh viên</label>
-        <input type="text" class="form-control" name="masv" id="6" placeholder="masv">
-    </div>
-    <div class="form-group">
-        <label>Tên sinh viên</label>
-        <input type="text" class="form-control" name="tensv" id="7" placeholder="Tên sinh viên">
-    </div>
-    <div class="form-group">
-        <label>mã xác nhận</label>
-        <input type="text" class="form-control" name="maxn" id="7" placeholder="Mã xác nhận">
-    </div>
-    <button type="submit" class="btn btn-primary">Điểm danh !!!</button>
-</form>
+        <div class="form-group">
+            <label>Tên môn học</label>
+            <label>@ViewBag.b</label>
+            @*<input onclick="startTimer()" type="text" class="form-control" id="5" placeholder="Tên môn học" value="@ViewBag.b">*@
+        </div>
+        <div class="form-group">
+            <label>Mã sinh viên</label>
+            <input type="text" class="form-control" name="masv" id="masv" placeholder="masv">
+        </div>
+        <div class="form-group">
+            <label>Tên sinh viên</label>
+            <input type="text" class="form-control" name="tensv" id="tensv" placeholder="Tên sinh viên">
+        </div>
+        <div class="form-group">
+            <label>mã xác nhận</label>
+            <input type="text" class="form-control" name="maxn" id="code" placeholder="Mã xác nhận">
+        </div>
+        <div class="form-group" style="display:none;">
+            <label>Buổi điểm danh</label>
+            <input type="text" class="form-control" id="Buoidiemdanh" value="@ViewBag.Buoidiemdanh" >
+        </div>
+        <button onclick="myFunction()" type="submit" id="button" class="btn btn-primary" @*data-toggle="modal" data-target="#1"*@>Điểm danh !!!</button>
 
-@*<form action="CheckIn/Form" method="post">
-    <div style="display: none" class="form-group">
-        <label for="exampleInputEmail1">id</label>
-        <input type="text" class="form-control" id="1" name="id" placeholder="Tên giảng viên" value="@ViewBag.id">
-    </div>
+        <div id="countdown"></div>
 
-    <div style="display: none" class="form-group">
-        <label for="exampleInputEmail1">id</label>
-        <input type="text" class="form-control" id="1" name="idtkb" placeholder="Tên giảng viên" value="@ViewBag.idtkb">
-    </div>
+    </form>
+    <script>
+        function myFunction() {
+            let thisbtn = $(this);
+            let id = document.getElementById("id").value;
+            let masv = document.getElementById("masv").value;
+            let tensv = document.getElementById("tensv").value;
+            let magv = document.getElementById("magv").value;
+            let idtkb = document.getElementById("idtkb").value;
+            let code = document.getElementById("code").value;
+            let buoidiemdanh = document.getElementById("Buoidiemdanh").value;
+            //let fileImg = document.getElementById("fileImg").files[0];
+            //var file = $("#fileImg")[0].files[0];
+            var formData = new FormData();
+            formData.append('id', id);
+            formData.append('masv', masv);
+            formData.append('tensv', tensv);
+            formData.append('magv', magv);
+            formData.append('idtkb', idtkb);
+            formData.append('code', code);
+            formData.append('buoidiemdanh', buoidiemdanh);
+            //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+            //console.log(id);
+            $.ajax({
+                url: "/CheckIn/DiemDanh",
+                type: "POST",
 
-    <div style="display:none" class="form-group">
-        <label for="exampleInputEmail1">ID giảng viên</label>
-        <input type="text" class="form-control" id="2" name="idgv" placeholder="Tên giảng viên" value="@ViewBag.idgiangvien">
-    </div>
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    if (data) {
+                        alert("Bạn đã điểm danh thành công !!");
+                        window.location = "https://localhost:44349/home/index";
+                    }
+                    else
+                        alert("Điểm danh thất bại");
+                        window.location = "https://localhost:44349/home/index";
+                }
+            })
+        }
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">Tên Giảng viên</label>
-        <input type="text" class="form-control" id="3" name="tengiangvien" placeholder="Tên giảng viên" value="@ViewBag.a">
-    </div>
+    </script>
 
-    <div class="form-group">
-        <label>Tên môn học</label>
-        <input type="text" class="form-control" id="5" placeholder="Tên môn học" value="@ViewBag.b">
-    </div>
-    <div class="form-group">
-        <label>Mã sinh viên</label>
-        <input type="text" class="form-control" name="masv" id="6" placeholder="masv">
-    </div>
-    <div class="form-group">
-        <label>Tên sinh viên</label>
-        <input type="text" class="form-control" name="tensv" id="7" placeholder="Tên sinh viên">
-    </div>
-    <div class="form-group">
-        <label>mã xác nhận</label>
-        <input type="text" class="form-control" name="maxn" id="7" placeholder="Mã xác nhận">
-    </div>
-    <button type="submit" class="btn btn-primary">Điểm danh !!!</button>
-</form>*@
+    @*<script type="text/javascript">
+        var timeleft = 30;
+        var downloadTimer = setInterval(function () {
+            if (timeleft == 10) {
+                //clearInterval(downloadTimer);
+                document.getElementById("code").style.display = "block";
+                document.getElementById("code").style.display = "block";
+            }
+            else if (timeleft == -1)
+            {
+                clearInterval(downloadTimer);
+                confirm("Press a button!")
+                {
+                    window.location = "https://localhost:44349/home/index";
+                }
+            }
+            else {
+                document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+            }
+            timeleft -= 1;
+        }, 1000);
+    </script>*@
+
+</body>

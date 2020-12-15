@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebApplication1.Models.DIEMDANH>
+
+@{
+    ViewBag.Title = "kiemtra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>kiemtra</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã Sinh Viên
+        </th>
+        <th>
+            Tên Sinh Viên
+        </th>
+        <th>
+            Ngày Điểm Danh 1
+        </th>
+        <th>
+            Ngày Điểm Danh 2
+        </th>
+        <th>
+            Ngày Điểm Danh 3
+        </th>
+        <th>
+            Ngày Điểm Danh 4
+        </th>
+        <th>
+            Ngày Điểm Danh 5
+        </th>
+        <th>
+            Tên Môn Học
+        </th>
+        <th>
+            Tên Giảng Viên
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MASINHVIEN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TENSINHVIEN)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH2)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH3)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH4)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH5)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TKB.MONHOC.TENMONHOC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.GIANGVIEN.TEN)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
+}
+
+</table>

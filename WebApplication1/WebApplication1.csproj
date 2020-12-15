@@ -160,6 +160,7 @@
     <Compile Include="Models\CHITIETMONHOC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\class1.cs" />
     <Compile Include="Models\DIEMDANH.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -258,6 +259,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="System.Linq.Dynamic.dll" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -300,6 +302,8 @@
     <Content Include="Views\CheckIn\Form.cshtml" />
     <Content Include="Views\Manage\ManageTeacherIndex.cshtml" />
     <Content Include="Views\Account\ProfileAcount.cshtml" />
+    <Content Include="Views\CheckIn\LoadData.cshtml" />
+    <Content Include="Views\CheckIn\kiemtra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

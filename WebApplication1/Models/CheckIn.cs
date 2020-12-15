@@ -7,13 +7,13 @@ namespace WebApplication1.Models
 {
     public class CheckIn
     {
-        public int ID { get; set; }
-        public string IDStudent { get; set; }
+        public string MASINHVIEN { get; set; }
 
-        public string NameStudent { get; set; }
-
-        public string IDGiangVien { get; set; }
-        public string IDSubjects { get; set; }
-        public DateTime DateCheckIn { get; set; }
+        public string TENSINHVIEN { get; set; }
+        public string NGAYDIENDANH1 { get; set; }
+        public string NGAYDIENDANH2 { get; set; }
+        public string NGAYDIENDANH3 { get; set; }
+        public string NGAYDIENDANH4 { get; set; }
+        public string NGAYDIENDANH5{get;set;}
     }
 }
