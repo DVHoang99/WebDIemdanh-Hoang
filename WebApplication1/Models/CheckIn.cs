@@ -15,5 +15,7 @@ namespace WebApplication1.Models
         public string NGAYDIENDANH3 { get; set; }
         public string NGAYDIENDANH4 { get; set; }
         public string NGAYDIENDANH5{get;set;}
+
+        public int SoBuoiDiemDanh { get; set; }
     }
 }

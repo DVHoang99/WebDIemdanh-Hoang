@@ -8,7 +8,7 @@
 <h2>ManageTeacher</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddListTeacher", "Manage", null, new {@class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
@@ -44,7 +44,7 @@
         <td>
             @Html.ActionLink("Edit", "EditTeacher", new { id=item.ID }) |
             @Html.ActionLink("Details", "DetailsTeacher", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "DeleteTeacher", new { id=item.ID })
         </td>
     </tr>
 }

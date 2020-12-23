@@ -16,9 +16,51 @@ namespace WebApplication1.Controllers
     {
         WEBATTENDANCEEntities data = new WEBATTENDANCEEntities();
         // GET: Manage
+
+        public ActionResult Redirect()
+        {
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                ViewBag.Logout = "";
+                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                if (b.ROLE1 == 1)
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+                else /*if (b.ROLE1 == 2)*/
+                {
+                    return RedirectToAction("ManageTeacherIndex", "Manage");
+                }
+                //else 
+                //{
+                //    return View("StudentIndex", "Manage" );
+                //}
+
+            }
+            
+        }
         public ActionResult Index()
         {
-            return View();
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                if (b.ROLE1 == 1)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Message", new { tenaction = "Không thể truy cập" });
+                }
+            }
+            
         }
         //=======================         Account        =======================//
         public ActionResult ManageAccount()
@@ -248,10 +290,10 @@ namespace WebApplication1.Controllers
                 }    
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                ViewBag.Mess = "Dữ liệu đã tồn tại";
+                ViewBag.Mess = e.Message;
                 return View();
             }
             
@@ -456,10 +498,10 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                ViewBag.Mess = "Dữ liệu đã tồn tại";
+                ViewBag.Mess = e.Message;
                 return View();
             }
            
@@ -534,6 +576,7 @@ namespace WebApplication1.Controllers
             return View(result1);
         }
 
+       
         public ActionResult DeleteTeacher(string id)
         {
             if (id != null)
@@ -637,6 +680,7 @@ namespace WebApplication1.Controllers
 
                             // Map the Excel columns with that of the database table, this is optional but good if you do
                             // 
+                            sqlBulkCopy.ColumnMappings.Add("ID", "ID");
                             sqlBulkCopy.ColumnMappings.Add("NHOM", "NHOM");
                             sqlBulkCopy.ColumnMappings.Add("MAMH", "MAMH");
                             sqlBulkCopy.ColumnMappings.Add("MAGIANGVIEN", "MAGIANGVIEN");
@@ -645,6 +689,7 @@ namespace WebApplication1.Controllers
                             sqlBulkCopy.ColumnMappings.Add("NGAYBATDAU", "NGAYBATDAU");
                             sqlBulkCopy.ColumnMappings.Add("NGAYKETHUC", "NGAYKETHUC");
                             sqlBulkCopy.ColumnMappings.Add("CA", "CA");
+                            sqlBulkCopy.ColumnMappings.Add("THU", "THU");
                             con.Open();
                             sqlBulkCopy.WriteToServer(dt);
                             con.Close();
@@ -662,10 +707,10 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                ViewBag.Mess = "Dữ liệu đã tồn tại";
+                ViewBag.Mess = e.Message;
                 return View();
             }
         }
@@ -788,13 +833,112 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                ViewBag.Mess = "Dữ liệu đã tồn tại";
+                ViewBag.Mess = e.Message;
                 return View();
             }
 
+
+        }
+
+        public ActionResult LoadDataInfoSub(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+        
+        public ActionResult LoadDataInfoSub1(int id)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skip number of Rows count  
+                var start = Request.Form["start"];
+                // Paging Length 10,20  
+                var length = Request.Form["length"];
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
+                // Sort Column Direction (asc, desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"];
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"];
+                //Paging Size(10, 20, 50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                var customerData = data.CHITIETMONHOCs.Where(x => x.IDTKB == id);
+
+                ////Sorting
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+
+                //    if (sortColumnDirection.CompareTo("asc") == 0)
+                //    {
+                //        switch (sortColumn)
+                //        {
+                //            case "id":
+                //                customerData = from s in data.DIEMDANHs orderby s.ID ascending select s;
+                //                break;
+                //            case "ten":
+                //                customerData = from s in data.DIEMDANHs orderby s.Ten ascending select s;
+                //                break;
+                //            case "soluong":
+                //                customerData = from s in data.DIEMDANHs orderby s.SoLuong ascending select s;
+                //                break;
+                //            default:
+                //                break;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        switch (sortColumn)
+                //        {
+                //            case "id":
+                //                customerData = from s in data.SanPhams orderby s.ID descending select s;
+                //                break;
+                //            case "ten":
+                //                customerData = from s in data.SanPhams orderby s.Ten descending select s;
+                //                break;
+                //            case "soluong":
+                //                customerData = from s in data.SanPhams orderby s.SoLuong descending select s;
+                //                break;
+
+
+                //            default:
+                //                break;
+                //        }
+                //    }
+
+
+                //}
+                //////Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => (m.MASV.Contains(searchValue)) || (m.SINHVIEN.TEN.Contains(searchValue)) /*|| (m.SoLuong.Contains(searchValue)*/);
+                }
+                //total number of rows count   
+                recordsTotal = customerData.ToList().Count();
+                //Paging   
+                var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                var dssp = new List<InfoSub>();
+                foreach (var item in kq)
+                {
+                    int dem = 0;
+                    InfoSub sp = new InfoSub();
+                    sp.MaSv = item.MASV;
+                    sp.TenSv = item.SINHVIEN.TEN;
+                    
+                    dssp.Add(sp);
+                }
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
 
         }
 
@@ -839,6 +983,13 @@ namespace WebApplication1.Controllers
         //    return View();
         //}
 
+        public ActionResult LogOut()
+        {
+            Session["Login"] = null;
+            return RedirectToAction("Login", "Account");
+        }
+
 
     }
+
 }

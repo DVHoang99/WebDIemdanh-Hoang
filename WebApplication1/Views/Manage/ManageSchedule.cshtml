@@ -8,7 +8,7 @@
 <h2>ManageSchedule</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddSchedule", "manage", null, new { @class = "btn btn-info"})
 </p>
 <table class="table">
     <tr>
@@ -63,11 +63,11 @@
         @Html.DisplayFor(modelItem => item.NHOM1.NAMHOC)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.PHONG1.MAPHONG)
+        @Html.DisplayFor(modelItem => item.PHONG)
     </td>
-    @*<td>
-        @Html.ActionLink("Edit", "EditSchedule", new { id = item.ID })
-    </td>*@
+    <td>
+        @Html.ActionLink("Xem", "LoadDataInfoSub", "Manage", new { id = item.ID }, new { @class = "btn btn-primary" })|@Html.ActionLink("Thêm sinh viên vào tkb", "AddInfoSubject", "Manage", null, new {@class="btn btn-info" });
+    </td>
 </tr>
 }
 

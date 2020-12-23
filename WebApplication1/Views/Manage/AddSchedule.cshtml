@@ -1,21 +1,24 @@
 ﻿
-@{
-    ViewBag.Title = "AddSchedule";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
+<!DOCTYPE html>
+
+<html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddSchedule</title>
+    <title>AddListSchedule</title>
 </head>
 <body>
     <div>
         <br />
         @using (Html.BeginForm("AddSchedule", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-<input type="file" name="postedFile" />
+                <input type="file" name="postedFile" />
                 <input type="submit" value="Import" />}
     </div>
     @ViewBag.Mess
 </body>
 </html>
+<div>
+    @Html.ActionLink("back to list", "ManageTeacher", "Manage")
+</div>

@@ -43,14 +43,14 @@ namespace WebApplication1.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(string magv, int idtkb, int maxacnhan)
+        public ActionResult Create(string magv, int idtkb)
         {
             var test1 = data.TKBs.Where(x => x.ID == idtkb).FirstOrDefault();
             if (test1 != null)
             {
                 FORMLUUTRU frm = new FORMLUUTRU();
                 frm.MAGIANGVIEN = magv;
-                frm.MAXACNHAN = maxacnhan;
+                
                 frm.IDTKB = idtkb;
                 frm.CA = test1.CA;
                 data.FORMLUUTRUs.Add(frm);
@@ -428,9 +428,11 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
         public ActionResult LoadData1()
 
         {
+            
             try
             {
                 var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
@@ -449,6 +451,7 @@ namespace WebApplication1.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
                 var customerData = from s in data.DIEMDANHs select s;
+
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 //{
@@ -492,28 +495,38 @@ namespace WebApplication1.Controllers
 
 
                 //}
-                ////Search  
-                //if (!string.IsNullOrEmpty(searchValue))
-                //{
-                //    customerData = customerData.Where(m => /*(m.ID.Co(searchValue)) ||*/ (m.Ten.Contains(searchValue)) /*|| (m.SoLuong.Contains(searchValue)*/);
-                //}
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => (m.TENSINHVIEN.Contains(searchValue)) || (m.MASINHVIEN.Contains(searchValue)) /*|| (m.SoLuong.Contains(searchValue)*/);
+                }
                 //total number of rows count   
                 recordsTotal = customerData.ToList().Count();
                 //Paging   
                 var kq = customerData.ToList().Skip(skip).Take(pageSize);
                 var dssp = new List<CheckIn>();
-                string[] listQuocGia = new string[customerData.Count()];
                 foreach (var item in kq)
                 {
+                    int dem = 0;
                     CheckIn sp = new CheckIn();
                     sp.MASINHVIEN = item.MASINHVIEN;
                     sp.TENSINHVIEN = item.TENSINHVIEN;
+                    if(item.NGAYDIEMDANH1 != null)
+                        dem++;
+                    if (item.NGAYDIEMDANH2 != null)
+                        dem++;
+                    if (item.NGAYDIEMDANH3 != null)
+                        dem++;
+                    if (item.NGAYDIEMDANH4 != null)
+                        dem++;
+                    if (item.NGAYDIEMDANH5 != null)
+                        dem++;
                     sp.NGAYDIENDANH1 = item.NGAYDIEMDANH1.ToString();
                     sp.NGAYDIENDANH2 = item.NGAYDIEMDANH2.ToString();
                     sp.NGAYDIENDANH3 = item.NGAYDIEMDANH3.ToString();
                     sp.NGAYDIENDANH4 = item.NGAYDIEMDANH4.ToString();
                     sp.NGAYDIENDANH5 = item.NGAYDIEMDANH5.ToString();
-
+                    sp.SoBuoiDiemDanh = dem;
                     dssp.Add(sp);
                 }
                 //Returning Json Data  

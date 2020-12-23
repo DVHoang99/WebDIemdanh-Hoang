@@ -121,6 +121,21 @@
           <Property Name="Name" Type="varchar" MaxLength="30" />
           <Property Name="ROLE1" Type="int" />
         </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NHOM" Type="int" />
+          <Property Name="MAMH" Type="varchar" MaxLength="20" />
+          <Property Name="MAGIANGVIEN" Type="varchar" MaxLength="30" />
+          <Property Name="PHONG" Type="varchar" MaxLength="20" />
+          <Property Name="TENLOP" Type="varchar" MaxLength="10" />
+          <Property Name="NGAYBATDAU" Type="date" />
+          <Property Name="NGAYKETHUC" Type="date" />
+          <Property Name="CA" Type="int" Nullable="false" />
+          <Property Name="THU" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="TKB">
           <Key>
             <PropertyRef Name="ID" />
@@ -337,6 +352,7 @@
           <EntitySet Name="SINHVIEN" EntityType="Self.SINHVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TKB" EntityType="Self.TKB" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CHITIETMON__MASV__29E1370A" Association="Self.FK__CHITIETMON__MASV__29E1370A">
             <End Role="SINHVIEN" EntitySet="SINHVIEN" />
@@ -478,6 +494,7 @@
             <End Role="ROLE" EntitySet="ROLEs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
           </AssociationSet>
+          <EntitySet Name="Tests" EntityType="WEBATTENDANCEModel.Test" />
         </EntityContainer>
         <EntityType Name="CHITIETMONHOC">
           <Key>
@@ -827,6 +844,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NHOM" Type="Int32" />
+          <Property Name="MAMH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MAGIANGVIEN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PHONG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TENLOP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NGAYBATDAU" Type="DateTime" Precision="0" />
+          <Property Name="NGAYKETHUC" Type="DateTime" Precision="0" />
+          <Property Name="CA" Type="Int32" Nullable="false" />
+          <Property Name="THU" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -965,6 +997,22 @@
           <EntitySetMapping Name="TKBs">
             <EntityTypeMapping TypeName="WEBATTENDANCEModel.TKB">
               <MappingFragment StoreEntitySet="TKB">
+                <ScalarProperty Name="THU" ColumnName="THU" />
+                <ScalarProperty Name="CA" ColumnName="CA" />
+                <ScalarProperty Name="NGAYKETHUC" ColumnName="NGAYKETHUC" />
+                <ScalarProperty Name="NGAYBATDAU" ColumnName="NGAYBATDAU" />
+                <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+                <ScalarProperty Name="PHONG" ColumnName="PHONG" />
+                <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
+                <ScalarProperty Name="MAMH" ColumnName="MAMH" />
+                <ScalarProperty Name="NHOM" ColumnName="NHOM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="WEBATTENDANCEModel.Test">
+              <MappingFragment StoreEntitySet="Test">
                 <ScalarProperty Name="THU" ColumnName="THU" />
                 <ScalarProperty Name="CA" ColumnName="CA" />
                 <ScalarProperty Name="NGAYKETHUC" ColumnName="NGAYKETHUC" />

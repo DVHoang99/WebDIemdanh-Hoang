@@ -60,6 +60,8 @@ public partial class WEBATTENDANCEEntities : DbContext
 
     public virtual DbSet<TKB> TKBs { get; set; }
 
+    public virtual DbSet<Test> Tests { get; set; }
+
 }
 
 }

@@ -15,89 +15,168 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
         [HttpPost]
-        public ActionResult Register(Account a, string RePassWord)
+        public JsonResult Register(string taikhoan, string matkhau, string nhaplaimatkhau, int chucvu, string ten)
         {
-            int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName)).Count();
+            
+                int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(taikhoan)).Count();
 
-            if (test1 == 0)
-            {
-                TAIKHOAN t = new TAIKHOAN();
-                if(a.Role == 2 )
+                if (test1 == 0)
                 {
-                    int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
-                    if (test2 == 1)
+                    TAIKHOAN t = new TAIKHOAN();
+                    if (chucvu == 2)
                     {
-                        t.USERNAME = a.UserName;
-                        if (a.PassWord == RePassWord)
+                        int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
+                        if (test2 == 1)
                         {
+                            t.USERNAME = taikhoan;
+                            if (matkhau == nhaplaimatkhau)
+                            {
 
-                            t.PASSWORD = a.PassWord;
-                            t.Name = a.Name;
-                            t.ROLE1 = a.Role;
-                            data.TAIKHOANs.Add(t);
-                            data.SaveChanges();
-                            ViewBag.a = "Đăng kí thành công !!!";
-                            return View();
+                                t.PASSWORD = matkhau;
+                                t.Name = ten;
+                                t.ROLE1 = chucvu;
+                                data.TAIKHOANs.Add(t);
+                                data.SaveChanges();
+                                ViewBag.a = "Đăng kí thành công !!!";
+                                return Json(1);
 
+                            }
+                            else
+                            {
+                                ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                                return Json(1);
+                            }
                         }
                         else
                         {
-                            ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-                            return View();
+                            ViewBag.a = "Nhập sai mã giảng viên !!!";
+                            return Json(1);
                         }
                     }
                     else
                     {
-                        ViewBag.a = "Nhập sai mã giảng viên !!!";
-                        return View();
+                        int test2 = data.SINHVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
+                        if (test2 == 1)
+                        {
+                            t.USERNAME = taikhoan;
+                            if (matkhau == nhaplaimatkhau)
+                            {
+
+                                t.PASSWORD = matkhau;
+                                t.Name = ten;
+                                t.ROLE1 = chucvu;
+                                data.TAIKHOANs.Add(t);
+                                data.SaveChanges();
+                                ViewBag.a = "Đăng kí thành công !!!";
+                                return Json(1);
+
+                            }
+                            else
+                            {
+                                ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                                return Json(1);
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.a = "Nhập sai mã sinh viên !!!";
+                            return Json(1);
+                        }
                     }
+
                 }
                 else
                 {
-                    int test2 = data.SINHVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
-                    if (test2 == 1)
-                    {
-                        t.USERNAME = a.UserName;
-                        if (a.PassWord == RePassWord)
-                        {
-
-                            t.PASSWORD = a.PassWord;
-                            t.Name = a.Name;
-                            t.ROLE1 = a.Role;
-                            data.TAIKHOANs.Add(t);
-                            data.SaveChanges();
-                            ViewBag.a = "Đăng kí thành công !!!";
-                            return View();
-
-                        }
-                        else
-                        {
-                            ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-                            return View();
-                        }
-                    }
-                    else
-                    {
-                        ViewBag.a = "Nhập sai mã sinh viên !!!";
-                        return View();
-                    }
+                    ViewBag.a = "Tên tài khoản đã tồn tại !!!";
+                    return Json(1);
                 }
-                
-                
-
-
-            }
-            else
-            {
-                ViewBag.a = "Tên tài khoản đã tồn tại !!!";
-                return View();
-            }
+            
         }
+
+        //[HttpPost]
+        //public ActionResult Register(Account a, string RePassWord)
+        //{
+        //    int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName)).Count();
+
+        //    if (test1 == 0)
+        //    {
+        //        TAIKHOAN t = new TAIKHOAN();
+        //        if(a.Role == 2 )
+        //        {
+        //            int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
+        //            if (test2 == 1)
+        //            {
+        //                t.USERNAME = a.UserName;
+        //                if (a.PassWord == RePassWord)
+        //                {
+
+        //                    t.PASSWORD = a.PassWord;
+        //                    t.Name = a.Name;
+        //                    t.ROLE1 = a.Role;
+        //                    data.TAIKHOANs.Add(t);
+        //                    data.SaveChanges();
+        //                    ViewBag.a = "Đăng kí thành công !!!";
+        //                    return View();
+
+        //                }
+        //                else
+        //                {
+        //                    ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+        //                    return View();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ViewBag.a = "Nhập sai mã giảng viên !!!";
+        //                return View();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            int test2 = data.SINHVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
+        //            if (test2 == 1)
+        //            {
+        //                t.USERNAME = a.UserName;
+        //                if (a.PassWord == RePassWord)
+        //                {
+
+        //                    t.PASSWORD = a.PassWord;
+        //                    t.Name = a.Name;
+        //                    t.ROLE1 = a.Role;
+        //                    data.TAIKHOANs.Add(t);
+        //                    data.SaveChanges();
+        //                    ViewBag.a = "Đăng kí thành công !!!";
+        //                    return View();
+
+        //                }
+        //                else
+        //                {
+        //                    ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+        //                    return View();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ViewBag.a = "Nhập sai mã sinh viên !!!";
+        //                return View();
+        //            }
+        //        }
+
+
+
+
+        //    }
+        //    else
+        //    {
+        //        ViewBag.a = "Tên tài khoản đã tồn tại !!!";
+        //        return View();
+        //    }
+        //}
 
         public ActionResult Login()
         {
@@ -112,7 +191,7 @@ namespace WebApplication1.Controllers
                 if (test1.ROLE1 == 1)
                 {
                     Session["Login"] = test1;
-                    return RedirectToAction("ManageAccount", "Manage");
+                    return RedirectToAction("Index", "Manage");
                 }
                 else if (test1.ROLE1 == 2)
                 {

@@ -8,7 +8,7 @@
 <h2>ManageStudent</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddListStudent", "manage", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
@@ -44,3 +44,6 @@
 }
 
 </table>
+<div>
+    @Html.ActionLink("Quay lại trang chủ", "Index", "Manage")
+</div>

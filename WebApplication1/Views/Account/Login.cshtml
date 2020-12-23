@@ -139,15 +139,15 @@
             <div class="form">
                  @ViewBag.a
                 <form method="post" action="/Account/Register" class="register-form">
-                    <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-                    <select id="cars" name="Role">
+                    <input id="taikhoan" type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
+                    <select id="chucvu" name="Role">
                         <option value="2">Giảng Viên</option>
                         <option value="3">Sinh Viên</option>
                     </select>
-                    <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-                    <input type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
-                    <input type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
-                    <button type="submit">create</button>
+                    <input id="matkhau" type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
+                    <input id="nhaplaimatkhau" type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
+                    <input id="ten" type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
+                    <button onclick="myFunction()" id="create" type="button">create</button>
                     <p class="message">Already registered? <a href="#">Sign In </a></p>
                 </form>
                 <form method="post" action="/Account/Login" class="login-form">
@@ -167,5 +167,53 @@
     $('.message a').click(function () {
 
         $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
-});
+    });
+
+    $('#nhaplaimatkhau').keyup(function () {
+        let matkhau = document.getElementById("matkhau").value;
+        let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+        if (matkhau == nhaplaimatkhau) {
+            $('#create').css("background-color", "green");
+        }
+        else {
+            $("input").css("background-color", "red");
+        }
+        
+    });
+
+    function myFunction() {
+        let thisbtn = $(this);
+        let taikhoan = document.getElementById("taikhoan").value;
+        let chucvu = document.getElementById("chucvu").value;
+        let matkhau = document.getElementById("matkhau").value;
+        let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+        let ten = document.getElementById("ten").value;
+        
+        //let fileImg = document.getElementById("fileImg").files[0];
+        //var file = $("#fileImg")[0].files[0];
+        var formData = new FormData();
+        formData.append('taikhoan', taikhoan);
+        formData.append('chucvu', chucvu);
+        formData.append('matkhau', matkhau);
+        formData.append('nhaplaimatkhau', nhaplaimatkhau);
+        formData.append('ten', ten);
+        //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+        //console.log(id);
+        $.ajax({
+            url: "/Account/Register",
+            type: "POST",
+
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data) {
+                    alert("Đăng kí thành công !!!");
+                } else {
+                    alert("Đăng kí thất bại !!!");
+                }
+                    
+            }
+        })
+    }
 </script>

@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ManageTeacherIndex</h2>
+<h2>Trang Chủ Giảng Viên</h2>
 
 
-@Html.ActionLink("thêm mới điểm danh", "Create", "CheckIn")
-@Html.ActionLink("Quản ký tài khoản", "ProfileAcount", "Account")
-@Html.ActionLink("Quản ký điểm danh", "TeacherCheckIn", "CheckIn")
+@Html.ActionLink("thêm mới điểm danh", "Create", "CheckIn",null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Quản ký tài khoản", "ProfileAcount", "Account",null, new { @class = "btn btn-success" })
+@Html.ActionLink("Quản ký điểm danh", "TeacherCheckIn", "CheckIn",null , new {@class = "btn btn-info" })
 
 

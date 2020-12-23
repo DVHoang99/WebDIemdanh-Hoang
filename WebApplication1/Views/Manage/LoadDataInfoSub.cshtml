@@ -17,16 +17,10 @@
             <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>MaSinhVien</th>
-                        <th>TENSINHVIEN</th>
-                        <th>NGAYDIENDANH1</th>
-                        <th>NGAYDIENDANH2</th>
-                        <th>NGAYDIENDANH3</th>
-                        <th>NGAYDIENDANH4</th>
-                        <th>NGAYDIENDANH5</th>
-                        <th>SoBuoiDiemDanh</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Tên Sinh Viên</th>
+                        <th>Mã Sinh Viên</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
             </table>
@@ -47,7 +41,7 @@
                 "orderMulti": false, // for disable multiple column at once
                 "pageLength": 5,
                 "ajax": {
-                    "url": "/CheckIn/LoadData1",
+                    "url": "/Manage/LoadDataInfoSub1/@ViewBag.id",
                     "type": "POST",
                     "datatype": "json"
                 },
@@ -59,14 +53,8 @@
                 //    }],
 
                 "columns": [
-                    { "data": "MASINHVIEN", "name": "MaSinhVien", "autoWidth": true },
-                    { "data": "TENSINHVIEN", "name": "TENSINHVIEN", "autoWidth": true },
-                    { "data": "NGAYDIENDANH1", "name": "NgayDiemDanh1", "autoWidth": true },
-                    { "data": "NGAYDIENDANH2", "name": "NgayDiemDanh2", "autoWidth": true },
-                    { "data": "NGAYDIENDANH3", "name": "NgayDiemDanh3", "autoWidth": true },
-                    { "data": "NGAYDIENDANH4", "name": "NgayDiemDanh4", "autoWidth": true },
-                    { "data": "NGAYDIENDANH5", "name": "NgayDiemDanh5", "autoWidth": true },
-                    { "data": "SoBuoiDiemDanh", "autoWidth": true },
+                    { "data": "MaSv", "name": "MaSv", "autoWidth": true },
+                    { "data": "TenSv", "name": "TenSv", "autoWidth": true },
                     {
                         "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/Demo/Edit/' + full.CustomerID + '">Edit</a>'; }
                     },
