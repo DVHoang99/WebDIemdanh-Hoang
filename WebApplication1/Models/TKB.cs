@@ -24,9 +24,9 @@ public partial class TKB
 
         this.CHITIETMONHOCs = new HashSet<CHITIETMONHOC>();
 
-        this.DIEMDANHs = new HashSet<DIEMDANH>();
-
         this.FORMLUUTRUs = new HashSet<FORMLUUTRU>();
+
+        this.DIEMDANHs = new HashSet<DIEMDANH>();
 
     }
 
@@ -57,14 +57,6 @@ public partial class TKB
 
     public virtual ICollection<CHITIETMONHOC> CHITIETMONHOCs { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<FORMLUUTRU> FORMLUUTRUs { get; set; }
-
     public virtual GIANGVIEN GIANGVIEN { get; set; }
 
     public virtual LOP LOP { get; set; }
@@ -74,6 +66,14 @@ public partial class TKB
     public virtual NHOM NHOM1 { get; set; }
 
     public virtual PHONG PHONG1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<FORMLUUTRU> FORMLUUTRUs { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
 
 }
 

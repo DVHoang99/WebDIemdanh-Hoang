@@ -7,14 +7,14 @@ namespace WebApplication1.Models
 {
     public class CheckIn
     {
+        public string mathoikhoabieu { get; set; }
         public string MASINHVIEN { get; set; }
 
         public string TENSINHVIEN { get; set; }
-        public string NGAYDIENDANH1 { get; set; }
-        public string NGAYDIENDANH2 { get; set; }
-        public string NGAYDIENDANH3 { get; set; }
-        public string NGAYDIENDANH4 { get; set; }
-        public string NGAYDIENDANH5{get;set;}
+        public string Lop { get; set; }
+        
+        public string tengiangvien { get; set; }
+        public string tenmonhoc { get; set; }
 
         public int SoBuoiDiemDanh { get; set; }
     }

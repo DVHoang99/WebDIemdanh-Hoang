@@ -206,7 +206,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                ViewBag.a = "sai ten tai khoan mat khau";
+                ViewBag.a = "Sai tên tài khoản hoặc mật khẩu";
             }
             return View();
         }
@@ -226,5 +226,17 @@ namespace WebApplication1.Controllers
             }
 
         }
+        [HttpPost]
+        public ActionResult ProfileAcount(string USERNAME, string password, string name)
+        {
+
+            var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(USERNAME)).FirstOrDefault();
+            result.PASSWORD = password;
+            result.Name = name;
+            data.SaveChanges();
+
+            return View(result);
+        }
+
     }
 }

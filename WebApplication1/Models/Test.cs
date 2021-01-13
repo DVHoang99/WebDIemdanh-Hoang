@@ -34,7 +34,7 @@ public partial class Test
 
     public Nullable<System.DateTime> NGAYKETHUC { get; set; }
 
-    public int CA { get; set; }
+    public Nullable<int> CA { get; set; }
 
     public string THU { get; set; }
 

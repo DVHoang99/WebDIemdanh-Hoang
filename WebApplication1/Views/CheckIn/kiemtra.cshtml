@@ -1,83 +1,73 @@
-﻿@model IEnumerable<WebApplication1.Models.DIEMDANH>
-
-@{
-    ViewBag.Title = "kiemtra";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<h2>kiemtra</h2>
+<!DOCTYPE html>
+<html>
+<head>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Mã Sinh Viên
-        </th>
-        <th>
-            Tên Sinh Viên
-        </th>
-        <th>
-            Ngày Điểm Danh 1
-        </th>
-        <th>
-            Ngày Điểm Danh 2
-        </th>
-        <th>
-            Ngày Điểm Danh 3
-        </th>
-        <th>
-            Ngày Điểm Danh 4
-        </th>
-        <th>
-            Ngày Điểm Danh 5
-        </th>
-        <th>
-            Tên Môn Học
-        </th>
-        <th>
-            Tên Giảng Viên
-        </th>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-        <th></th>
-    </tr>
+</head>
+<body class="container-fluid">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã giảng viên </th>
+                        <th>Tên sinh viên</th>
+                        <th>Tên giảng viên </th>
+                        <th>Tên môn học</th>
+                        <th>Số buổi điểm danh</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+@* Load datatable js *@
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#MyTable').DataTable({
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.MASINHVIEN)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TENSINHVIEN)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH1)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH2)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH3)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH4)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYDIEMDANH5)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TKB.MONHOC.TENMONHOC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TKB.GIANGVIEN.TEN)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-    </td>
-</tr>
+                "processing": true, // for show progress bar "dom": '<ft<ri>lp>',
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 100,
+                "ajax": {
+                    "url": "/CheckIn/kiemtra1/@ViewBag.id",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                //"columnDefs":
+                //    [{
+                //        "targets": [0],
+                //        "visible": false,
+                //        "searchable": false
+                //    }],
+
+                "columns": [
+                    { "data": "MASINHVIEN", "name": "MaSinhVien", "autoWidth": true },
+                    { "data": "TENSINHVIEN", "name": "TENSINHVIEN", "autoWidth": true },
+                    { "data": "tengiangvien", "name": "tengiangvien", "autoWidth": true },
+                    { "data": "tenmonhoc", "name": "tenmonhoc", "autoWidth": true },
+                    { "data": "SoBuoiDiemDanh", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/CheckIn/XemThongtin/' + 1711062325 + '">Xem</a>'; }
+                    },
+
+
+                ]
+
+            });
+        })
+    </script>
 }
-
-</table>

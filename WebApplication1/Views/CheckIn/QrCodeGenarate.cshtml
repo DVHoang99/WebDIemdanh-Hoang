@@ -19,7 +19,7 @@
         <h1>HUTECH</h1>
         <div id="countdown"></div>
         <div class="row">
-            <div class="col-sm-6" ">
+            <div class="col-sm-6" >
                 <input style="display:none;" id="id" value="@ViewBag.id" />
                 <input style="display:none;" id="trangthai" value="0" />
                 <h3><b>Tên giảng viên: </b>@ViewBag.Tengv</h3>
@@ -65,7 +65,7 @@
                     data: formData,
                     success: function (data) {
                         if (data) {
-                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn";
+                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn/0";
                         }
                         else
                             window.location = "https://localhost:44349/Manage/ManageTeacherIndex";
@@ -90,7 +90,7 @@
                     data: formData,
                     success: function (data) {
                         if (data) {
-                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn";
+                            window.location = "https://localhost:44349/CheckIn/TeacherCheckIn/0";
                         }
                         else
                             window.location = "https://localhost:44349/Manage/ManageTeacherIndex";

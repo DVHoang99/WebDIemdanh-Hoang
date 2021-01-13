@@ -6,9 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d2c3c5a2e9104f269ce8af48441f764f" Name="Diagram1">
         <EntityTypeShape EntityType="WEBATTENDANCEModel.CHITIETMONHOC" Width="1.5" PointX="5.25" PointY="9.5" />
-        <EntityTypeShape EntityType="WEBATTENDANCEModel.DIEMDANH" Width="1.5" PointX="8.25" PointY="8.75" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.DONVI" Width="1.5" PointX="1.5" PointY="15.875" />
-        <EntityTypeShape EntityType="WEBATTENDANCEModel.FORMLUUTRU" Width="1.5" PointX="5.25" PointY="5.25" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.GIANGVIEN" Width="1.5" PointX="0.75" PointY="10.25" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.LOP" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.MONHOC" Width="1.5" PointX="0.75" PointY="0.75" />
@@ -21,12 +19,7 @@
         <EntityTypeShape EntityType="WEBATTENDANCEModel.TKB" Width="1.5" PointX="3" PointY="6.375" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__CHITIETMON__MASV__29E1370A" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__CHITIETMONHOC__28ED12D1" />
-        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" />
-        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" />
-        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__GIANGVIEN__MADON__3587F3E0" />
-        <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__4D2A7347" />
-        <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__CA__4C364F0E" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__TKB__MAGIANGVIEN__1D7B6025" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__SINHVIEN__TENLOP__30C33EC3" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__TKB__TENLOP__1E6F845E" />
@@ -34,7 +27,14 @@
         <AssociationConnector Association="WEBATTENDANCEModel.FK__TKB__NHOM__1B9317B3" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__TKB__PHONG__1F63A897" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__TAIKHOAN__ROLE1__7755B73D" />
-        <EntityTypeShape EntityType="WEBATTENDANCEModel.Test" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WEBATTENDANCEModel.FORMLUUTRU" Width="1.5" PointX="5.25" PointY="5.375" />
+        <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__4D2A7347" />
+        <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__CA__4C364F0E" />
+        <EntityTypeShape EntityType="WEBATTENDANCEModel.DIEMDANH" Width="1.5" PointX="8.25" PointY="9.125" />
+        <EntityTypeShape EntityType="WEBATTENDANCEModel.Test" Width="1.5" PointX="7.375" PointY="4.75" />
+        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" />
+        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" />
+        <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication1.Models.DIEMDANH>
+
+@{
+    ViewBag.Title = "XemThongtin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>XemThongtin</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TENSINHVIEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NGAYDIEMDANH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TKB.MAMH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GIANGVIEN.TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SINHVIEN.TEN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENSINHVIEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NGAYDIEMDANH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TKB.MAMH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MAGIANGVIEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SINHVIEN.TEN)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

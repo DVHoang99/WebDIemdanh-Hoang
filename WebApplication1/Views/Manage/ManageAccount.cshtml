@@ -5,10 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ManageAccount</h2>
+<h2>Quản lí tài khoản đã đăng kí</h2>
 
 <table class="table">
     <tr>
+        <th>
+            Username
+        </th>
         <th>
             Password
         </th>
@@ -24,18 +27,19 @@
 @foreach (var item in Model) {
 <tr>
     <td>
+        @Html.DisplayFor(modelItem => item.USERNAME)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.PASSWORD)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ROLE.ROLE1)
-        </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ROLE.ROLE1)
+    </td>
 
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.USERNAME }) |
-        @Html.ActionLink("Details", "Details", new { id = item.USERNAME }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.USERNAME })
     </td>
 </tr>

@@ -7,61 +7,47 @@
 
 <h2>ProfileAcount</h2>
 
-<div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
     <h4>TAIKHOAN</h4>
     <hr />
-    <form method="post" action="Manage/EditProfileAccount" >
-        <input style="display: none" type="Text"  class="form-control" name="id" value="@Html.DisplayFor(model => model.USERNAME)" />
-        <dl class="dl-horizontal">
-            <dt>
-                Tài Khoản
-            </dt>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.USERNAME)
+    <div class="form-group">
 
-            <dd>
-                @Html.DisplayFor(model => model.USERNAME)
-            </dd>
-            <dt>
-                Mật Khẩu
-            </dt>
-            q
-            <dd>
-                <input type="Text"  class="form-control" name="password" value="@Html.DisplayFor(model => model.PASSWORD)" />
-            </dd>
+        @Html.LabelFor(model => model.USERNAME, htmlAttributes: new { @class = "control-label col-md-2" });
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.USERNAME, new { disabled = "disabled" } )
+            @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-            <dt>
-                Tên
-            </dt>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-            <dd>
-                <input type="Text"  class="form-control" name="name" value="@Html.DisplayFor(model => model.Name)" />
-                @*@Html.DisplayFor(model => model.Name)*@
-            </dd>
-
-            <dt>
-                Chức Vụ
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ROLE.ROLE1)
-            </dd>
-
-        </dl>
-        <button type="submit">Sửa</button>
-    </form>
-    @*<form method="post" action="/Account/Register" class="register-form">
-        <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-        <select id="cars" name="Role">
-            <option value="2">Giảng Viên</option>
-            <option value="3">Sinh Viên</option>
-        </select>
-        <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-        <input type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
-        <input type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
-        <button type="submit">create</button>
-        <p class="message">Already registered? <a href="#">Sign In </a></p>
-    </form>*@
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
 </div>
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.USERNAME }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+}
+
+<div>
+    @Html.ActionLink("Quay lại trang chủ", "Redirect", "Manage")
+</div>

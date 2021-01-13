@@ -1,24 +1,76 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
+<header>
+    <style>
+        #input-file-html5 {
+            position: relative;
+            outline: none;
+            color: rgb(100,150,150);
+            background: whitesmoke;
+            padding: .3em 1em .3em 0;
+        }
 
+            #input-file-html5::before {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: .5em .7em;
+                color: white;
+                background: rgb(100,200,200);
+                box-shadow: 0 0.2em 0 rgb(100,180,180);
+                transform: translateY(-0.2em);
+            }
+
+            #input-file-html5:hover::before {
+                background: rgb(110,210,210);
+                box-shadow: 0 0.35em 0 rgb(100,180,180);
+                transform: translateY(-0.35em);
+            }
+
+            #input-file-html5:active::before {
+                background: rgb(100,180,180);
+                box-shadow: 0 0em 0 rgb(100,180,180);
+                transform: translateY(0em);
+            }
+    </style>
+
+</header>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>AddListStudent</title>
+    <title>Themsinhvien</title>
 </head>
 <body>
-    <div>
-        <br />
-        @using (Html.BeginForm("AddListStudent", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="postedFile" />
-            <input type="submit" value="Import" />
-        }
+    <div class="container">
+        <div class="row">
+            <a href="~/manage/Redirect"><h1>HUTECH</h1></a>
+            <h3>Thêm sinh viên</h3>
+            <div class="col-sm-6">
+                <div>
+                    <br />
+                    @using (Html.BeginForm("AddListStudent", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+            <input type="file" name="postedFile" id="input-file-html5" />
+                            <input type="submit" value="Import" />}
+                </div>
+                @ViewBag.Mess
+                <div>
+                    @Html.ActionLink("back to list", "ManageStudent", "Manage")
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <p> Chú ý: file excel làm theo mẫu các tên cột trùng với mẫu đã cho </p>
+                <img src="~/Img/sv.png" />
+            </div>
+
+        </div>
+
     </div>
-    @ViewBag.Mess
 </body>
 </html>

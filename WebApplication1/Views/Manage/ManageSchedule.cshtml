@@ -1,74 +1,246 @@
-﻿@model IEnumerable<WebApplication1.Models.TKB>
+﻿@model IEnumerable<WebApplication1.Models.NHOM>
 
 @{
     ViewBag.Title = "ManageSchedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
 
-<h2>ManageSchedule</h2>
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+<h2>Quản lí thời khóa biểu</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddSchedule", "manage", null, new { @class = "btn btn-info"})
+    @Html.ActionLink("Create New", "AddSchedule", "manage", null, new { @class = "btn btn-info" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Ngày bắt đầu
-        </th>
-        <th>
-            Ngày kết thúc
-        </th>
-        <th>
-            Tên giảng viên
-        </th>
-        <th>
-            Tên lớp
-        </th>
-        <th>
-            Mã môn học
-        </th>
-        <th>
-            Tên môn học
-        </th>
-        <th>
-            Năm học
-        </th>
-        <th>
-            Phòng học
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYBATDAU)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NGAYKETHUC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.GIANGVIEN.TEN)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LOP.TENLOP)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MONHOC.IDMONHOC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.MONHOC.TENMONHOC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NHOM1.NAMHOC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PHONG)
-    </td>
-    <td>
-        @Html.ActionLink("Xem", "LoadDataInfoSub", "Manage", new { id = item.ID }, new { @class = "btn btn-primary" })|@Html.ActionLink("Thêm sinh viên vào tkb", "AddInfoSubject", "Manage", null, new {@class="btn btn-info" });
-    </td>
-</tr>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Chọn năm học</button>
+    <div id="myDropdown" class="dropdown-content">
+        @foreach (var item in Model)
+        {
+            <a href="~/Manage/ManageSchedule/@item.ID">học kì @item.HOCKI năm @item.NAMHOC</a>
+        }
+
+
+    </div>
+</div>
+
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    @*<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+</head>
+
+<body class="container-fluid">
+
+
+    <div class="container-fluid" style="margin-top: 60px">
+        <div class="container-fluid">
+            <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã thời khóa biểu
+                        </th>
+                        <th>
+                            Nhóm
+                        </th>
+                        <th>
+                            Mã môn học
+                        </th>
+                        <th>
+                            Tên môn học
+                        </th>
+                        <th>
+                            Mã giảng viên
+                        </th>
+                        <th>
+                            Tên giảng viên
+                        </th>
+                        <th>
+                            Phòng
+                        </th>
+                        <th>
+                            Lớp
+                        </th>
+
+                        <th>
+                            Ca
+                        </th>
+                        <th>
+                            Thứ
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+@* Load datatable js *@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", "#MyTable tbody .UpdateButton", function id() {
+
+        let thisbtn = $(this);
+        var id = thisbtn.parent().parent().find(".id").html();
+        window.location = "https://localhost:44349/Manage/AddInfoSubject";
+
+    })</script>
+<script>
+    $(document).on("click", "#MyTable tbody .xemsv", function id() {
+
+        let thisbtn = $(this);
+        var id = thisbtn.parent().parent().find(".id").html();
+        window.location = "https://localhost:44349/Manage/LoadDataInfoSub/" + id;
+    })</script>
+<script>
+    $(document).on("click", ".tesst1", function id() {
+
+        let thisbtn = $(this);
+        window.location = "https://localhost:44349/Manage/ManageSchedule/";
+    })</script>
+<script>
+    $(document).on("click", "#MyTable tbody .ktradiemdanh", function id() {
+
+        let thisbtn = $(this);
+        var id = thisbtn.parent().parent().find(".id").html();
+        window.location = "https://localhost:44349/CheckIn/LoadData/" + id;
+
+    })</script>
+
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+            $('#MyTable').DataTable({
+
+                "processing": true, // for show progress bar "dom": '<ft<ri>lp>',
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 100,
+                "ajax": {
+                    "url": "/Manage/ManageSchedule1/@ViewBag.a",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                //"columnDefs":
+                //    [{
+                //        targets: ['_all'],
+                //        className: 'mdc-data-table__cell'
+                //    }],
+
+                "columns": [
+                    { "data": "id", "name": "id", "class": "id", "autoWidth": true },
+                    { "data": "nhom", "name": "nhom", "class": "nhom", "autoWidth": true },
+                    { "data": "mamh", "name": "mamh", "class": "mamh", "autoWidth": true },
+                    { "data": "tenmh", "name": "tenmh", "class": "tenmh", "autoWidth": true },
+                    { "data": "magv", "name": "magv", "class": "magv", "autoWidth": true },
+                    { "data": "tengv", "name": "tengv", "class": "tengv", "autoWidth": true },
+                    { "data": "phong", "name": "phong", "class": "phong", "autoWidth": true },
+                    { "data": "lop", "name": "lop", "class": "lop", "autoWidth": true },
+
+                    { "data": "cahoc", "name": "cahoc", "class": "cahoc", "autoWidth": true },
+                    { "data": "thu", "name": "thu", "class": "thu", "autoWidth": true },
+
+                    {
+
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary UpdateButton" >Thêm sinh viên</button>'; }
+                    },
+                    {
+
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary xemsv">Xem sinh viên</button>'; }
+                    },
+                    {
+
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary ktradiemdanh">Xem điểm danh</button>'; }
+                    },
+
+                ]
+
+            });
+        })</script>
+
+
+
+
+
 }
+<div>
+    @Html.ActionLink("Quay lại trang chủ", "Index", "Manage")
+</div>
 
-</table>

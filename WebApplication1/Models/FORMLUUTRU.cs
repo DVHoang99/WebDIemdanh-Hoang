@@ -30,8 +30,6 @@ public partial class FORMLUUTRU
 
     public Nullable<int> CA { get; set; }
 
-    public Nullable<int> NGAYHOCTHU { get; set; }
-
 
 
     public virtual TKB TKB { get; set; }

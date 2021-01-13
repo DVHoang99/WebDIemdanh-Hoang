@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
     {
         WEBATTENDANCEEntities data = new WEBATTENDANCEEntities();
         // GET: Manage
-
+        //role = 1 (admin) || role = 2 (teacher) || role = 3 (student)
         public ActionResult Redirect()
         {
             if (Session["Login"] == null)
@@ -199,7 +199,23 @@ namespace WebApplication1.Controllers
         
         public ActionResult AddListStudent()
         {
-            return View();
+
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                if (b.ROLE1 == 1)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Message", new { tenaction = "Tài khoản của bạn không có quyền truy cập vào đây" });
+                }
+            }
         }
 
         [HttpPost]
@@ -319,6 +335,54 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+
+        public ActionResult ManageStudent1()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skip number of Rows count  
+                var start = Request.Form["start"];
+                // Paging Length 10,20  
+                var length = Request.Form["length"];
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
+                // Sort Column Direction (asc, desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"];
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"];
+                //Paging Size(10, 20, 50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                var customerData = from s in data.SINHVIENs select s;
+
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => (m.ID.Contains(searchValue)) || (m.TEN.Contains(searchValue)) || (m.TENLOP.Contains(searchValue)));
+                }
+                //total number of rows count   
+                recordsTotal = customerData.ToList().Count();
+                //Paging   
+                var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                var dssp = new List<CheckIn>();
+                foreach (var item in kq)
+                {
+                    CheckIn sp = new CheckIn();
+                    sp.MASINHVIEN = item.ID;
+                    sp.TENSINHVIEN = item.TEN;
+                    sp.Lop = item.TENLOP;
+                    dssp.Add(sp);
+                }
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public ActionResult EditStudent(string id)
         {
             if(id != null)
@@ -401,6 +465,40 @@ namespace WebApplication1.Controllers
         //    data.SaveChanges();
         //    return RedirectToAction("ManageAccount", "Manage");
         //}
+
+
+        [HttpPost]
+        public JsonResult suasinhvien(string id, string name, string lop)
+        {
+            try
+            {
+                var a = data.SINHVIENs.Where(x => x.ID == id).FirstOrDefault();
+                if (a != null)
+                {
+                    a.TEN = name;
+                    a.TENLOP = lop;
+                    data.SaveChanges();
+
+                    return Json(1);
+
+                }
+                else
+                {
+
+                    return Json(0);
+                }
+
+            }
+            catch
+            {
+                return Json(0);
+            }
+
+        }
+
+
+
+
 
         //=======================         Teacher        =======================//
         public ActionResult AddListTeacher()
@@ -507,6 +605,36 @@ namespace WebApplication1.Controllers
            
         }
 
+        [HttpPost]
+        public JsonResult suagiangvien(string id, string name, string chucvu, string bangcap)
+        {
+            try
+            {
+                var a = data.GIANGVIENs.Where(x => x.ID == id).FirstOrDefault();
+                if (a != null)
+                {
+                    a.TEN = name;
+                    a.CHUCVU = chucvu;
+                    a.BANGCAP = bangcap;
+                    data.SaveChanges();
+
+                    return Json(1);
+
+                }
+                else
+                {
+
+                    return Json(0);
+                }
+
+            }
+            catch
+            {
+                return Json(0);
+            }
+
+        }
+
         public ActionResult ManageTeacher()
         {
             if (Session["Login"] == null)
@@ -518,8 +646,7 @@ namespace WebApplication1.Controllers
 
                 if (b.ROLE1 == 1)
                 {
-                    var v = data.GIANGVIENs;
-                    return View(v);
+                    return View();
                 }
                 else
                 {
@@ -527,6 +654,59 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+       
+        public ActionResult ManageTeacher1()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skip number of Rows count  
+                var start = Request.Form["start"];
+                // Paging Length 10,20  
+                var length = Request.Form["length"];
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
+                // Sort Column Direction (asc, desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"];
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"];
+                //Paging Size(10, 20, 50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                var customerData = from s in data.GIANGVIENs select s;
+
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => (m.ID.Contains(searchValue)) || (m.TEN.Contains(searchValue)) || (m.CHUCVU.Contains(searchValue))|| (m.BANGCAP.Contains(searchValue))|| (m.DONVI.TENDONVI.Contains(searchValue)));
+                }
+                //total number of rows count   
+                recordsTotal = customerData.ToList().Count();
+                //Paging   
+                var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                var dssp = new List<Teacher>();
+                foreach (var item in kq)
+                {
+                    Teacher sp = new Teacher();
+                    sp.ID = item.ID;
+                    sp.TEN = item.TEN;
+                    sp.CHUCVU = item.CHUCVU;
+                    sp.BANGCAP = item.BANGCAP;
+                    sp.DONVI = item.DONVI.TENDONVI;
+
+                    dssp.Add(sp);
+                }
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
 
         public ActionResult EditTeacher(string id)
         {
@@ -715,27 +895,166 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult ManageSchedule()
+        public ActionResult ManageSchedule(int id)
         {
-
-            if (Session["Login"] == null)
-
-                return RedirectToAction("Login", "Account");
-            else
+            if (id != 0)
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                if (Session["Login"] == null)
 
-                if (b.ROLE1 == 1)
-                {
-                    var v = data.TKBs;
-                    return View(v);
-                }
+                    return RedirectToAction("Login", "Account");
                 else
                 {
-                    return RedirectToAction("Message", new { tenaction = "Không thể truy cập quản lý thời khóa biểu" });
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                    if (b.ROLE1 == 1)
+                    {
+                        var a = data.NHOMs;
+                        ViewBag.a = id;
+                        return View(a);
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("Message", new { tenaction = "Không thể truy cập quản lý thời khóa biểu" });
+                    }
                 }
             }
+            else
+            {
+                if (Session["Login"] == null)
+
+                    return RedirectToAction("Login", "Account");
+                else
+                {
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+
+                    if (b.ROLE1 == 1)
+                    {
+                        var a = data.NHOMs;
+                        ViewBag.a = id;
+                        return View(a);
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("Message", new { tenaction = "Không thể truy cập quản lý thời khóa biểu" });
+                    }
+                }
+            }
+            
         }
+
+        public ActionResult ManageSchedule1(int id)
+        {
+            try
+            {
+                if(id == 0)
+                {
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    // Sort Column Name  
+                    var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
+                    // Sort Column Direction (asc, desc)  
+                    var sortColumnDirection = Request.Form["order[0][dir]"];
+                    // Search Value from (Search box)  
+                    var searchValue = Request.Form["search[value]"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = from s in data.TKBs select s;
+
+                    //Search  
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        customerData = customerData.Where(m => (m.GIANGVIEN.TEN.Contains(searchValue)) /*|| (m.CA.Contains(searchValue)) */);
+                    }
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<ThoiKhoaBieu>();
+                    foreach (var item in kq)
+                    {
+                        ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                        sp.id = item.ID.ToString();
+                        sp.mamh = item.MAMH;
+                        sp.tenmh = item.MONHOC.TENMONHOC;
+                        sp.magv = item.MAGIANGVIEN;
+                        sp.tengv = item.GIANGVIEN.TEN;
+                        sp.phong = item.PHONG;
+                        sp.lop = item.TENLOP;
+                        sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                        sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                        sp.cahoc = item.CA.ToString();
+                        sp.thu = item.THU;
+                        sp.nhom = item.NHOM.ToString();
+
+                        dssp.Add(sp);
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                }
+                else{
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    // Sort Column Name  
+                    var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
+                    // Sort Column Direction (asc, desc)  
+                    var sortColumnDirection = Request.Form["order[0][dir]"];
+                    // Search Value from (Search box)  
+                    var searchValue = Request.Form["search[value]"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = data.TKBs.Where(x => x.NHOM == id);
+
+                    //Search  
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        customerData = customerData.Where(m => (m.GIANGVIEN.TEN.Contains(searchValue)) /*|| (m.CA.Contains(searchValue)) */);
+                    }
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<ThoiKhoaBieu>();
+                    foreach (var item in kq)
+                    {
+                        ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                        sp.id = item.ID.ToString();
+                        sp.mamh = item.MAMH;
+                        sp.tenmh = item.MONHOC.TENMONHOC;
+                        sp.magv = item.MAGIANGVIEN;
+                        sp.tengv = item.GIANGVIEN.TEN;
+                        sp.phong = item.PHONG;
+                        sp.lop = item.TENLOP;
+                        sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                        sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                        sp.cahoc = item.CA.ToString();
+                        sp.thu = item.THU;
+                        sp.nhom = item.NHOM.ToString();
+
+                        dssp.Add(sp);
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         //=======================         AddInfoSubject        =======================//
 

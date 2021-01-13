@@ -5,10 +5,7 @@
 }
 
 <h2>Trang Chủ Giảng Viên</h2>
-
-
-@Html.ActionLink("thêm mới điểm danh", "Create", "CheckIn",null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Quản ký tài khoản", "ProfileAcount", "Account",null, new { @class = "btn btn-success" })
-@Html.ActionLink("Quản ký điểm danh", "TeacherCheckIn", "CheckIn",null , new {@class = "btn btn-info" })
+<a href="~/CheckIn/TeacherCheckIn/0" class="btn btn-info">Quản ký điểm danh</a>
+@Html.ActionLink("Sửa thông tin tài khoản", "ProfileAcount", "Account", null, new { @class = "btn btn-primary" })
 
 

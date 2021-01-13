@@ -168,18 +168,22 @@
 
         $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
     });
+    $(document).ready(function () {
+        $('#nhaplaimatkhau').keyup(function () {
+            let matkhau = document.getElementById("matkhau").value;
+            let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+            if (matkhau === nhaplaimatkhau) {
+                $('#matkhau').css("background-color", "green");
+                $('#nhaplaimatkhau').css("background-color", "green");
+            }
+            else {
+                $('#matkhau').css("background-color", "red");
+                $('#nhaplaimatkhau').css("background-color", "red");
+            }
 
-    $('#nhaplaimatkhau').keyup(function () {
-        let matkhau = document.getElementById("matkhau").value;
-        let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
-        if (matkhau == nhaplaimatkhau) {
-            $('#create').css("background-color", "green");
-        }
-        else {
-            $("input").css("background-color", "red");
-        }
-        
+        });
     });
+    
 
     function myFunction() {
         let thisbtn = $(this);

@@ -41,11 +41,11 @@ public partial class SINHVIEN
 
     public virtual ICollection<CHITIETMONHOC> CHITIETMONHOCs { get; set; }
 
+    public virtual LOP LOP { get; set; }
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
-
-    public virtual LOP LOP { get; set; }
 
 }
 
