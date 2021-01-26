@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
@@ -36,12 +38,14 @@ namespace WebApplication1.Controllers
                             t.USERNAME = taikhoan;
                             if (matkhau == nhaplaimatkhau)
                             {
-
-                                t.PASSWORD = matkhau;
+                            //var data = Encoding.ASCII.GetBytes(matkhau);
+                            //var md5 = new MD5CryptoServiceProvider();
+                            //var md5data = md5.ComputeHash(data);
+                            t.PASSWORD = matkhau;
                                 t.Name = ten;
                                 t.ROLE1 = chucvu;
-                                data.TAIKHOANs.Add(t);
-                                data.SaveChanges();
+                                //data.TAIKHOANs.Add(t);
+                                //data.SaveChanges();
                                 ViewBag.a = "Đăng kí thành công !!!";
                                 return Json(1);
 
@@ -79,13 +83,13 @@ namespace WebApplication1.Controllers
                             else
                             {
                                 ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-                                return Json(1);
+                                return Json(0);
                             }
                         }
                         else
                         {
                             ViewBag.a = "Nhập sai mã sinh viên !!!";
-                            return Json(1);
+                            return Json(0);
                         }
                     }
 
@@ -93,7 +97,7 @@ namespace WebApplication1.Controllers
                 else
                 {
                     ViewBag.a = "Tên tài khoản đã tồn tại !!!";
-                    return Json(1);
+                    return Json(0);
                 }
             
         }

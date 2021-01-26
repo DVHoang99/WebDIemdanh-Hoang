@@ -339,7 +339,7 @@ namespace WebApplication1.Controllers
         public ActionResult ManageStudent1()
         {
             try
-            {
+          {
                 var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
                 // Skip number of Rows count  
                 var start = Request.Form["start"];
@@ -495,11 +495,6 @@ namespace WebApplication1.Controllers
             }
 
         }
-
-
-
-
-
         //=======================         Teacher        =======================//
         public ActionResult AddListTeacher()
         {

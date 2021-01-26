@@ -110,7 +110,7 @@ namespace WebApplication1.Controllers
                     int pageSize = length != null ? Convert.ToInt32(length) : 0;
                     int skip = start != null ? Convert.ToInt32(start) : 0;
                     int recordsTotal = 0;
-                    var customerData = from s in data.TKBs select s;
+                    var customerData = data.TKBs.Where(x => x.MAGIANGVIEN.Equals(username));
 
                     //Search  
                     if (!string.IsNullOrEmpty(searchValue))
@@ -158,8 +158,8 @@ namespace WebApplication1.Controllers
                     int pageSize = length != null ? Convert.ToInt32(length) : 0;
                     int skip = start != null ? Convert.ToInt32(start) : 0;
                     int recordsTotal = 0;
-                    var customerData = data.TKBs.Where(x => x.NHOM == id && x.MAGIANGVIEN.Equals(username));
 
+                    var customerData = data.TKBs.Where(x => x.NHOM == id && x.MAGIANGVIEN.Equals(username));
                     //Search  
                     if (!string.IsNullOrEmpty(searchValue))
                     {
@@ -369,10 +369,11 @@ namespace WebApplication1.Controllers
                 {
                     if (a.MAXACNHAN == code)
                     {
+                        var b = data.SINHVIENs.Where(x => x.ID.Equals(masv)).FirstOrDefault();
                         DateTime now = DateTime.Now;
                         DIEMDANH d = new DIEMDANH();
                         d.MASINHVIEN = masv;
-                        d.TENSINHVIEN = tensv;
+                        d.TENSINHVIEN = b.TEN;
                         d.MAGIANGVIEN = magv;
                         d.NGAYDIEMDANH = now;
                         d.IDTKB = idtkb;
@@ -382,9 +383,6 @@ namespace WebApplication1.Controllers
                         data.SaveChanges();
 
                         return Json(1);
-
-
-
 
                     }
                         else
@@ -474,7 +472,7 @@ namespace WebApplication1.Controllers
                     var kq2 = data.TKBs.Where(x => x.ID == item.IDTKB).FirstOrDefault();
                     sp.tenmonhoc = kq2.MONHOC.TENMONHOC;
                     int results = data.DIEMDANHs.GroupBy(p => p.MASINHVIEN.Equals(item.MASINHVIEN), p => p.NGAYDIEMDANH, (key, g) => new { MASINHVIEN = key, NGAYDIEMDANH = g.Count() }).Count();
-                    sp.SoBuoiDiemDanh = results;
+                    sp.SoBuoiDiemDanh = results.ToString();
                     dssp.Add(sp);
                 }
                 //Returning Json Data  
@@ -512,7 +510,7 @@ namespace WebApplication1.Controllers
         public ActionResult LoadData1(int id)
 
         {
-            
+
             try
             {
                 var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
@@ -530,12 +528,13 @@ namespace WebApplication1.Controllers
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
-                var customerData = data.DIEMDANHs.Where(x => x.IDTKB == id);
+                var customerData = data.DIEMDANHs.GroupBy(p => new {p.MASINHVIEN, p.TENSINHVIEN, p.IDTKB }).Select(g => new { masv = g.Key.MASINHVIEN, name = g.Key.TENSINHVIEN, tkb = g.Key.IDTKB ,count = g.Count() }).Where(p => p.tkb == id); 
+                //var customerData = data.DIEMDANHs.Where(x => x.IDTKB == id);
 
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => (m.TENSINHVIEN.Contains(searchValue)) || (m.MASINHVIEN.Contains(searchValue)) /*|| (m.SoLuong.Contains(searchValue)*/);
+                    //customerData = customerData.Where(m => (m.TENSINHVIEN.Contains(searchValue)) || (m.MASINHVIEN.Contains(searchValue)) /*|| (m.SoLuong.Contains(searchValue)*/);
                 }
                 //total number of rows count   
                 recordsTotal = customerData.ToList().Count();
@@ -546,17 +545,18 @@ namespace WebApplication1.Controllers
                 {
                     int dem = 0;
                     CheckIn sp = new CheckIn();
-                    sp.mathoikhoabieu = item.IDTKB.ToString();
-                    sp.tenmonhoc = item.TKB.MONHOC.TENMONHOC;
-                    sp.MASINHVIEN = item.MASINHVIEN;
-                    sp.TENSINHVIEN = item.TENSINHVIEN;
-                    sp.tengiangvien = item.TKB.GIANGVIEN.TEN;
-                    var dk = data.DIEMDANHs.Where(x => x.IDTKB == id && x.MASINHVIEN.Equals(item.MASINHVIEN));
-                    foreach (var item1 in dk)
-                    {
-                        dem++;
-                    }
-                    sp.SoBuoiDiemDanh = dem;
+                    sp.mathoikhoabieu = item.tkb.ToString();
+                    //sp.tenmonhoc = item.TKB.MONHOC.TENMONHOC;
+                    sp.MASINHVIEN = item.masv;
+                    sp.SoBuoiDiemDanh = item.count.ToString();
+                    sp.TENSINHVIEN = item.name;
+                   // sp.tengiangvien = item.TKB.GIANGVIEN.TEN;
+                    //var dk = data.DIEMDANHs.Where(x => x.IDTKB == id && x.MASINHVIEN.Equals(item.MASINHVIEN));
+                    //foreach (var item1 in dk)
+                    //{
+                    //    dem++;
+                    //}
+                    //sp.SoBuoiDiemDanh = dem;
                     dssp.Add(sp);
                 }
                 //Returning Json Data  
