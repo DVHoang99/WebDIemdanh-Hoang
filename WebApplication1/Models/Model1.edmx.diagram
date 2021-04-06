@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="WEBATTENDANCEModel.PHONG" Width="1.5" PointX="0.75" PointY="3.625" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.ROLE" Width="1.5" PointX="2.75" PointY="2.375" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.SINHVIEN" Width="1.5" PointX="3" PointY="12.75" />
-        <EntityTypeShape EntityType="WEBATTENDANCEModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.TAIKHOAN" Width="1.5" PointX="5" PointY="2.125" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.TKB" Width="1.5" PointX="3" PointY="6.375" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__CHITIETMON__MASV__29E1370A" />
@@ -31,7 +30,6 @@
         <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__4D2A7347" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__FORMLUUTRU__CA__4C364F0E" />
         <EntityTypeShape EntityType="WEBATTENDANCEModel.DIEMDANH" Width="1.5" PointX="8.25" PointY="9.125" />
-        <EntityTypeShape EntityType="WEBATTENDANCEModel.Test" Width="1.5" PointX="7.375" PointY="4.75" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" />
         <AssociationConnector Association="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" />

@@ -28,11 +28,11 @@ namespace WebApplication1.Controllers
                 TAIKHOAN b = (TAIKHOAN)Session["Login"];
                 if (b.ROLE1 == 1)
                 {
-                    return RedirectToAction("Index", "Manage");
+                    return RedirectToAction("Index", "Manage", new { n = b.Name });
                 }
                 else /*if (b.ROLE1 == 2)*/
                 {
-                    return RedirectToAction("ManageTeacherIndex", "Manage");
+                    return RedirectToAction("ManageTeacherIndex", "Manage", new { n = b.Name});
                 }
                 //else 
                 //{
@@ -42,17 +42,19 @@ namespace WebApplication1.Controllers
             }
             
         }
-        public ActionResult Index()
+        public ActionResult Index(string n)
         {
             if (Session["Login"] == null)
 
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
+                ViewBag.name = b.Name;
 
                 if (b.ROLE1 == 1)
                 {
+                    ViewBag.name = n;
                     return View();
                 }
                 else
@@ -70,7 +72,8 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
+                ViewBag.name = b.Name;
 
                 if (b.ROLE1 == 1)
                 {
@@ -94,7 +97,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                     if (b.ROLE1 == 1)
                     {
@@ -124,8 +127,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
-
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
                     if (b.ROLE1 == 1)
                     {
                         var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(id)).FirstOrDefault();
@@ -155,7 +157,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                     if (b.ROLE1 == 1)
                     {
@@ -205,7 +207,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                 if (b.ROLE1 == 1)
                 {
@@ -322,7 +324,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                 if (b.ROLE1 == 1)
                 {
@@ -367,13 +369,19 @@ namespace WebApplication1.Controllers
                 //Paging   
                 var kq = customerData.ToList().Skip(skip).Take(pageSize);
                 var dssp = new List<CheckIn>();
+                int stt = 1;
                 foreach (var item in kq)
                 {
+             
                     CheckIn sp = new CheckIn();
+                    sp.stt = stt.ToString();
                     sp.MASINHVIEN = item.ID;
                     sp.TENSINHVIEN = item.TEN;
                     sp.Lop = item.TENLOP;
+                    
                     dssp.Add(sp);
+                    stt -= -1;
+                    
                 }
                 //Returning Json Data  
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
@@ -392,7 +400,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
 
                     if (b.ROLE1 == 1)
                     {
@@ -438,7 +446,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
 
                     if (b.ROLE1 == 1)
                     {
@@ -637,7 +645,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                 if (b.ROLE1 == 1)
                 {
@@ -681,16 +689,19 @@ namespace WebApplication1.Controllers
                 //Paging   
                 var kq = customerData.ToList().Skip(skip).Take(pageSize);
                 var dssp = new List<Teacher>();
+                int stt = 1;
                 foreach (var item in kq)
                 {
                     Teacher sp = new Teacher();
+                    sp.stt = stt.ToString();
                     sp.ID = item.ID;
                     sp.TEN = item.TEN;
                     sp.CHUCVU = item.CHUCVU;
                     sp.BANGCAP = item.BANGCAP;
                     sp.DONVI = item.DONVI.TENDONVI;
-
+                    
                     dssp.Add(sp);
+                    stt++;
                 }
                 //Returning Json Data  
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
@@ -712,7 +723,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                     if (b.ROLE1 == 1)
                     {
@@ -761,8 +772,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
-
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
                     if (b.ROLE1 == 1)
                     {
                         var a = data.GIANGVIENs.Where(x => x.ID.Equals(id)).FirstOrDefault();
@@ -899,7 +909,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
 
                     if (b.ROLE1 == 1)
                     {
@@ -921,7 +931,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
 
                     if (b.ROLE1 == 1)
                     {
@@ -972,9 +982,12 @@ namespace WebApplication1.Controllers
                     //Paging   
                     var kq = customerData.ToList().Skip(skip).Take(pageSize);
                     var dssp = new List<ThoiKhoaBieu>();
+                    int stt = 1;
                     foreach (var item in kq)
                     {
+
                         ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                        sp.stt = stt.ToString();
                         sp.id = item.ID.ToString();
                         sp.mamh = item.MAMH;
                         sp.tenmh = item.MONHOC.TENMONHOC;
@@ -989,6 +1002,7 @@ namespace WebApplication1.Controllers
                         sp.nhom = item.NHOM.ToString();
 
                         dssp.Add(sp);
+                        stt++;
                     }
                     //Returning Json Data  
                     return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
@@ -1266,7 +1280,7 @@ namespace WebApplication1.Controllers
 
         //=======================         ManageTeacherIndex        =======================//
 
-        public ActionResult ManageTeacherIndex()
+        public ActionResult ManageTeacherIndex(string n)
         {
             if (Session["Login"] == null)
 
@@ -1277,6 +1291,7 @@ namespace WebApplication1.Controllers
 
                 if (b.ROLE1 == 2)
                 {
+                    ViewBag.name = n;
                     return View();
                 }
                 else

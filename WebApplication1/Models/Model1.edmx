@@ -20,7 +20,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MASINHVIEN" Type="varchar" MaxLength="20" />
-          <Property Name="TENSINHVIEN" Type="varchar(max)" />
+          <Property Name="TENSINHVIEN" Type="nvarchar(max)" />
           <Property Name="MAGIANGVIEN" Type="varchar" MaxLength="30" />
           <Property Name="IDTKB" Type="int" />
           <Property Name="CA" Type="int" />
@@ -97,39 +97,15 @@
           <Property Name="TEN" Type="nvarchar(max)" />
           <Property Name="TENLOP" Type="varchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
             <PropertyRef Name="USERNAME" />
           </Key>
           <Property Name="USERNAME" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="PASSWORD" Type="varchar" MaxLength="30" />
-          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="EMAIL" Type="varchar(max)" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="ROLE1" Type="int" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NHOM" Type="int" />
-          <Property Name="MAMH" Type="varchar" MaxLength="20" />
-          <Property Name="MAGIANGVIEN" Type="varchar" MaxLength="30" />
-          <Property Name="PHONG" Type="varchar" MaxLength="20" />
-          <Property Name="TENLOP" Type="varchar" MaxLength="10" />
-          <Property Name="NGAYBATDAU" Type="date" />
-          <Property Name="NGAYKETHUC" Type="date" />
-          <Property Name="CA" Type="int" />
-          <Property Name="THU" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="TKB">
           <Key>
@@ -345,9 +321,7 @@
           <EntitySet Name="PHONG" EntityType="Self.PHONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SINHVIEN" EntityType="Self.SINHVIEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TKB" EntityType="Self.TKB" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CHITIETMON__MASV__29E1370A" Association="Self.FK__CHITIETMON__MASV__29E1370A">
             <End Role="SINHVIEN" EntitySet="SINHVIEN" />
@@ -424,7 +398,6 @@
           <EntitySet Name="PHONGs" EntityType="WEBATTENDANCEModel.PHONG" />
           <EntitySet Name="ROLEs" EntityType="WEBATTENDANCEModel.ROLE" />
           <EntitySet Name="SINHVIENs" EntityType="WEBATTENDANCEModel.SINHVIEN" />
-          <EntitySet Name="sysdiagrams" EntityType="WEBATTENDANCEModel.sysdiagram" />
           <EntitySet Name="TAIKHOANs" EntityType="WEBATTENDANCEModel.TAIKHOAN" />
           <EntitySet Name="TKBs" EntityType="WEBATTENDANCEModel.TKB" />
           <AssociationSet Name="FK__CHITIETMON__MASV__29E1370A" Association="WEBATTENDANCEModel.FK__CHITIETMON__MASV__29E1370A">
@@ -477,7 +450,6 @@
             <End Role="FORMLUUTRU" EntitySet="FORMLUUTRUs" />
           </AssociationSet>
           <EntitySet Name="DIEMDANHs" EntityType="WEBATTENDANCEModel.DIEMDANH" />
-          <EntitySet Name="Tests" EntityType="WEBATTENDANCEModel.Test" />
           <AssociationSet Name="FK__DIEMDANH__5C6CB6D7" Association="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7">
             <End Role="TKB" EntitySet="TKBs" />
             <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
@@ -576,25 +548,16 @@
           <NavigationProperty Name="LOP" Relationship="WEBATTENDANCEModel.FK__SINHVIEN__TENLOP__30C33EC3" FromRole="SINHVIEN" ToRole="LOP" />
           <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" FromRole="SINHVIEN" ToRole="DIEMDANH" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" MaxLength="Max" FixedLength="false" Type="Binary" />
-        </EntityType>
         <EntityType Name="TAIKHOAN">
           <Key>
             <PropertyRef Name="USERNAME" />
           </Key>
           <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ROLE1" Type="Int32" />
           <NavigationProperty Name="ROLE" Relationship="WEBATTENDANCEModel.FK__TAIKHOAN__ROLE1__7755B73D" FromRole="TAIKHOAN" ToRole="ROLE" />
+          <Property Name="EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TKB">
           <Key>
@@ -787,7 +750,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MASINHVIEN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TENSINHVIEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TENSINHVIEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MAGIANGVIEN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="IDTKB" Type="Int32" />
           <Property Name="CA" Type="Int32" />
@@ -795,21 +758,6 @@
           <NavigationProperty Name="TKB" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__5C6CB6D7" FromRole="DIEMDANH" ToRole="TKB" />
           <NavigationProperty Name="GIANGVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" FromRole="DIEMDANH" ToRole="GIANGVIEN" />
           <NavigationProperty Name="SINHVIEN" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MASINH__5A846E65" FromRole="DIEMDANH" ToRole="SINHVIEN" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NHOM" Type="Int32" />
-          <Property Name="MAMH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="MAGIANGVIEN" MaxLength="30" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="PHONG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TENLOP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="NGAYBATDAU" Type="DateTime" Precision="0" />
-          <Property Name="NGAYKETHUC" Type="DateTime" Precision="0" />
-          <Property Name="CA" Type="Int32" />
-          <Property Name="THU" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__DIEMDANH__5C6CB6D7">
           <End Type="WEBATTENDANCEModel.TKB" Role="TKB" Multiplicity="0..1" />
@@ -933,20 +881,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="WEBATTENDANCEModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TAIKHOANs">
             <EntityTypeMapping TypeName="WEBATTENDANCEModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="ROLE1" ColumnName="ROLE1" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
@@ -991,22 +929,6 @@
                 <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
                 <ScalarProperty Name="TENSINHVIEN" ColumnName="TENSINHVIEN" />
                 <ScalarProperty Name="MASINHVIEN" ColumnName="MASINHVIEN" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tests">
-            <EntityTypeMapping TypeName="WEBATTENDANCEModel.Test">
-              <MappingFragment StoreEntitySet="Test">
-                <ScalarProperty Name="THU" ColumnName="THU" />
-                <ScalarProperty Name="CA" ColumnName="CA" />
-                <ScalarProperty Name="NGAYKETHUC" ColumnName="NGAYKETHUC" />
-                <ScalarProperty Name="NGAYBATDAU" ColumnName="NGAYBATDAU" />
-                <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
-                <ScalarProperty Name="PHONG" ColumnName="PHONG" />
-                <ScalarProperty Name="MAGIANGVIEN" ColumnName="MAGIANGVIEN" />
-                <ScalarProperty Name="MAMH" ColumnName="MAMH" />
-                <ScalarProperty Name="NHOM" ColumnName="NHOM" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

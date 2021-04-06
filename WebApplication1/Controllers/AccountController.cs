@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -22,165 +24,168 @@ namespace WebApplication1.Controllers
         //    return View();
         //}
         [HttpPost]
-        public JsonResult Register(string taikhoan, string matkhau, string nhaplaimatkhau, int chucvu, string ten)
+        public JsonResult Register(string taikhoan, string matkhau, string nhaplaimatkhau, int chucvu, string email ,string ten)
         {
-            
-                int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(taikhoan)).Count();
 
-                if (test1 == 0)
+            int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(taikhoan)).Count();
+
+            if (test1 == 0)
+            {
+                TAIKHOAN t = new TAIKHOAN();
+                if (chucvu == 2)
                 {
-                    TAIKHOAN t = new TAIKHOAN();
-                    if (chucvu == 2)
+                    int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
+                    if (test2 == 1)
                     {
-                        int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
-                        if (test2 == 1)
+                        t.USERNAME = taikhoan;
+                        if (matkhau == nhaplaimatkhau)
                         {
-                            t.USERNAME = taikhoan;
-                            if (matkhau == nhaplaimatkhau)
-                            {
-                            //var data = Encoding.ASCII.GetBytes(matkhau);
-                            //var md5 = new MD5CryptoServiceProvider();
-                            //var md5data = md5.ComputeHash(data);
-                            t.PASSWORD = matkhau;
-                                t.Name = ten;
-                                t.ROLE1 = chucvu;
-                                //data.TAIKHOANs.Add(t);
-                                //data.SaveChanges();
-                                ViewBag.a = "Đăng kí thành công !!!";
-                                return Json(1);
 
-                            }
-                            else
-                            {
-                                ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-                                return Json(1);
-                            }
+                            t.PASSWORD = Encodemd5(matkhau);
+                            t.Name = ten;
+                            t.ROLE1 = chucvu;
+                            t.EMAIL = email;
+                            data.TAIKHOANs.Add(t);
+                            data.SaveChanges();
+                            ViewBag.Message = "Đăng kí thành công !!!";
+                            return Json(1);
+
                         }
                         else
                         {
-                            ViewBag.a = "Nhập sai mã giảng viên !!!";
-                            return Json(1);
+                            ViewBag.Message = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                            return Json(0);
                         }
                     }
                     else
                     {
-                        int test2 = data.SINHVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
-                        if (test2 == 1)
-                        {
-                            t.USERNAME = taikhoan;
-                            if (matkhau == nhaplaimatkhau)
-                            {
-
-                                t.PASSWORD = matkhau;
-                                t.Name = ten;
-                                t.ROLE1 = chucvu;
-                                data.TAIKHOANs.Add(t);
-                                data.SaveChanges();
-                                ViewBag.a = "Đăng kí thành công !!!";
-                                return Json(1);
-
-                            }
-                            else
-                            {
-                                ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-                                return Json(0);
-                            }
-                        }
-                        else
-                        {
-                            ViewBag.a = "Nhập sai mã sinh viên !!!";
-                            return Json(0);
-                        }
+                        ViewBag.Message = "Nhập sai mã giảng viên !!!";
+                        return Json(0);
                     }
-
                 }
                 else
                 {
-                    ViewBag.a = "Tên tài khoản đã tồn tại !!!";
-                    return Json(0);
+                    int test2 = data.SINHVIENs.Where(w => w.ID.Equals(taikhoan)).Count();
+                    if (test2 == 1)
+                    {
+                        t.USERNAME = taikhoan;
+                        if (matkhau == nhaplaimatkhau)
+                        {
+
+                            t.PASSWORD = matkhau;
+                            t.Name = ten;
+                            t.ROLE1 = chucvu;
+                            data.TAIKHOANs.Add(t);
+                            data.SaveChanges();
+                            string output = "Đăng kí thành công !!!";
+                            return Json(output, JsonRequestBehavior.AllowGet);
+
+                        }
+                        else
+                        {
+                            string output = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
+                            return Json(output, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        string output = "Nhập sai mã sinh viên !!!";
+                        return Json(output, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
-            
+
+            }
+            else
+            {
+                string output = "Tên tài khoản đã tồn tại !!!";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
-        //[HttpPost]
-        //public ActionResult Register(Account a, string RePassWord)
-        //{
-        //    int test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName)).Count();
+        [HttpPost]
+        public JsonResult forget(string idfg)
+        {
 
-        //    if (test1 == 0)
-        //    {
-        //        TAIKHOAN t = new TAIKHOAN();
-        //        if(a.Role == 2 )
-        //        {
-        //            int test2 = data.GIANGVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
-        //            if (test2 == 1)
-        //            {
-        //                t.USERNAME = a.UserName;
-        //                if (a.PassWord == RePassWord)
-        //                {
+            var test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(idfg)).FirstOrDefault();
 
-        //                    t.PASSWORD = a.PassWord;
-        //                    t.Name = a.Name;
-        //                    t.ROLE1 = a.Role;
-        //                    data.TAIKHOANs.Add(t);
-        //                    data.SaveChanges();
-        //                    ViewBag.a = "Đăng kí thành công !!!";
-        //                    return View();
+            if (test1 != null)
+            {
+                if (test1.EMAIL != null) 
+                {
+                    sendEmail(test1.EMAIL, test1.PASSWORD, test1.Name);
+                    string output = "Bạn hãy kiểm tra email của mình để lấy lại mật khẩu !!!";
+                    return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string output = "Tài khoản của bạn chưa có email hãy liên hệ văn phòng khoa để có thể lấy lại tài khoản !!!";
+                    return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            else
+            {
+                string output = "Tài khoản của bạn không tồn tại !!!";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
 
-        //                }
-        //                else
-        //                {
-        //                    ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-        //                    return View();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                ViewBag.a = "Nhập sai mã giảng viên !!!";
-        //                return View();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            int test2 = data.SINHVIENs.Where(w => w.ID.Equals(a.UserName)).Count();
-        //            if (test2 == 1)
-        //            {
-        //                t.USERNAME = a.UserName;
-        //                if (a.PassWord == RePassWord)
-        //                {
+        }
 
-        //                    t.PASSWORD = a.PassWord;
-        //                    t.Name = a.Name;
-        //                    t.ROLE1 = a.Role;
-        //                    data.TAIKHOANs.Add(t);
-        //                    data.SaveChanges();
-        //                    ViewBag.a = "Đăng kí thành công !!!";
-        //                    return View();
+        public JsonResult sendEmail(string toemail, string emailbody, string name)
+        {
 
-        //                }
-        //                else
-        //                {
-        //                    ViewBag.a = "Mật khẩu và nhập lại mật khẩu không đúng !!!";
-        //                    return View();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                ViewBag.a = "Nhập sai mã sinh viên !!!";
-        //                return View();
-        //            }
-        //        }
+            bool result = false;
+
+            result = sendEmailkq(toemail, "Tìm mật khẩu","<p>Xin chào  " +name + "</p>" + " </br> <p>Nhấn vào link để đổi mật khẩu https://localhost:44349/Account/FindAccount/" + emailbody + "</p>");
 
 
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
+        public bool sendEmailkq(string toemail, string subject, string emailbody)
+        {
+            try
+            {
 
-        //    }
-        //    else
-        //    {
-        //        ViewBag.a = "Tên tài khoản đã tồn tại !!!";
-        //        return View();
-        //    }
-        //}
+                string senderEmail = "hoang080699@gmail.com";
+                string passw = "LNDtue2401";
+
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
+                client.Timeout = 100000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(senderEmail, passw);
+
+                MailMessage mailMessage = new MailMessage(senderEmail, toemail, subject, emailbody);
+                mailMessage.IsBodyHtml = true;
+                mailMessage.BodyEncoding = UTF8Encoding.UTF8;
+                client.Send(mailMessage);
+
+                return true;
+            }
+            catch (Exception e) { return false; }
+        }
+
+        public ActionResult FindAccount(string id) 
+        {
+            var datadb = data.TAIKHOANs.Where(x => x.PASSWORD.Equals(id)).FirstOrDefault();
+            ViewBag.nameacc = datadb.Name;
+            ViewBag.id = datadb.USERNAME;
+            return View();
+        }
+
+        public JsonResult FindAccountjson (string id, string newpass)
+        {
+            var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(id)).FirstOrDefault();
+            string c = Encodemd5(newpass);
+            result.PASSWORD = c;
+            data.SaveChanges();
+            string output = "Đổi mật khẩu thành công";
+            return Json (output, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Login()
         {
@@ -189,21 +194,25 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(Account a)
         {
-            var test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName) && x.PASSWORD.Equals(a.PassWord)).FirstOrDefault();
+            string c = Encodemd5(a.PassWord);
+
+            var test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName) && x.PASSWORD.Equals(c)).FirstOrDefault();
             if (test1 != null)
             {
                 if (test1.ROLE1 == 1)
                 {
+                    
                     Session["Login"] = test1;
-                    return RedirectToAction("Index", "Manage");
+                    return RedirectToAction("Index", "Manage", new { n = test1.Name });
                 }
                 else if (test1.ROLE1 == 2)
                 {
                     Session["Login"] = test1;
-                    return RedirectToAction("ManageTeacherIndex", "Manage");
+                    return RedirectToAction("ManageTeacherIndex", "Manage", new { n = test1.Name });
                 }
                 else
                 {
+                    ViewBag.a = test1.Name;
                     Session["Login"] = test1;
                     return RedirectToAction("Index", "Home");
                 }
@@ -224,9 +233,9 @@ namespace WebApplication1.Controllers
             {
                 TAIKHOAN b = (TAIKHOAN)Session["Login"];
 
-                    var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(b.USERNAME)).FirstOrDefault();
-                    return View(result);
-            
+                var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(b.USERNAME)).FirstOrDefault();
+                return View(result);
+
             }
 
         }
@@ -235,12 +244,48 @@ namespace WebApplication1.Controllers
         {
 
             var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(USERNAME)).FirstOrDefault();
-            result.PASSWORD = password;
+            result.PASSWORD = Encodemd5(password);
             result.Name = name;
             data.SaveChanges();
 
             return View(result);
         }
+
+        public string Encodemd5(string a)
+        {
+            string key = "hutech";
+            var data = Encoding.UTF8.GetBytes(a);
+
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                var keys = md5.ComputeHash(Encoding.UTF8.GetBytes(key));
+                using (var tripDes = new TripleDESCryptoServiceProvider { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                {
+                    var transform = tripDes.CreateEncryptor();
+                    var results = transform.TransformFinalBlock(data, 0, data.Length);
+                    string q = Convert.ToBase64String(results, 0, results.Length);
+                    return q;
+                }
+            }
+        }
+
+        public string Decriptmd5(string a)
+        {
+            string key = "hutech";
+            byte[] data = UTF8Encoding.UTF8.GetBytes(a);
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            {
+                byte[] keys = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                using (TripleDESCryptoServiceProvider tripDes = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                {
+                    ICryptoTransform transform = tripDes.CreateEncryptor();
+                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                    return Convert.ToBase64String(results, 0, results.Length);
+                }
+            }
+        }
+
+      
 
     }
 }

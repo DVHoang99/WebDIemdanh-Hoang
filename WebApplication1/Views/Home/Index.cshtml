@@ -29,3 +29,20 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<div>
+    <a class="btn btn-primary" onclick="sendEmail()">click me </a>
+</div>
+
+<script>
+    function sendEmail() {
+        $.ajax({
+            type: "POST",
+            url: "/Home/sendEmail",
+            success: function (data) {
+                alert("success");
+            }
+        })
+    }
+
+</script>

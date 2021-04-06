@@ -1,14 +1,61 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@*@model WebApplication1.Models.Account
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-<h2>Trang Chủ Admin</h2>
+    <h2>Trang Chủ Admin</h2>
 
-@Html.ActionLink("Quản lý tài khoản", "ManageAccount", "Manage", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Quản lý sinh viên", "ManageStudent", "Manage", null, new { @class = "btn btn-success" })
-@Html.ActionLink("Quản lý giảng viên", "ManageTeacher", "Manage", null, new { @class = "btn btn-info" })
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <ul style="list-style-type: none;">
+                        <li class="mt-4">@Html.ActionLink("Quản lý tài khoản", "ManageAccount", "Manage", null, new { @class = "btn btn-primary" })<br></li>
+                        <li class="mt-2">@Html.ActionLink("Quản lý sinh viên", "ManageStudent", "Manage", null, new { @class = "btn btn-success" })<br></li>
+                        <li>@Html.ActionLink("Quản lý giảng viên", "ManageTeacher", "Manage", null, new { @class = "btn btn-info" })<br></li>
+                        <li><a href="~/Manage/ManageSchedule/0" class="btn btn-info">Quản lý thời khóa biểu</a><br></li>
+                    </ul>
+                </div>
 
-<a href="~/Manage/ManageSchedule/0" class="btn btn-info">Quản lý thời khóa biểu</a>
+                <div class="col-lg-9">
+                    One of three columns
+                </div>
+            </div>
+        </div>
 
+
+
+
+ 
+*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--========== BOX ICONS ==========-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/Custom/assets/css/styles.css">
+
+</head>
+<body>
+    
+    <!--========== CONTENTS ==========-->
+    <main>
+
+        <section>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
+        </section>
+    </main>
+
+    <!--========== MAIN JS ==========-->
+    <script src="~/Custom/assets/js/main.js"></script>
+
+</body>
+</html>

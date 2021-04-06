@@ -7,6 +7,7 @@ namespace WebApplication1.Models
 {
     public class Teacher
     {
+        public string stt { get; set; }
         public string ID { get; set; }
         public string TEN { get; set; }
         public string BANGCAP  { get; set; }

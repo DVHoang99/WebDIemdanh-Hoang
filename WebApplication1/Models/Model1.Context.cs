@@ -50,8 +50,6 @@ public partial class WEBATTENDANCEEntities : DbContext
 
     public virtual DbSet<SINHVIEN> SINHVIENs { get; set; }
 
-    public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-
     public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
 
     public virtual DbSet<TKB> TKBs { get; set; }
@@ -59,8 +57,6 @@ public partial class WEBATTENDANCEEntities : DbContext
     public virtual DbSet<FORMLUUTRU> FORMLUUTRUs { get; set; }
 
     public virtual DbSet<DIEMDANH> DIEMDANHs { get; set; }
-
-    public virtual DbSet<Test> Tests { get; set; }
 
 }
 

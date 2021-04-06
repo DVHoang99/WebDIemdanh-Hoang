@@ -7,6 +7,7 @@ namespace WebApplication1.Models
 {
     public class CheckIn
     {
+        public string stt { get; set; }
         public string mathoikhoabieu { get; set; }
         public string MASINHVIEN { get; set; }
 

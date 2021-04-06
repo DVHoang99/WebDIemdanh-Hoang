@@ -7,6 +7,7 @@ namespace WebApplication1.Models
 {
     public class ThoiKhoaBieu
     {
+        public string stt { get; set; }
         public string id { get; set; }
         public string mamh { get; set; }
         public string tenmh { get; set; }

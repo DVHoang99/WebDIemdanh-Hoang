@@ -4,220 +4,467 @@
 }
 
 
-<head>
-    <style>
-        .login-page {
-            width: 360px;
-            padding: 8% 0 0;
-            margin: auto;
-        }
-
-        .form {
-            position: relative;
-            z-index: 1;
-            background: #FFFFFF;
-            max-width: 360px;
-            margin: 0 auto 100px;
-            padding: 45px;
-            text-align: center;
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-        }
-
-            .form input {
-                font-family: "Roboto", sans-serif;
-                outline: 0;
-                background: #f2f2f2;
-                width: 100%;
-                border: 0;
-                margin: 0 0 15px;
-                padding: 15px;
-                box-sizing: border-box;
-                font-size: 14px;
-            }
-            .form select {
-                font-family: "Roboto", sans-serif;
-                outline: 0;
-                background: #f2f2f2;
-                width: 100%;
-                border: 0;
-                margin: 0 0 15px;
-                padding: 15px;
-                box-sizing: border-box;
-                font-size: 14px;
+@*<head>
+        <style>
+            .login-page {
+                width: 360px;
+                padding: 8% 0 0;
+                margin: auto;
             }
 
-            .form button {
-                font-family: "Roboto", sans-serif;
-                text-transform: uppercase;
-                outline: 0;
-                background: #4CAF50;
-                width: 100%;
-                border: 0;
-                padding: 15px;
-                color: #FFFFFF;
-                font-size: 14px;
-                -webkit-transition: all 0.3 ease;
-                transition: all 0.3 ease;
-                cursor: pointer;
-            }
-
-                .form button:hover, .form button:active, .form button:focus {
-                    background: #43A047;
-                }
-
-            .form .message {
-                margin: 15px 0 0;
-                color: #b3b3b3;
-                font-size: 12px;
-            }
-
-                .form .message a {
-                    color: #4CAF50;
-                    text-decoration: none;
-                }
-
-            .form .register-form {
-                display: none;
-            }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-            .container:before, .container:after {
-                content: "";
-                display: block;
-                clear: both;
-            }
-
-            .container .info {
-                margin: 50px auto;
+            .form {
+                position: relative;
+                z-index: 1;
+                background: #FFFFFF;
+                max-width: 360px;
+                margin: 0 auto 100px;
+                padding: 45px;
                 text-align: center;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
             }
 
-                .container .info h1 {
+                .form input {
+                    font-family: "Roboto", sans-serif;
+                    outline: 0;
+                    background: #f2f2f2;
+                    width: 100%;
+                    border: 0;
                     margin: 0 0 15px;
-                    padding: 0;
-                    font-size: 36px;
-                    font-weight: 300;
-                    color: #1a1a1a;
+                    padding: 15px;
+                    box-sizing: border-box;
+                    font-size: 14px;
+                }
+                .form select {
+                    font-family: "Roboto", sans-serif;
+                    outline: 0;
+                    background: #f2f2f2;
+                    width: 100%;
+                    border: 0;
+                    margin: 0 0 15px;
+                    padding: 15px;
+                    box-sizing: border-box;
+                    font-size: 14px;
                 }
 
-                .container .info span {
-                    color: #4d4d4d;
+                .form button {
+                    font-family: "Roboto", sans-serif;
+                    text-transform: uppercase;
+                    outline: 0;
+                    background: #4CAF50;
+                    width: 100%;
+                    border: 0;
+                    padding: 15px;
+                    color: #FFFFFF;
+                    font-size: 14px;
+                    -webkit-transition: all 0.3 ease;
+                    transition: all 0.3 ease;
+                    cursor: pointer;
+                }
+
+                    .form button:hover, .form button:active, .form button:focus {
+                        background: #43A047;
+                    }
+
+                .form .message {
+                    margin: 15px 0 0;
+                    color: #b3b3b3;
                     font-size: 12px;
                 }
 
-                    .container .info span a {
-                        color: #000000;
+                    .form .message a {
+                        color: #4CAF50;
                         text-decoration: none;
                     }
 
-                    .container .info span .fa {
-                        color: #EF3B3A;
+                .form .register-form {
+                    display: none;
+                }
+
+            .container {
+                position: relative;
+                z-index: 1;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+                .container:before, .container:after {
+                    content: "";
+                    display: block;
+                    clear: both;
+                }
+
+                .container .info {
+                    margin: 50px auto;
+                    text-align: center;
+                }
+
+                    .container .info h1 {
+                        margin: 0 0 15px;
+                        padding: 0;
+                        font-size: 36px;
+                        font-weight: 300;
+                        color: #1a1a1a;
                     }
 
-        body {
-            background: #76b852; /* fallback for old browsers */
-            background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-            background: -moz-linear-gradient(right, #76b852, #8DC26F);
-            background: -o-linear-gradient(right, #76b852, #8DC26F);
-            background: linear-gradient(to left, #76b852, #8DC26F);
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-    </style>
+                    .container .info span {
+                        color: #4d4d4d;
+                        font-size: 12px;
+                    }
 
+                        .container .info span a {
+                            color: #000000;
+                            text-decoration: none;
+                        }
+
+                        .container .info span .fa {
+                            color: #EF3B3A;
+                        }
+
+            body {
+                background: #76b852; /* fallback for old browsers */
+                background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+                background: -moz-linear-gradient(right, #76b852, #8DC26F);
+                background: -o-linear-gradient(right, #76b852, #8DC26F);
+                background: linear-gradient(to left, #76b852, #8DC26F);
+                font-family: "Roboto", sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="login-page">
+                <div class="form">
+                     @ViewBag.a
+                    <form method="post" action="/Account/Register" class="register-form">
+                        <input id="taikhoan" type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
+                        <select id="chucvu" name="Role">
+                            <option value="2">Giảng Viên</option>
+                            <option value="3">Sinh Viên</option>
+                        </select>
+                        <input id="matkhau" type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
+                        <input id="nhaplaimatkhau" type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
+                        <input id="ten" type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
+                        <button onclick="myFunction()" id="create" type="button">create</button>
+                        <p class="message">Already registered? <a href="#">Sign In </a></p>
+                    </form>
+                    <form method="post" action="/Account/Login" class="login-form">
+                        <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
+                        <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
+                        <button type="submit">login</button>
+                        <p class="message">Not registered? <a href="#">Create an account</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <script>
+        $('.message a').click(function () {
+
+            $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+        });
+        $(document).ready(function () {
+            $('#nhaplaimatkhau').keyup(function () {
+                let matkhau = document.getElementById("matkhau").value;
+                let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+                if (matkhau === nhaplaimatkhau) {
+                    $('#matkhau').css("background-color", "green");
+                    $('#nhaplaimatkhau').css("background-color", "green");
+                }
+                else {
+                    $('#matkhau').css("background-color", "red");
+                    $('#nhaplaimatkhau').css("background-color", "red");
+                }
+
+            });
+        });
+
+
+        function myFunction() {
+            let thisbtn = $(this);
+            let taikhoan = document.getElementById("taikhoan").value;
+            let chucvu = document.getElementById("chucvu").value;
+            let matkhau = document.getElementById("matkhau").value;
+            let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+            let ten = document.getElementById("ten").value;
+
+            //let fileImg = document.getElementById("fileImg").files[0];
+            //var file = $("#fileImg")[0].files[0];
+            var formData = new FormData();
+            formData.append('taikhoan', taikhoan);
+            formData.append('chucvu', chucvu);
+            formData.append('matkhau', matkhau);
+            formData.append('nhaplaimatkhau', nhaplaimatkhau);
+            formData.append('ten', ten);
+            //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+            //console.log(id);
+            $.ajax({
+                url: "/Account/Register",
+                type: "POST",
+
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    if (data) {
+                        alert("Đăng kí thành công !!!");
+                    } else {
+                        alert("Đăng kí thất bại !!!");
+                    }
+
+                }
+            })
+        }
+    </script>*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Custom/Login/css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
-    <div class="login-page">
-        <div class="login-page">
-            <div class="form">
-                 @ViewBag.a
-                <form method="post" action="/Account/Register" class="register-form">
-                    <input id="taikhoan" type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-                    <select id="chucvu" name="Role">
-                        <option value="2">Giảng Viên</option>
-                        <option value="3">Sinh Viên</option>
-                    </select>
-                    <input id="matkhau" type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-                    <input id="nhaplaimatkhau" type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
-                    <input id="ten" type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
-                    <button onclick="myFunction()" id="create" type="button">create</button>
-                    <p class="message">Already registered? <a href="#">Sign In </a></p>
-                </form>
-                <form method="post" action="/Account/Login" class="login-form">
-                    <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-                    <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-                    <button type="submit">login</button>
-                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                <form class="login100-form validate-form" method="POST" action="/Account/Login">
+                    <span class="login100-form-title p-b-33">
+                        welcome to Login
+                    </span>
+
+                    <div class="wrap-input100 validate-input mt-2" data-validate="Nhập mã giảng viên/sinh viên">
+                        <input class="input100" type="text" name="UserName" placeholder="Mã giảng viên/sinh viên">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+
+
+                    <div class="wrap-input100 validate-input mt-2" data-validate="Mật khẩu không được để trống">
+                        <input class="input100" type="password" name="PassWord" placeholder="Password">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-20">
+                        <button type="submit" class="login100-form-btn">
+                            Sign in
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-45 p-b-4">
+                        <span class="txt1">
+                            Forgot
+                        </span>
+
+                        <a href="#" class="txt2 hov1" data-toggle="modal" data-target="#modalforgot">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="txt1">
+                            Create an account?
+                        </span>
+
+                        <a href="#" data-toggle="modal" data-target="#modalsignup" class="txt2 hov1">
+                            Sign up
+                        </a>
+                    </div>
+                    <div class="login100-form-title p-b-33">
+                        @ViewBag.a
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-<script>
-    $('.message a').click(function () {
 
-        $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
-    });
-    $(document).ready(function () {
-        $('#nhaplaimatkhau').keyup(function () {
+
+    <!-- Modal sign up -->
+    <!--=================================================================================================================================================-->
+    <div class="modal fade" id="modalsignup" tabindex="-1" role="dialog" aria-labelledby="modalsignup" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalsignuplabel">welcome to Sign up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="wrap-input100 ">
+                        <input id="id" class="input100" type="text" name="UserName" placeholder="Mã giảng viên/sinh viên">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="mt-2">
+                        <select class="custom-select" id="chucvu" name="Role">
+                            <option selected>Chức vụ...</option>
+                            <option value="2">Giảng Viên</option>
+                            <option value="3">Sinh viên</option>
+                        </select>
+                    </div>
+
+                    <div class="wrap-input100  mt-2">
+                        <input class="input100" type="password" name="PassWord" id="matkhau" placeholder="Mật khẩu">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="wrap-input100 mt-2">
+                        <input class="input100" type="password" name="Repassword" id="xacthucmatkhau" placeholder="Xác thực mật khẩu">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="wrap-input100  mt-2">
+                        <input class="input100" type="email" name="email" id="email" placeholder="Email">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+                    <div class="wrap-input100 mt-2">
+                        <input class="input100" type="text" name="name" id="ten" placeholder="Tên giảng viên/sinh viên">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="login100-form-btn" onclick="myFunction()">Tạo tài khoản</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal forget password -->
+    <!--=================================================================================================================================================-->
+    <div class="modal fade" id="modalforgot" tabindex="-1" role="dialog" aria-labelledby="modalforgot" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalsignuplabel">Tìm mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="wrap-input100 ">
+                        <input id="idfg" class="input100" type="text" name="idfg" placeholder="Mã giảng viên/sinh viên để tìm mật khẩu">
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="login100-form-btn" onclick="findAccount()">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Custom/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Custom/Login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Custom/Login/js/main.js"></script>
+    <!--===============================================================================================-->
+    <script>
+        function myFunction() {
+            let thisbtn = $(this);
+            let taikhoan = document.getElementById("id").value;
+            let chucvu = document.getElementById("chucvu").value;
             let matkhau = document.getElementById("matkhau").value;
-            let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
-            if (matkhau === nhaplaimatkhau) {
-                $('#matkhau').css("background-color", "green");
-                $('#nhaplaimatkhau').css("background-color", "green");
-            }
-            else {
-                $('#matkhau').css("background-color", "red");
-                $('#nhaplaimatkhau').css("background-color", "red");
-            }
+            let xacthucmatkhau = document.getElementById("xacthucmatkhau").value;
+            let email = document.getElementById("email").value;
+            let ten = document.getElementById("ten").value;
 
-        });
-    });
-    
+            //let fileImg = document.getElementById("fileImg").files[0];
+            //var file = $("#fileImg")[0].files[0];
+            var formData = new FormData();
+            formData.append('taikhoan', taikhoan);
+            formData.append('chucvu', chucvu);
+            formData.append('matkhau', matkhau);
+            formData.append('nhaplaimatkhau', xacthucmatkhau);
+            formData.append('email', email);
+            formData.append('ten', ten);
+            //formData.append('fileImg', $('#themFileImg')[0].files[0]);
+            //console.log(id);
+            $.ajax({
+                url: "/Account/Register",
+                type: "POST",
 
-    function myFunction() {
-        let thisbtn = $(this);
-        let taikhoan = document.getElementById("taikhoan").value;
-        let chucvu = document.getElementById("chucvu").value;
-        let matkhau = document.getElementById("matkhau").value;
-        let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
-        let ten = document.getElementById("ten").value;
-        
-        //let fileImg = document.getElementById("fileImg").files[0];
-        //var file = $("#fileImg")[0].files[0];
-        var formData = new FormData();
-        formData.append('taikhoan', taikhoan);
-        formData.append('chucvu', chucvu);
-        formData.append('matkhau', matkhau);
-        formData.append('nhaplaimatkhau', nhaplaimatkhau);
-        formData.append('ten', ten);
-        //formData.append('fileImg', $('#themFileImg')[0].files[0]);
-        //console.log(id);
-        $.ajax({
-            url: "/Account/Register",
-            type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    alert(data);
 
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (data) {
-                if (data) {
-                    alert("Đăng kí thành công !!!");
-                } else {
-                    alert("Đăng kí thất bại !!!");
                 }
-                    
-            }
-        })
-    }
-</script>
+            })
+        }
+    </script>
+    <!--===============================================================================================-->
+    <script>
+        function findAccount() {
+            let thisbtn = $(this);
+            let idfg = document.getElementById("idfg").value;
+            var formData = new FormData();
+            formData.append('idfg', idfg);
+            $.ajax({
+                url: "/Account/forget",
+                type: "POST",
+
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    alert(data);
+
+                }
+            })
+        }
+    </script>
+
+</body>
+</html>

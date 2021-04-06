@@ -463,7 +463,7 @@ namespace WebApplication1.Controllers
                 var dssp = new List<CheckIn>();
                 foreach (var item in kq)
                 {
-                    int dem = 0;
+                   
                     CheckIn sp = new CheckIn();
                     sp.MASINHVIEN = item.MASINHVIEN;
                     sp.TENSINHVIEN = item.TENSINHVIEN;

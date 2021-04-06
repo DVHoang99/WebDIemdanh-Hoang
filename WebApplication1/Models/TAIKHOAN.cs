@@ -26,6 +26,8 @@ public partial class TAIKHOAN
 
     public Nullable<int> ROLE1 { get; set; }
 
+    public string EMAIL { get; set; }
+
 
 
     public virtual ROLE ROLE { get; set; }
