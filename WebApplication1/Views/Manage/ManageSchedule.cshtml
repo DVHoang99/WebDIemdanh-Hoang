@@ -52,7 +52,7 @@
     <h2>Quản lí thời khóa biểu</h2>
 
     <p>
-        @Html.ActionLink("Create New", "AddSchedule", "manage", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Thêm mới", "AddSchedule", "manage", null, new { @class = "btn btn-info" })
     </p>
 
     <div class="dropdown">
@@ -104,7 +104,24 @@
 </head>
 
 <body class="container-fluid">
-
+    <div class="container">
+        <form method="POST" action="~/Manage/ManageSchedule1">
+            <h3 class="text-center">Tìm kiếm</h3>
+            <div class="form-group">
+                <label>Mã môn học</label>
+                <input type="text" class="form-control" name="s1" id="search-id" placeholder="nhập mã môn học ">
+            </div>
+            <div class="form-group">
+                <label>Tên môn học</label>
+                <input type="text" class="form-control" name="s2" id="search-name-subject" placeholder="nhập tên môn học">
+            </div>
+            <div class="form-group">
+                <label>Tên giảng viên</label>
+                <input type="text" class="form-control" name="s3" id="search-name-teacher" placeholder="nhập tên giảng viên">
+            </div>
+            <button type="submit" class="btn btn-primary text-center">Tìm kiếm</button>
+        </form>
+    </div>
 
     <div class="container-fluid" style="margin-top: 60px">
         <div class="row">
@@ -115,12 +132,7 @@
                         <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>
-                                    ID Thời khóa biểu
-                                </th>
-                                <th>
-                                    Nhóm
-                                </th>
+                                <th>Mã thời khóa biểu</th>
                                 <th>
                                     Mã môn học
                                 </th>
@@ -152,8 +164,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
     </div>
 </body>
 </html>
@@ -198,45 +210,41 @@
 
                 "processing": true, // for show progress bar "dom": '<ft<ri>lp>',
                 "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
+                "filter": false, // this is for disable filter (search box)
                 "orderMulti": false, // for disable multiple column at once
                 "pageLength": 100,
                 "ajax": {
-                    "url": "/Manage/ManageSchedule1/@ViewBag.a",
+                    "url": "/Manage/ManageSchedule1/@ViewBag.a?s1=@ViewBag.s1&s2=@ViewBag.s2&s3=@ViewBag.s3",
                     "type": "POST",
                     "datatype": "json"
                 },
-                //"columnDefs":
-                //    [{
-                //        targets: ['_all'],
-                //        className: 'mdc-data-table__cell'
-                //    }],
+
 
                 "columns": [
-                    { "data": "stt", "autoWidth": true },
-                    { "data": "id", "name": "id", "class": "id", "autoWidth": true },
-                    { "data": "nhom", "name": "nhom", "class": "nhom", "autoWidth": true },
-                    { "data": "mamh", "name": "mamh", "class": "mamh", "autoWidth": true },
-                    { "data": "tenmh", "name": "tenmh", "class": "tenmh", "autoWidth": true },
+                    { "data": "stt", "autoWidth": true ,"orderable": false },
+                    { "data": "id", "name": "id", "class": "id", "autoWidth": true, "orderable": false },
+                    { "data": "mamh", "name": "mamh", "class": "mamh", "autoWidth": true, "orderable": false },
 
-                    { "data": "tengv", "name": "tengv", "class": "tengv", "autoWidth": true },
-                    { "data": "phong", "name": "phong", "class": "phong", "autoWidth": true },
-                    { "data": "lop", "name": "lop", "class": "lop", "autoWidth": true },
+                    { "data": "tenmh", "name": "tenmh", "class": "tenmh", "autoWidth": true, "orderable": false },
 
-                    { "data": "cahoc", "name": "cahoc", "class": "cahoc", "autoWidth": true },
-                    { "data": "thu", "name": "thu", "class": "thu", "autoWidth": true },
+                    { "data": "tengv", "name": "tengv", "class": "tengv", "autoWidth": true, "orderable": false },
+                    { "data": "phong", "name": "phong", "class": "phong", "autoWidth": true, "orderable": false },
+                    { "data": "lop", "name": "lop", "class": "lop", "autoWidth": true, "orderable": false },
+
+                    { "data": "cahoc", "name": "cahoc", "class": "cahoc", "autoWidth": true, "orderable": false },
+                    { "data": "thu", "name": "thu", "class": "thu", "autoWidth": true, "orderable": false },
 
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary UpdateButton" >Thêm sinh viên</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary UpdateButton" name="them sinh viên" ><i class="fa fa-user-plus"></i></button>'; }, "orderable": false
                     },
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary xemsv">Xem sinh viên</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary xemsv"><i class="fa fa-eye"></i></button>'; }, "orderable": false
                     },
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary ktradiemdanh">Xem điểm danh</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary ktradiemdanh"><i class="fa fa-address-book"></i></button>'; }, "orderable": false
                     },
 
                 ]

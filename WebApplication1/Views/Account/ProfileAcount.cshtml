@@ -1,53 +1,52 @@
-﻿@model WebApplication1.Models.TAIKHOAN
+﻿
 
 @{
-    ViewBag.Title = "ProfileAcount";
+    ViewBag.Title = "ProfileAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ProfileAcount</h2>
+<h2>Thông tin tài khoản</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>TAIKHOAN</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.USERNAME)
-    <div class="form-group">
+<div class="container">
+    <form method="POST" action="~/Account/ProfileAcount">
+        <div class="form-group">
+            <label>Tên đăng nhập</label>
+            <input type="text" class="form-control" value="@ViewBag.id" disabled>
+            <input style="display:none" type="text" class="form-control" name="id" value="@ViewBag.id">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mật khẩu</label>
+            <input type="password" class="form-control" name="pw" value="@ViewBag.pw" disabled>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Tên</label>
+            <input type="text" class="form-control" name="ten" value="@ViewBag.ten">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Chức vụ</label>
+            <input type="text" class="form-control" name="chacvu" value="@ViewBag.chucvu">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Email</label>
+            <input type="email" class="form-control" name="email" value="@ViewBag.email">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
 
-        @Html.LabelFor(model => model.USERNAME, htmlAttributes: new { @class = "control-label col-md-2" });
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.USERNAME, new { disabled = "disabled" } )
-            @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
-        </div>
+    <div id="thanhcong" class="alert alert-success" style="display:none" role="alert">
+        Sử thông tin thành công!!!
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
-        </div>
+    <div id="thatbai" class="alert alert-danger" style="display:none" role="alert">
+        Sửa thông tin thất bại!!!
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
 </div>
-}
 
-<div>
-    @Html.ActionLink("Quay lại trang chủ", "Redirect", "Manage")
-</div>
+<script>
+    if (@ViewBag.thanhcong == 1) {
+        document.getElementById("thanhcong").style.display = "block";
+    } else {
+        document.getElementById("thatbai").style.display = "block";
+    }
+
+</script>

@@ -58,19 +58,21 @@
         }
     </style>
 </head>
+<div style="margin-left: 50px;">
+    <h2>Thời khóa biểu</h2>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Chọn năm học</button>
+        <div id="myDropdown" class="dropdown-content">
+            @foreach (var item in Model)
+            {
+                <a href="~/CheckIn/TeacherCheckIn/@item.ID">học kì @item.HOCKI năm @item.NAMHOC</a>
+            }
 
-<h2>Thời khóa biểu</h2>
-<div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Chọn năm học</button>
-    <div id="myDropdown" class="dropdown-content">
-        @foreach (var item in Model)
-        {
-            <a href="~/CheckIn/TeacherCheckIn/@item.ID">học kì @item.HOCKI năm @item.NAMHOC</a>
-        }
 
-
+        </div>
     </div>
 </div>
+
 
 <script>
     /* When the user clicks on the button,
@@ -82,7 +84,7 @@
     // Close the dropdown if the user clicks outside of it
     window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var dropdowns = documentv .getElementsByClassName("dropdown-content");
             var i;
             for (i = 0; i < dropdowns.length; i++) {
                 var openDropdown = dropdowns[i];
@@ -106,45 +108,77 @@
 
 </head>
 
-<body class="container-fluid">
+<body class="container">
 
 
-    <div class="container-fluid" style="margin-top: 60px">
-        <div class="container-fluid">
-            <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>
-                            Mã thời khóa biểu
-                        </th>
-                        <th>
-                            Nhóm
-                        </th>
-                        <th>
-                            Mã môn học
-                        </th>
-                        <th>
-                            Tên môn học
-                        </th>
-                        <th>
-                            Phòng
-                        </th>
-                        <th>
-                            Lớp
-                        </th>
+    <div class="container-fluid" style="margin-top: 30px">
+        <form method="POST" action="~/CheckIn/TeacherCheckIn/">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mã môn học</label>
+                        <input type="text" class="form-control" id="idmonhoc" name="idmonhoc" placeholder="Nhập mã môn học">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tên môn học</label>
+                        <input type="text" class="form-control" id="tenmonhoc" name="tenmonhoc" placeholder="Nhập tên môn học">
+                    </div>
+                </div>
+                <div class="col-lg-5" style="display:none">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">id</label>
+                        <input type="text" class="form-control" id="tenmonhoc" name="id" placeholder="Nhập tên môn học" value="@ViewBag.a">
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
 
-                        <th>
-                            Ca
-                        </th>
-                        <th>
-                            Thứ
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-            </table>
+
+
+            </div>
+            <button style="margin-left: 45%" type="submit" class="btn btn-primary text-center">Tìm kiếm</button>
+
+        </form>
+
+        <div class="container-fluid" style="margin-top: 30px;">
+
+                <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mã thời khóa biểu
+                            </th>
+                            <th>
+                                Nhóm
+                            </th>
+                            <th>
+                                Mã môn học
+                            </th>
+                            <th>
+                                Tên môn học
+                            </th>
+                            <th>
+                                Phòng
+                            </th>
+                            <th>
+                                Lớp
+                            </th>
+
+                            <th>
+                                Ca
+                            </th>
+                            <th>
+                                Thứ
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            
         </div>
     </div>
 </body>
@@ -190,42 +224,36 @@
 
                 "processing": true, // for show progress bar "dom": '<ft<ri>lp>',
                 "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
+                "filter": false, // this is for disable filter (search box)
                 "orderMulti": false, // for disable multiple column at once
                 "pageLength": 100,
                 "ajax": {
-                    "url": "/CheckIn/ManageSchedule1/@ViewBag.a?username=@ViewBag.b",
+                    "url": "/CheckIn/ManageSchedule1/@ViewBag.a?username=@ViewBag.b&&idmonhoc=@ViewBag.idmonhoc&&tenmonhoc=@ViewBag.tenmonhoc",
                     "type": "POST",
                     "datatype": "json"
                 },
-                //"columnDefs":
-                //    [{
-                //        targets: ['_all'],
-                //        className: 'mdc-data-table__cell'
-                //    }],
-
                 "columns": [
-                    { "data": "id", "name": "id", "class": "id", "autoWidth": true },
-                    { "data": "nhom", "name": "nhom", "class": "nhom", "autoWidth": true },
-                    { "data": "mamh", "name": "mamh", "class": "mamh", "autoWidth": true },
-                    { "data": "tenmh", "name": "tenmh", "class": "tenmh", "autoWidth": true },
-                    { "data": "phong", "name": "phong", "class": "phong", "autoWidth": true },
-                    { "data": "lop", "name": "lop", "class": "lop", "autoWidth": true },
+                    { "data": "id", "name": "id", "class": "id", "autoWidth": true, "orderable": false },
+                    { "data": "nhom", "name": "nhom", "class": "nhom", "autoWidth": true, "orderable": false },
+                    { "data": "mamh", "name": "mamh", "class": "mamh", "autoWidth": true, "orderable": false },
+                    { "data": "tenmh", "name": "tenmh", "class": "tenmh", "autoWidth": true, "orderable": false },
+                    { "data": "phong", "name": "phong", "class": "phong", "autoWidth": true, "orderable": false },
+                    { "data": "lop", "name": "lop", "class": "lop", "autoWidth": true, "orderable": false },
 
-                    { "data": "cahoc", "name": "cahoc", "class": "cahoc", "autoWidth": true },
-                    { "data": "thu", "name": "thu", "class": "thu", "autoWidth": true },
+                    { "data": "cahoc", "name": "cahoc", "class": "cahoc", "autoWidth": true, "orderable": false },
+                    { "data": "thu", "name": "thu", "class": "thu", "autoWidth": true, "orderable": false },
 
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary ktradiemdanh" >Xem điểm danh</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary ktradiemdanh" ><i class="fa fa-database"></i>'; }, "orderable": false
                     },
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary taomaqr">Tạo mã QR</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary taomaqr"><i class="fa fa-qrcode"></i>'; }, "orderable": false
                     },
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary xemsv">Xem sinh viên trong thời khóa biểu</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary xemsv"><i class="fa fa-eye"></i></button>'; }, "orderable": false
                     },
 
                 ]

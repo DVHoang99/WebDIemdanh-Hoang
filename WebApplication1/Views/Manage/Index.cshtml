@@ -1,34 +1,4 @@
-﻿@*@model WebApplication1.Models.Account
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
-    <h2>Trang Chủ Admin</h2>
-
-    <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <ul style="list-style-type: none;">
-                        <li class="mt-4">@Html.ActionLink("Quản lý tài khoản", "ManageAccount", "Manage", null, new { @class = "btn btn-primary" })<br></li>
-                        <li class="mt-2">@Html.ActionLink("Quản lý sinh viên", "ManageStudent", "Manage", null, new { @class = "btn btn-success" })<br></li>
-                        <li>@Html.ActionLink("Quản lý giảng viên", "ManageTeacher", "Manage", null, new { @class = "btn btn-info" })<br></li>
-                        <li><a href="~/Manage/ManageSchedule/0" class="btn btn-info">Quản lý thời khóa biểu</a><br></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-9">
-                    One of three columns
-                </div>
-            </div>
-        </div>
-
-
-
-
- 
-*@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,9 +18,21 @@
     <main>
 
         <section>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
+            <div class="container-fluid">
+                <p> Hệ thống điểm danh HUTECH</p>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p></p>
+                        <img src="~/Img/a5fd7b9dea292b30da110a012bd98489.jpg" />
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Chào mừng bạn đến với hệ thống điểm danh!!! Các chức năng có trong hệ thống được đặt trong thanh công cụ bên trái.</p>
+                        <p style="color: red;"> Chú ý: Nếu đây là lần đầu bạn đăng nhập hệ thống của chúng tôi. Thì việc đầu tiên của bạn là đổi mặt khẩu mới để có thể bảo mật thông tin của mình. </p>
+
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 

@@ -23,6 +23,12 @@ namespace WebApplication1.Controllers
         //{
         //    return View();
         //}
+
+        [HttpPost]
+        public JsonResult login1(string username, string password) {
+
+            return Json(1);
+        }
         [HttpPost]
         public JsonResult Register(string taikhoan, string matkhau, string nhaplaimatkhau, int chucvu, string email ,string ten)
         {
@@ -194,34 +200,63 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(Account a)
         {
-            string c = Encodemd5(a.PassWord);
-
-            var test1 = data.TAIKHOANs.Where(x => x.USERNAME.Equals(a.UserName) && x.PASSWORD.Equals(c)).FirstOrDefault();
-            if (test1 != null)
+            // chưa có chức năng đăng nhập sinh viên
+            var check1 = data.GIANGVIENs.Where(x => x.STATUS == 0 && x.ID.Equals(a.UserName)).FirstOrDefault();
+            if (check1 != null)
             {
-                if (test1.ROLE1 == 1)
+                string c = Encodemd5(a.PassWord);
+
+                var test1 = data.GIANGVIENs.Where(x => x.ID.Equals(a.UserName) && x.PASSWORD.Equals(c)).FirstOrDefault();
+                if (test1 != null)
                 {
-                    
-                    Session["Login"] = test1;
-                    return RedirectToAction("Index", "Manage", new { n = test1.Name });
-                }
-                else if (test1.ROLE1 == 2)
-                {
-                    Session["Login"] = test1;
-                    return RedirectToAction("ManageTeacherIndex", "Manage", new { n = test1.Name });
+                    if (test1.ROLE == 1)
+                    {
+                        Session["Login"] = test1;
+                        return RedirectToAction("Index", "Manage", new { n = test1.TEN });
+                    }
+                    else if (test1.ROLE == 2)
+                    {
+                        Session["Login"] = test1;
+                        return RedirectToAction("ManageTeacherIndex", "Manage", new { n = test1.TEN });
+                    }
+                    else
+                    {
+                        ViewBag.a = test1.TEN;
+                        Session["Login"] = test1;
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    ViewBag.a = test1.Name;
-                    Session["Login"] = test1;
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.error = "error";
+                    ViewBag.a = "Sai tên tài khoản hoặc mật khẩu";
                 }
             }
-            else
-            {
-                ViewBag.a = "Sai tên tài khoản hoặc mật khẩu";
+            else {
+                var checkid = data.GIANGVIENs.Where(x => x.ID == a.UserName).FirstOrDefault();
+                if (checkid != null && a.PassWord == a.UserName)
+                {
+                    if (checkid.ROLE == 1)
+                    {
+                        Session["Login"] = checkid;
+                        return RedirectToAction("Index", "Manage", new { n = checkid.TEN });
+                    }
+                    // dang nhap lan dau role == 2
+                    else
+                    {
+                        Session["Login"] = checkid;
+                        return RedirectToAction("ManageTeacherIndex", "Manage", new { n = checkid.TEN });
+                    }
+                }
+                else {
+                    ViewBag.error = "error";
+                    ViewBag.a = "Sai tên tài khoản hoặc mật khẩu";
+                }
+
             }
             return View();
+
+
         }
 
         public ActionResult ProfileAcount()
@@ -231,25 +266,89 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
+                ViewBag.name = b.TEN;
 
-                var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(b.USERNAME)).FirstOrDefault();
-                return View(result);
+                var result = data.GIANGVIENs.Where(x => x.TEN.Equals(b.TEN)).FirstOrDefault();
+                
+                ViewBag.id = result.ID;
+                ViewBag.ten = result.TEN;
+                ViewBag.pw = result.PASSWORD;
+                ViewBag.chucvu = result.CHUCVU;
+                ViewBag.email = result.Email;
+                return View();
 
             }
 
         }
         [HttpPost]
-        public ActionResult ProfileAcount(string USERNAME, string password, string name)
+        public ActionResult ProfileAcount(string id, string ten, string chucvu, string email)
         {
+            try
+            {
+                var result = data.GIANGVIENs.Where(x => x.ID.Equals(id)).FirstOrDefault();
+                result.TEN = ten;
+                result.Email = email;
+                data.SaveChanges();
+                var result1 = data.GIANGVIENs.Where(x => x.ID.Equals(id)).FirstOrDefault();
+                ViewBag.id = result1.ID;
+                ViewBag.ten = result1.TEN;
+                ViewBag.pw = result1.PASSWORD;
+                ViewBag.chucvu = result1.CHUCVU;
+                ViewBag.email = result1.Email;
+                ViewBag.thanhcong = 1;
+                return View(result1);
+            }
+            catch {
+                var result1 = data.GIANGVIENs.Where(x => x.ID.Equals(id)).FirstOrDefault();
+                ViewBag.id = result1.ID;
+                ViewBag.ten = result1.TEN;
+                ViewBag.pw = result1.PASSWORD;
+                ViewBag.chucvu = result1.CHUCVU;
+                ViewBag.email = result1.Email;
+                ViewBag.thanhcong = 0;
+                return View(result1);
+            }
+            
+        }
 
-            var result = data.TAIKHOANs.Where(x => x.USERNAME.Equals(USERNAME)).FirstOrDefault();
-            result.PASSWORD = Encodemd5(password);
-            result.Name = name;
-            data.SaveChanges();
+        public ActionResult ChangePw()
+        {
+            if (Session["Login"] == null)
 
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
+                ViewBag.name = b.TEN;
+
+                var result = data.GIANGVIENs.Where(x => x.TEN.Equals(b.TEN)).FirstOrDefault();
+                ViewBag.id = result.ID;
+                return View();
+
+            }
+
+        }
+        [HttpPost]
+        public ActionResult ChangePw(string id, string pw, string repw)
+        {
+            var result = data.GIANGVIENs.Where(x => x.ID.Equals(id)).FirstOrDefault();
+            if (pw.Equals(repw))
+            {
+                string pwNew = Encodemd5(pw);
+                result.PASSWORD = pwNew;
+                result.STATUS = 0;
+                ViewBag.thanhcong = "thanhcong";
+                data.SaveChanges();
+            }
+            else {
+                ViewBag.thatbai = "thatbai";
+            }
+            
             return View(result);
         }
+
+
 
         public string Encodemd5(string a)
         {
@@ -284,6 +383,7 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+
 
       
 

@@ -53,6 +53,10 @@
           <Property Name="CHUCVU" Type="nvarchar(max)" />
           <Property Name="BANGCAP" Type="nvarchar(max)" />
           <Property Name="MADONVI" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="300" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
+          <Property Name="ROLE" Type="int" />
+          <Property Name="STATUS" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LOP">
           <Key>
@@ -495,6 +499,10 @@
           <NavigationProperty Name="TKBs" Relationship="WEBATTENDANCEModel.FK__TKB__MAGIANGVIEN__1D7B6025" FromRole="GIANGVIEN" ToRole="TKB" />
           <NavigationProperty Name="FORMLUUTRUs" Relationship="WEBATTENDANCEModel.FK__FORMLUUTRU__CA__4C364F0E" FromRole="GIANGVIEN" ToRole="FORMLUUTRU" />
           <NavigationProperty Name="DIEMDANHs" Relationship="WEBATTENDANCEModel.FK__DIEMDANH__MAGIAN__5B78929E" FromRole="GIANGVIEN" ToRole="DIEMDANH" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE" Type="Int32" />
+          <Property Name="STATUS" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="LOP">
           <Key>
@@ -824,6 +832,10 @@
           <EntitySetMapping Name="GIANGVIENs">
             <EntityTypeMapping TypeName="WEBATTENDANCEModel.GIANGVIEN">
               <MappingFragment StoreEntitySet="GIANGVIEN">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="MADONVI" ColumnName="MADONVI" />
                 <ScalarProperty Name="BANGCAP" ColumnName="BANGCAP" />
                 <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />

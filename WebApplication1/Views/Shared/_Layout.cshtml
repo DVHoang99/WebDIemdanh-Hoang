@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/Custom/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .Link {
             float: right;
@@ -20,40 +21,10 @@
     </style>
 </head>
 <body>
-
-    @*<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="">HUTECH</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Xin chào <span id="test"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="~/Manage/Logout"> Sửa tài khản</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="~/Manage/Logout">Đăng xuất</a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </div>
-            </div>
-
-        </nav>*@
     <header class="header" >
         <div class="header__container">
-            @*<img src="assets/img/perfil.jpg" alt="" class="header__img">*@
 
-            <a href="~/Manage/Redirect" class="header__logo">HUTECH</a>
+            <a href="~/Manage/Redirect" class="header__logo"><img src="~/Img/logo CMYK-01.png" style="width:150px; height: 50px;"/></a>
 
             <div class="header__toggle">
                 <i class='bx bx-menu' id="header-toggle"></i>
@@ -66,11 +37,11 @@
                         Xin chào <span id="test"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="~/Manage/Logout"> Sửa tài khản</a>
+                        <a class="dropdown-item" href="~/Account/ProfileAcount"> Sửa tài khản</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="~/Manage/Logout">Đăng xuất</a>
 
-                        <input type="text" style="display:none;"  name="name" value="@ViewBag.name" id="name" />
+                        <input type="text" style=""  name="name" value="@ViewBag.name" id="name" />
                     </div>
                 </li>
 
@@ -82,8 +53,7 @@
         <nav class="nav__container">
             <div>
                 <a href="~/manage/Redirect" class="nav__link nav__logo">
-                    <i class='bx bxs-disc nav__icon'></i>
-                    <span class="nav__logo-name">HUTECH</span>
+                    <img src="~/Img/logo CMYK.png"/>
                     
                 </a>
 
@@ -91,9 +61,9 @@
                     <div class="nav__items">
                         <h3 class="nav__subtitle">Profile</h3>
 
-                        <a href="#" class="nav__link active">
+                        <a href="~/manage/Redirect" class="nav__link active">
                             <i class='bx bx-home nav__icon'></i>
-                            <span class="nav__name">Home</span>
+                            <span class="nav__name">Trang chủ</span>
                         </a>
 
                         <div class="nav__dropdown">
@@ -105,17 +75,11 @@
 
                             <div class="nav__dropdown-collapse">
                                 <div class="nav__dropdown-content">
-                                    <a href="#" class="nav__dropdown-item">Thông tin tài khoản</a>
-                                    <a href="#" class="nav__dropdown-item"> Đổi mật khẩu</a>
-                                        @*<a href="#" class="nav__dropdown-item">Accounts</a>*@
+                                    <a href="~/Account/ProfileAcount" class="nav__dropdown-item">Thông tin tài khoản</a>
+                                    <a href="~/Account/ChangePw" class="nav__dropdown-item"> Đổi mật khẩu</a>
                                 </div>
                             </div>
                         </div>
-
-                        @*<a href="#" class="nav__link">
-                                <i class='bx bx-message-rounded nav__icon'></i>
-                                <span class="nav__name">Messages</span>
-                            </a>*@
                     </div>
 
                     <div class="nav__items">
@@ -128,7 +92,7 @@
                                 <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
                             </a>
 
-                            <div class="nav__dropdown-collapse">
+                            <div id="admin" class="nav__dropdown-collapse" style="display:none">
                                 <div class="nav__dropdown-content">
                                     <a href="~/Manage/ManageAccount" class="nav__dropdown-item">Quản lý tài khoản</a>
                                     <a href="~/manage/ManageStudent" class="nav__dropdown-item">Quản lý sinh viên</a>
@@ -136,17 +100,15 @@
                                     <a href="~/Manage/ManageSchedule/0" class="nav__dropdown-item">Quản lý thời khóa biểu</a>
                                 </div>
                             </div>
+                    
+                            <div id="teacher" class="nav__dropdown-collapse" style="display:none">
+                                <div class="nav__dropdown-content">
+                                    <a href="~/CheckIn/TeacherCheckIn/0" class="nav__dropdown-item">Quản lý điểm danh </a>
+                                    <a href="~/Account/ProfileAcount" class="nav__dropdown-item">Sửa thông tin tài khoản</a>
+                                </div>
+                            </div>
 
                         </div>
-
-                        @*<a href="#" class="nav__link">
-                                <i class='bx bx-compass nav__icon'></i>
-                                <span class="nav__name">Explore</span>
-                            </a>
-                            <a href="#" class="nav__link">
-                                <i class='bx bx-bookmark nav__icon'></i>
-                                <span class="nav__name">Saved</span>
-                            </a>*@
                     </div>
                 </div>
             </div>
@@ -165,11 +127,16 @@
 
     </div>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - HUTECH</p>
+    <footer class="bg-light text-center text-lg-start container container-fluid">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2020 Copyright:
+            <a class="text-dark" href="#">Design by my team </a>
+        </div>
+        <!-- Copyright -->
     </footer>
         @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
+        @*@Scripts.Render("~/bundles/bootstrap")*@
         @RenderSection("scripts", required: false)
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -178,8 +145,16 @@
 
         var viewbag = document.getElementById("name").value;
         var a = document.getElementById("test");
-        a.innerHTML = viewbag;
+            a.innerHTML = viewbag;
 
+            if (viewbag != "ADMIN") {
+
+                document.getElementById("teacher").style.display = "block";
+
+            }
+            else {
+                document.getElementById("admin").style.display = "block";
+            }
     </script>
 </body>
 

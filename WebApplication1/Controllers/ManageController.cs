@@ -25,14 +25,14 @@ namespace WebApplication1.Controllers
             else
             {
                 ViewBag.Logout = "";
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
-                if (b.ROLE1 == 1)
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
+                if (b.ROLE == 1)
                 {
-                    return RedirectToAction("Index", "Manage", new { n = b.Name });
+                    return RedirectToAction("Index", "Manage", new { n = b.TEN });
                 }
                 else /*if (b.ROLE1 == 2)*/
                 {
-                    return RedirectToAction("ManageTeacherIndex", "Manage", new { n = b.Name});
+                    return RedirectToAction("ManageTeacherIndex", "Manage", new { n = b.TEN});
                 }
                 //else 
                 //{
@@ -49,10 +49,10 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
-                ViewBag.name = b.Name;
+                GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TKBs; 
+                ViewBag.name = b.TEN;
 
-                if (b.ROLE1 == 1)
+                if (b.ROLE == 1)
                 {
                     ViewBag.name = n;
                     return View();
@@ -72,10 +72,10 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
-                ViewBag.name = b.Name;
+                GIANGVIEN b = (GIANGVIEN)Session["Login"]; 
+                ViewBag.name = b.TEN;
 
-                if (b.ROLE1 == 1)
+                if (b.ROLE == 1)
                 {
                     var v = data.TAIKHOANs;
                     return View(v);
@@ -324,9 +324,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
+                GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TEN;
 
-                if (b.ROLE1 == 1)
+                if (b.ROLE == 1)
                 {
                     var v = data.SINHVIENs;
                     return View(v);
@@ -645,9 +645,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
+                GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TEN;
 
-                if (b.ROLE1 == 1)
+                if (b.ROLE == 1)
                 {
                     return View();
                 }
@@ -657,54 +657,175 @@ namespace WebApplication1.Controllers
                 }
             }
         }
-       
-        public ActionResult ManageTeacher1()
+        [HttpPost]
+        public ActionResult ManageTeacher(string s1, string s2)
+        {
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TEN;
+
+                if (b.ROLE == 1)
+                {
+                    ViewBag.s1 = s1;
+                    ViewBag.s2 = s2;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Message", new { tenaction = "Không thể truy cập quản lý giảng viên" });
+                }
+            }
+        }
+
+        public ActionResult ManageTeacher1(string s1, string s2)
         {
             try
             {
-                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
-                // Skip number of Rows count  
-                var start = Request.Form["start"];
-                // Paging Length 10,20  
-                var length = Request.Form["length"];
-                // Sort Column Name  
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"];
-                // Sort Column Direction (asc, desc)  
-                var sortColumnDirection = Request.Form["order[0][dir]"];
-                // Search Value from (Search box)  
-                var searchValue = Request.Form["search[value]"];
-                //Paging Size(10, 20, 50,100)  
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
-                var customerData = from s in data.GIANGVIENs select s;
+                if (s1 == "" && s2 == "")
+                {
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = from s in data.GIANGVIENs select s;
 
-                //Search  
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    customerData = customerData.Where(m => (m.ID.Contains(searchValue)) || (m.TEN.Contains(searchValue)) || (m.CHUCVU.Contains(searchValue))|| (m.BANGCAP.Contains(searchValue))|| (m.DONVI.TENDONVI.Contains(searchValue)));
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<Teacher>();
+                    int stt = 1;
+                    foreach (var item in kq)
+                    {
+                        Teacher sp = new Teacher();
+                        sp.stt = stt.ToString();
+                        sp.ID = item.ID;
+                        sp.TEN = item.TEN;
+                        sp.CHUCVU = item.CHUCVU;
+                        sp.BANGCAP = item.BANGCAP;
+                        sp.DONVI = item.DONVI.TENDONVI;
+
+                        dssp.Add(sp);
+                        stt++;
+
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
                 }
-                //total number of rows count   
-                recordsTotal = customerData.ToList().Count();
-                //Paging   
-                var kq = customerData.ToList().Skip(skip).Take(pageSize);
-                var dssp = new List<Teacher>();
-                int stt = 1;
-                foreach (var item in kq)
+                else if (s2 == "")
                 {
-                    Teacher sp = new Teacher();
-                    sp.stt = stt.ToString();
-                    sp.ID = item.ID;
-                    sp.TEN = item.TEN;
-                    sp.CHUCVU = item.CHUCVU;
-                    sp.BANGCAP = item.BANGCAP;
-                    sp.DONVI = item.DONVI.TENDONVI;
-                    
-                    dssp.Add(sp);
-                    stt++;
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = data.GIANGVIENs.Where(x => x.ID.Equals(s1));
+
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<Teacher>();
+                    int stt = 1;
+                    foreach (var item in kq)
+                    {
+                        Teacher sp = new Teacher();
+                        sp.stt = stt.ToString();
+                        sp.ID = item.ID;
+                        sp.TEN = item.TEN;
+                        sp.CHUCVU = item.CHUCVU;
+                        sp.BANGCAP = item.BANGCAP;
+                        sp.DONVI = item.DONVI.TENDONVI;
+
+                        dssp.Add(sp);
+                        stt++;
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
                 }
-                //Returning Json Data  
-                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                else if (s1 == "")
+                {
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = data.GIANGVIENs.Where(x => x.TEN.Equals(s2));
+
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<Teacher>();
+                    int stt = 1;
+                    foreach (var item in kq)
+                    {
+                        Teacher sp = new Teacher();
+                        sp.stt = stt.ToString();
+                        sp.ID = item.ID;
+                        sp.TEN = item.TEN;
+                        sp.CHUCVU = item.CHUCVU;
+                        sp.BANGCAP = item.BANGCAP;
+                        sp.DONVI = item.DONVI.TENDONVI;
+
+                        dssp.Add(sp);
+                        stt++;
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                    // Skip number of Rows count  
+                    var start = Request.Form["start"];
+                    // Paging Length 10,20  
+                    var length = Request.Form["length"];
+                    //Paging Size(10, 20, 50,100)  
+                    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                    int skip = start != null ? Convert.ToInt32(start) : 0;
+                    int recordsTotal = 0;
+                    var customerData = data.GIANGVIENs.Where(x => x.ID.Equals(s1) && x.TEN.Equals(s2));
+
+                    //total number of rows count   
+                    recordsTotal = customerData.ToList().Count();
+                    //Paging   
+                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                    var dssp = new List<Teacher>();
+                    int stt = 1;
+                    foreach (var item in kq)
+                    {
+                        Teacher sp = new Teacher();
+                        sp.stt = stt.ToString();
+                        sp.ID = item.ID;
+                        sp.TEN = item.TEN;
+                        sp.CHUCVU = item.CHUCVU;
+                        sp.BANGCAP = item.BANGCAP;
+                        sp.DONVI = item.DONVI.TENDONVI;
+
+                        dssp.Add(sp);
+                        stt++;
+                    }
+                    //Returning Json Data  
+                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                }
+                
+                
             }
             catch (Exception ex)
             {
@@ -909,10 +1030,13 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name;
+                    GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TEN;
 
-                    if (b.ROLE1 == 1)
+                    if (b.ROLE == 1)
                     {
+                        ViewBag.s1 = "";
+                        ViewBag.s2 = "";
+                        ViewBag.s3 = "";
                         var a = data.NHOMs;
                         ViewBag.a = id;
                         return View(a);
@@ -931,9 +1055,10 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Login", "Account");
                 else
                 {
-                    TAIKHOAN b = (TAIKHOAN)Session["Login"]; ViewBag.name = b.Name; 
+                    GIANGVIEN b = (GIANGVIEN)Session["Login"]; ViewBag.name = b.TEN; 
 
-                    if (b.ROLE1 == 1)
+
+                    if (b.ROLE == 1)
                     {
                         var a = data.NHOMs;
                         ViewBag.a = id;
@@ -948,8 +1073,16 @@ namespace WebApplication1.Controllers
             }
             
         }
+        [HttpPost]
+        public ActionResult ManageSchedule(string s1, string s2, string s3) 
+        {
+            ViewBag.s1 = "";
+            ViewBag.s2 = "";
+            ViewBag.s3 = "";
+            return View();
+        }
 
-        public ActionResult ManageSchedule1(int id)
+        public ActionResult ManageSchedule1(int id, string s1, string s2,string s3)
         {
             try
             {
@@ -970,13 +1103,10 @@ namespace WebApplication1.Controllers
                     int pageSize = length != null ? Convert.ToInt32(length) : 0;
                     int skip = start != null ? Convert.ToInt32(start) : 0;
                     int recordsTotal = 0;
+
                     var customerData = from s in data.TKBs select s;
 
-                    //Search  
-                    if (!string.IsNullOrEmpty(searchValue))
-                    {
-                        customerData = customerData.Where(m => (m.GIANGVIEN.TEN.Contains(searchValue)) /*|| (m.CA.Contains(searchValue)) */);
-                    }
+
                     //total number of rows count   
                     recordsTotal = customerData.ToList().Count();
                     //Paging   
@@ -988,7 +1118,6 @@ namespace WebApplication1.Controllers
 
                         ThoiKhoaBieu sp = new ThoiKhoaBieu();
                         sp.stt = stt.ToString();
-                        sp.id = item.ID.ToString();
                         sp.mamh = item.MAMH;
                         sp.tenmh = item.MONHOC.TENMONHOC;
                         sp.magv = item.MAGIANGVIEN;
@@ -999,7 +1128,8 @@ namespace WebApplication1.Controllers
                         sp.ngayketthuc = item.NGAYKETHUC.ToString();
                         sp.cahoc = item.CA.ToString();
                         sp.thu = item.THU;
-                        sp.nhom = item.NHOM.ToString();
+                        sp.id = item.ID.ToString();
+
 
                         dssp.Add(sp);
                         stt++;
@@ -1039,7 +1169,6 @@ namespace WebApplication1.Controllers
                     {
                         ThoiKhoaBieu sp = new ThoiKhoaBieu();
                         sp.id = item.ID.ToString();
-                        sp.mamh = item.MAMH;
                         sp.tenmh = item.MONHOC.TENMONHOC;
                         sp.magv = item.MAGIANGVIEN;
                         sp.tengv = item.GIANGVIEN.TEN;
@@ -1049,7 +1178,7 @@ namespace WebApplication1.Controllers
                         sp.ngayketthuc = item.NGAYKETHUC.ToString();
                         sp.cahoc = item.CA.ToString();
                         sp.thu = item.THU;
-                        sp.nhom = item.NHOM.ToString();
+
 
                         dssp.Add(sp);
                     }
@@ -1287,9 +1416,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
 
-                if (b.ROLE1 == 2)
+                if (b.ROLE == 2)
                 {
                     ViewBag.name = n;
                     return View();
@@ -1309,7 +1438,7 @@ namespace WebApplication1.Controllers
         //    tk.PASSWORD = password;
         //    tk.Name = name;
         //    data.SaveChanges();
-        //    return View();
+        //    return View();    
         //}
 
         public ActionResult LogOut()

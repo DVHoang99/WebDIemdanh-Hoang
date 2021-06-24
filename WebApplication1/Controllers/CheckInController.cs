@@ -73,13 +73,40 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
 
-                if (b.ROLE1 == 2)
+                if (b.ROLE == 2)
                 {
                     var a = data.NHOMs;
                     ViewBag.a = id;
-                    ViewBag.b = b.USERNAME;
+                    ViewBag.b = b.ID;
+                    ViewBag.idmonhoc = null;
+                    ViewBag.tenmonhoc = null;
+                    return View(a);
+                }
+                else
+                {
+                    return RedirectToAction("Message", new { tenaction = "Không thể truy cập form điểm danh" });
+                }
+            }
+        }
+        [HttpPost]
+        public ActionResult TeacherCheckIn(int id, string idmonhoc, string tenmonhoc)
+        {
+            if (Session["Login"] == null)
+
+                return RedirectToAction("Login", "Account");
+            else
+            {
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
+
+                if (b.ROLE == 2)
+                {
+                    var a = data.NHOMs;
+                    ViewBag.a = id;
+                    ViewBag.b = b.ID;
+                    ViewBag.idmonhoc = idmonhoc;
+                    ViewBag.tenmonhoc = tenmonhoc;
                     return View(a);
                 }
                 else
@@ -89,10 +116,13 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult ManageSchedule1(int id, string username)
+
+        public ActionResult ManageSchedule1(int id, string username, string idmonhoc, string tenmonhoc)
         {
             try
             {
+                var result = data.TKBs;
+
                 if (id == 0)
                 {
                     var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
@@ -110,36 +140,114 @@ namespace WebApplication1.Controllers
                     int pageSize = length != null ? Convert.ToInt32(length) : 0;
                     int skip = start != null ? Convert.ToInt32(start) : 0;
                     int recordsTotal = 0;
-                    var customerData = data.TKBs.Where(x => x.MAGIANGVIEN.Equals(username));
 
-                    //Search  
-                    if (!string.IsNullOrEmpty(searchValue))
+                    if (idmonhoc == "" && tenmonhoc == "")
                     {
-                        customerData = customerData.Where(m => (m.GIANGVIEN.TEN.Contains(searchValue)) /*|| (m.CA.Contains(searchValue)) */);
-                    }
-                    //total number of rows count   
-                    recordsTotal = customerData.ToList().Count();
-                    //Paging   
-                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
-                    var dssp = new List<ThoiKhoaBieu>();
-                    foreach (var item in kq)
-                    {
-                        ThoiKhoaBieu sp = new ThoiKhoaBieu();
-                        sp.id = item.ID.ToString();
-                        sp.mamh = item.MAMH;
-                        sp.tenmh = item.MONHOC.TENMONHOC;
-                        sp.phong = item.PHONG;
-                        sp.lop = item.TENLOP;
-                        sp.ngaybatdau = item.NGAYBATDAU.ToString();
-                        sp.ngayketthuc = item.NGAYKETHUC.ToString();
-                        sp.cahoc = item.CA.ToString();
-                        sp.thu = item.THU;
-                        sp.nhom = item.NHOM.ToString();
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
 
-                        dssp.Add(sp);
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
                     }
-                    //Returning Json Data  
-                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    else if (idmonhoc != "" && tenmonhoc == "")
+                    {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.IDMONHOC.Equals(idmonhoc));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (idmonhoc == "" && tenmonhoc != "")
+                    {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.TENMONHOC.Equals(tenmonhoc) );
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }
+                    else {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.TENMONHOC.Equals(tenmonhoc) && x.MONHOC.IDMONHOC.Equals(tenmonhoc));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }                    
                 }
                 else
                 {
@@ -159,38 +267,117 @@ namespace WebApplication1.Controllers
                     int skip = start != null ? Convert.ToInt32(start) : 0;
                     int recordsTotal = 0;
 
-                    var customerData = data.TKBs.Where(x => x.NHOM == id && x.MAGIANGVIEN.Equals(username));
-                    //Search  
-                    if (!string.IsNullOrEmpty(searchValue))
+                    if (idmonhoc == "" && tenmonhoc == "")
                     {
-                        customerData = customerData.Where(m => (m.MAMH.Contains(searchValue)) /*|| (m.CA.Contains(searchValue)) */);
-                    }
-                    //total number of rows count   
-                    recordsTotal = customerData.ToList().Count();
-                    //Paging   
-                    var kq = customerData.ToList().Skip(skip).Take(pageSize);
-                    var dssp = new List<ThoiKhoaBieu>();
-                    foreach (var item in kq)
-                    {
-                        ThoiKhoaBieu sp = new ThoiKhoaBieu();
-                        sp.id = item.ID.ToString();
-                        sp.mamh = item.MAMH;
-                        sp.tenmh = item.MONHOC.TENMONHOC;
-                        sp.phong = item.PHONG;
-                        sp.lop = item.TENLOP;
-                        sp.ngaybatdau = item.NGAYBATDAU.ToString();
-                        sp.ngayketthuc = item.NGAYKETHUC.ToString();
-                        sp.cahoc = item.CA.ToString();
-                        sp.thu = item.THU;
-                        sp.nhom = item.NHOM.ToString();
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
 
-                        dssp.Add(sp);
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
                     }
-                    //Returning Json Data  
-                    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    else if (idmonhoc != "" && tenmonhoc == "")
+                    {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.IDMONHOC.Equals(idmonhoc));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (idmonhoc == "" && tenmonhoc != "")
+                    {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.TENMONHOC.Equals(tenmonhoc));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        var customerData = result.Where(x => x.MAGIANGVIEN.Equals(username) && x.MONHOC.TENMONHOC.Equals(tenmonhoc) && x.MONHOC.IDMONHOC.Equals(tenmonhoc));
+                        //total number of rows count   
+                        recordsTotal = customerData.ToList().Count();
+                        //Paging   
+                        var kq = customerData.ToList().Skip(skip).Take(pageSize);
+                        var dssp = new List<ThoiKhoaBieu>();
+                        foreach (var item in kq)
+                        {
+                            ThoiKhoaBieu sp = new ThoiKhoaBieu();
+                            sp.id = item.ID.ToString();
+                            sp.mamh = item.MAMH;
+                            sp.tenmh = item.MONHOC.TENMONHOC;
+                            sp.phong = item.PHONG;
+                            sp.lop = item.TENLOP;
+                            sp.ngaybatdau = item.NGAYBATDAU.ToString();
+                            sp.ngayketthuc = item.NGAYKETHUC.ToString();
+                            sp.cahoc = item.CA.ToString();
+                            sp.thu = item.THU;
+                            sp.nhom = item.NHOM.ToString();
+
+                            dssp.Add(sp);
+                        }
+                        //Returning Json Data  
+                        return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = dssp }, JsonRequestBehavior.AllowGet);
+                    }
+                    }
+
                 }
-
-            }
             catch (Exception ex)
             {
                 throw;
@@ -213,27 +400,6 @@ namespace WebApplication1.Controllers
             ViewBag.maxacnhan = abc;
             return View();
         }
-
-        //public ActionResult StudentCheckIn()
-        //{
-        //    if (Session["Login"] == null)
-        //        return RedirectToAction("Login", "Account");
-        //    else
-        //    {
-        //        TAIKHOAN b = (TAIKHOAN)Session["Login"];
-        //        if (b.ROLE1 == 3)
-        //        {
-        //            ViewBag.Masv = b.USERNAME;
-        //            ViewBag.Tensv = b.Name;
-        //            var test = data.FORMLUUTRUs.Where(x => x.TRANGTHAI == 1);
-        //            return View(test);
-        //        }
-        //        else
-        //        {
-        //            return RedirectToAction("Message", new { tenaction = "Không thể truy cập form điểm danh của sinh viên" });
-        //        }
-        //    }
-        //}
 
         [HttpGet]
         public ActionResult QrCodeGenarate(/*string txtQRCode,*/ int id)
@@ -306,58 +472,7 @@ namespace WebApplication1.Controllers
             
         }
 
-        //[HttpPost]
-        //public ActionResult Form(int id, int idtkb, string idgv, string masv, string tensv, int maxn)
-        //{
-        //    var a = data.FORMLUUTRUs.Where(x => x.ID == id).FirstOrDefault();
-        //    if (a.TRANGTHAI == 1)
-        //    {
-        //        if (a.MAXACNHAN == maxn)
-        //        {
-
-        //            DateTime now = DateTime.Now;
-
-        //            var test = data.DIEMDANHs.Where(x => x.MASINHVIEN.Equals(masv) && x.IDTKB == idtkb && x.NGAYDIEMDANH == now).FirstOrDefault();
-        //            if (test == null)
-        //            {
-        //                DIEMDANH d = new DIEMDANH();
-        //                d.MASINHVIEN = masv;
-        //                d.TENSINHVIEN = tensv;
-        //                d.MAGIANGVIEN = idgv;
-        //                d.NGAYDIEMDANH = now;
-        //                d.IDTKB = idtkb;
-        //                d.CA = a.CA;
-
-        //                data.DIEMDANHs.Add(d);
-        //                data.SaveChanges();
-        //                ViewBag.Result = "Điểm danh thành công";
-        //                return View();
-
-        //                //return RedirectToAction("Message","Manage", new { tenaction = "Điểm danh thành công!!!" });
-        //            }
-        //            else
-        //            {
-        //                ViewBag.Result = "Bạn đã điểm danh";
-        //                return View();
-
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Result = "Mã xác nhận sai !!! Hãy thử lại";
-        //            return View();
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        ViewBag.Result = "Quá hạn điểm danh !!!";
-        //        return View();
-
-        //    }
-
-        //}
+      
 
         [HttpPost]
         public JsonResult DiemDanh(int id, int idtkb, string magv, string masv, string tensv, int code)
@@ -493,9 +608,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
 
-                if (b.ROLE1 == 1 || b.ROLE1 == 2 )
+                if (b.ROLE == 1 || b.ROLE == 2 )
                 {
                     ViewBag.id = id;
                     return View();

@@ -1,11 +1,43 @@
 ﻿
-@{
-    ViewBag.Title = "ManageTeacherIndex";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h2>Trang Chủ Giảng Viên</h2>
-<a href="~/CheckIn/TeacherCheckIn/0" class="btn btn-info">Quản lí điểm danh</a>
-@Html.ActionLink("Sửa thông tin tài khoản", "ProfileAcount", "Account", null, new { @class = "btn btn-primary" })
+    <!--========== BOX ICONS ==========-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/Custom/assets/css/styles.css">
 
+</head>
+<body>
+
+    <!--========== CONTENTS ==========-->
+    <main>
+
+        <section>
+            <div class="container-fluid">
+                <p> Hệ thống điểm danh HUTECH - Trang chủ Giảng Viên</p>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p></p>
+                        <img src="~/Img/a5fd7b9dea292b30da110a012bd98489.jpg" />
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Chào mừng bạn đến với hệ thống điểm danh!!! Các chức năng có trong hệ thống được đặt trong thanh công cụ bên trái.</p>
+                        <p style="color: red;"> Chú ý: Nếu đây là lần đầu bạn đăng nhập hệ thống của chúng tôi. Thì việc đầu tiên của bạn là đổi mặt khẩu mới để có thể bảo mật thông tin của mình. </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--========== MAIN JS ==========-->
+    <script src="~/Custom/assets/js/main.js"></script>
+
+</body>
+</html>

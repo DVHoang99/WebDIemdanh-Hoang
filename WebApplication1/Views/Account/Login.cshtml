@@ -3,225 +3,6 @@
     Layout = null;
 }
 
-
-@*<head>
-        <style>
-            .login-page {
-                width: 360px;
-                padding: 8% 0 0;
-                margin: auto;
-            }
-
-            .form {
-                position: relative;
-                z-index: 1;
-                background: #FFFFFF;
-                max-width: 360px;
-                margin: 0 auto 100px;
-                padding: 45px;
-                text-align: center;
-                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-            }
-
-                .form input {
-                    font-family: "Roboto", sans-serif;
-                    outline: 0;
-                    background: #f2f2f2;
-                    width: 100%;
-                    border: 0;
-                    margin: 0 0 15px;
-                    padding: 15px;
-                    box-sizing: border-box;
-                    font-size: 14px;
-                }
-                .form select {
-                    font-family: "Roboto", sans-serif;
-                    outline: 0;
-                    background: #f2f2f2;
-                    width: 100%;
-                    border: 0;
-                    margin: 0 0 15px;
-                    padding: 15px;
-                    box-sizing: border-box;
-                    font-size: 14px;
-                }
-
-                .form button {
-                    font-family: "Roboto", sans-serif;
-                    text-transform: uppercase;
-                    outline: 0;
-                    background: #4CAF50;
-                    width: 100%;
-                    border: 0;
-                    padding: 15px;
-                    color: #FFFFFF;
-                    font-size: 14px;
-                    -webkit-transition: all 0.3 ease;
-                    transition: all 0.3 ease;
-                    cursor: pointer;
-                }
-
-                    .form button:hover, .form button:active, .form button:focus {
-                        background: #43A047;
-                    }
-
-                .form .message {
-                    margin: 15px 0 0;
-                    color: #b3b3b3;
-                    font-size: 12px;
-                }
-
-                    .form .message a {
-                        color: #4CAF50;
-                        text-decoration: none;
-                    }
-
-                .form .register-form {
-                    display: none;
-                }
-
-            .container {
-                position: relative;
-                z-index: 1;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-
-                .container:before, .container:after {
-                    content: "";
-                    display: block;
-                    clear: both;
-                }
-
-                .container .info {
-                    margin: 50px auto;
-                    text-align: center;
-                }
-
-                    .container .info h1 {
-                        margin: 0 0 15px;
-                        padding: 0;
-                        font-size: 36px;
-                        font-weight: 300;
-                        color: #1a1a1a;
-                    }
-
-                    .container .info span {
-                        color: #4d4d4d;
-                        font-size: 12px;
-                    }
-
-                        .container .info span a {
-                            color: #000000;
-                            text-decoration: none;
-                        }
-
-                        .container .info span .fa {
-                            color: #EF3B3A;
-                        }
-
-            body {
-                background: #76b852; /* fallback for old browsers */
-                background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-                background: -moz-linear-gradient(right, #76b852, #8DC26F);
-                background: -o-linear-gradient(right, #76b852, #8DC26F);
-                background: linear-gradient(to left, #76b852, #8DC26F);
-                font-family: "Roboto", sans-serif;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-            }
-        </style>
-
-    </head>
-    <body>
-        <div class="login-page">
-            <div class="login-page">
-                <div class="form">
-                     @ViewBag.a
-                    <form method="post" action="/Account/Register" class="register-form">
-                        <input id="taikhoan" type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-                        <select id="chucvu" name="Role">
-                            <option value="2">Giảng Viên</option>
-                            <option value="3">Sinh Viên</option>
-                        </select>
-                        <input id="matkhau" type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-                        <input id="nhaplaimatkhau" type="password" class="form-control" name="Repassword" placeholder="Nhập lại mật khẩu" />
-                        <input id="ten" type="text" class="form-control" name="Name" placeholder="Tên chủ tài khoản" />
-                        <button onclick="myFunction()" id="create" type="button">create</button>
-                        <p class="message">Already registered? <a href="#">Sign In </a></p>
-                    </form>
-                    <form method="post" action="/Account/Login" class="login-form">
-                        <input type="text" class="form-control" name="UserName" placeholder="Tên tài khoản " />
-                        <input type="password" class="form-control" name="PassWord" placeholder="Mật khẩu" />
-                        <button type="submit">login</button>
-                        <p class="message">Not registered? <a href="#">Create an account</a></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <script>
-        $('.message a').click(function () {
-
-            $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
-        });
-        $(document).ready(function () {
-            $('#nhaplaimatkhau').keyup(function () {
-                let matkhau = document.getElementById("matkhau").value;
-                let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
-                if (matkhau === nhaplaimatkhau) {
-                    $('#matkhau').css("background-color", "green");
-                    $('#nhaplaimatkhau').css("background-color", "green");
-                }
-                else {
-                    $('#matkhau').css("background-color", "red");
-                    $('#nhaplaimatkhau').css("background-color", "red");
-                }
-
-            });
-        });
-
-
-        function myFunction() {
-            let thisbtn = $(this);
-            let taikhoan = document.getElementById("taikhoan").value;
-            let chucvu = document.getElementById("chucvu").value;
-            let matkhau = document.getElementById("matkhau").value;
-            let nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
-            let ten = document.getElementById("ten").value;
-
-            //let fileImg = document.getElementById("fileImg").files[0];
-            //var file = $("#fileImg")[0].files[0];
-            var formData = new FormData();
-            formData.append('taikhoan', taikhoan);
-            formData.append('chucvu', chucvu);
-            formData.append('matkhau', matkhau);
-            formData.append('nhaplaimatkhau', nhaplaimatkhau);
-            formData.append('ten', ten);
-            //formData.append('fileImg', $('#themFileImg')[0].files[0]);
-            //console.log(id);
-            $.ajax({
-                url: "/Account/Register",
-                type: "POST",
-
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: function (data) {
-                    if (data) {
-                        alert("Đăng kí thành công !!!");
-                    } else {
-                        alert("Đăng kí thất bại !!!");
-                    }
-
-                }
-            })
-        }
-    </script>*@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,12 +37,13 @@
         <div class="container-login100">
             <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
                 <form class="login100-form validate-form" method="POST" action="/Account/Login">
+                    <span> <img style="width:410px; height:150px; " src="~/Img/logo CMYK-01.png" /></span>
                     <span class="login100-form-title p-b-33">
-                        welcome to Login
+                        Chào mừng đến hệ thống điểm danh HUTECH
                     </span>
 
                     <div class="wrap-input100 validate-input mt-2" data-validate="Nhập mã giảng viên/sinh viên">
-                        <input class="input100" type="text" name="UserName" placeholder="Mã giảng viên/sinh viên">
+                        <input class="input100" type="text" name="UserName" placeholder="Mã giảng viên/sinh viên" id="username">
                         <span class="focus-input100-1"></span>
                         <span class="focus-input100-2"></span>
                     </div>
@@ -269,38 +51,28 @@
 
 
                     <div class="wrap-input100 validate-input mt-2" data-validate="Mật khẩu không được để trống">
-                        <input class="input100" type="password" name="PassWord" placeholder="Password">
+                        <input class="input100" type="password" name="PassWord" placeholder="Mật khẩu" id="password">
                         <span class="focus-input100-1"></span>
                         <span class="focus-input100-2"></span>
                     </div>
 
                     <div class="container-login100-form-btn m-t-20">
-                        <button type="submit" class="login100-form-btn">
-                            Sign in
+                        <button type="submit" class="login100-form-btn" onclick="login()">
+                            Đăng nhập
                         </button>
                     </div>
 
                     <div class="text-center p-t-45 p-b-4">
                         <span class="txt1">
-                            Forgot
+                            Tìm
                         </span>
 
                         <a href="#" class="txt2 hov1" data-toggle="modal" data-target="#modalforgot">
-                            Username / Password?
+                            tài khoản / mật khẩu?
                         </a>
                     </div>
-
-                    <div class="text-center">
-                        <span class="txt1">
-                            Create an account?
-                        </span>
-
-                        <a href="#" data-toggle="modal" data-target="#modalsignup" class="txt2 hov1">
-                            Sign up
-                        </a>
-                    </div>
-                    <div class="login100-form-title p-b-33">
-                        @ViewBag.a
+                    <div class="alert alert-danger" role="alert" id="@ViewBag.error" style="display: none;">
+                        Không thể đăng nhập, hãy kiểm tra lại tài khoản hoặc mật khẩu
                     </div>
                 </form>
             </div>
@@ -370,12 +142,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalsignuplabel">Tìm mật khẩu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div><img style="width:410px; height:150px; " src="~/Img/logo CMYK-01.png" /></div>
+                    <br />
+                   
+
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-primary" role="alert" >
+                        Bạn có thể tìm kiếm tài khoản của mình ở đây bằng cách nhập mã giảng viên/ sinh viên tại ô nhập dữ liệu bên dưới hoặc liên hệ văn phòng khoa để có thể tìm lại maatk khẩu
+                    </div>
                     <div class="wrap-input100 ">
                         <input id="idfg" class="input100" type="text" name="idfg" placeholder="Mã giảng viên/sinh viên để tìm mật khẩu">
                         <span class="focus-input100-1"></span>
@@ -465,6 +240,40 @@
             })
         }
     </script>
+    <!--===============================================================================================-->
+
+    <script>
+        function login() {
+            let thisbtn = $(this);
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            var formData = new formData();
+            formData.append('username', username);
+            formData.append('password', password);
+            $.ajax({
+                url: "Account/login1",
+                type: "POST",
+
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    if (data) {
+                        window.open("/manage/index");
+                    }
+                    else {
+                        document.getElementById("error").style.display = "block";
+                    }
+                }
+
+            })
+        }
+    </script>
+    <!--===============================================================================================-->
+    <script>
+        document.getElementById("error").style.display = "block";
+    </script>
+
 
 </body>
 </html>

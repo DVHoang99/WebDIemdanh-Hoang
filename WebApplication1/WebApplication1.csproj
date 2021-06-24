@@ -155,7 +155,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -286,6 +285,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\a5fd7b9dea292b30da110a012bd98489.jpg" />
+    <Content Include="Img\logo CMYK-01.png" />
+    <Content Include="Img\logo CMYK.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -435,10 +437,10 @@
     <Content Include="Views\CheckIn\XemThongtin.cshtml" />
     <Content Include="Views\CheckIn\kiemtra.cshtml" />
     <Content Include="Views\Account\FindAccount.cshtml" />
+    <Content Include="Views\Account\ChangePw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Img\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\QRCoderController\" />
   </ItemGroup>

@@ -41,6 +41,14 @@ public partial class GIANGVIEN
 
     public Nullable<int> MADONVI { get; set; }
 
+    public string Email { get; set; }
+
+    public string PASSWORD { get; set; }
+
+    public Nullable<int> ROLE { get; set; }
+
+    public int STATUS { get; set; }
+
 
 
     public virtual DONVI DONVI { get; set; }
