@@ -49,20 +49,18 @@
 <body>
     <div class="container">
         <div class="row">
-            <a href="~/manage/Redirect"><h1>HUTECH</h1></a>
-            <h3>Thêm sinh viên</h3>
+            
             <div class="col-sm-6">
                 <div>
+                    <h3>Thêm sinh viên</h3>
                     <br />
                     @using (Html.BeginForm("AddListStudent", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-            <input type="file" name="postedFile" id="input-file-html5" />
-                            <input type="submit" value="Import" />}
+                <input type="file" name="postedFile" id="input-file-html5" />
+                                <input type="submit" value="Lưu file" />}
+                    @ViewBag.Mess
                 </div>
-                @ViewBag.Mess
-                <div>
-                    @Html.ActionLink("back to list", "ManageStudent", "Manage")
-                </div>
+                
             </div>
             <div class="col-lg-6">
                 <p> Chú ý: file excel làm theo mẫu các tên cột trùng với mẫu đã cho </p>

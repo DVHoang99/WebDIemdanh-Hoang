@@ -105,8 +105,12 @@
 
 <body class="container-fluid">
     <div class="container">
-        <form method="POST" action="~/Manage/ManageSchedule1">
+        <form method="POST" action="~/Manage/ManageSchedule">
             <h3 class="text-center">Tìm kiếm</h3>
+            <div style="display:none" class="form-group">
+                <label>Mã môn học</label>
+                <input type="text" class="form-control" value="@ViewBag.a" name="id" id="search-id" placeholder="nhập mã môn học ">
+            </div>
             <div class="form-group">
                 <label>Mã môn học</label>
                 <input type="text" class="form-control" name="s1" id="search-id" placeholder="nhập mã môn học ">

@@ -18,5 +18,6 @@ namespace WebApplication1.Models
         public string tenmonhoc { get; set; }
 
         public string SoBuoiDiemDanh { get; set; }
+        public string DiemDiemDanh { get; set; }
     }
 }

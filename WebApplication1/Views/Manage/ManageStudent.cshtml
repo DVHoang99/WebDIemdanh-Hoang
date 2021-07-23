@@ -6,7 +6,7 @@
 <h2>Quản lí sinh viên</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddListStudent", "manage", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("Tạo Mới", "AddListStudent", "manage", null, new { @class = "btn btn-info" })
 </p>
 
 <!DOCTYPE html>
@@ -22,15 +22,15 @@
 
 <body class="container">
     <div class="container">
-        <form method="POST" action="~/Manage/ManageTeacher">
+        <form method="POST" action="~/Manage/ManageStudent">
             <h3 class="text-center">Tìm kiếm</h3>
             <div class="form-group">
                 <label>Mã giảng viên</label>
-                <input type="text" class="form-control" name="s1" id="search-id" placeholder="nhập mã giảng viên">
+                <input type="text" class="form-control" name="s1" id="search-id" placeholder="nhập mã sinh viên">
             </div>
             <div class="form-group">
                 <label>Tên giảng viên</label>
-                <input type="text" class="form-control" name="s2" id="search-name" placeholder="nhập tên giảng viên">
+                <input type="text" class="form-control" name="s2" id="search-name" placeholder="nhập tên sinh viên">
             </div>
             <button type="submit" class="btn btn-primary text-center" >Tìm kiếm</button>
         </form>
@@ -74,11 +74,11 @@
 
                 "processing": true, // for show progress bar "dom": '<ft<ri>lp>',
                 "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
+                "filter": false, // this is for disable filter (search box)
                 "orderMulti": false, // for disable multiple column at once
                 "pageLength": 100,
                 "ajax": {
-                    "url": "/Manage/ManageStudent1",
+                    "url": "/Manage/ManageStudent1/?s1=@ViewBag.s1&s2=@ViewBag.s2",
                     "type": "POST",
                     "datatype": "json"
                 },
@@ -95,7 +95,7 @@
                     { "data": "Lop", "name": "Lop","class": "lop" , "autoWidth": true },
                     {
 
-                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary UpdateButton" data-toggle="modal" data-target="#exampleModal">Sửa</button>'; }
+                        "render": function (data, type, full, meta) { return '<button type="button" class="btn btn-primary UpdateButton" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>'; }
                     },
 
                 ]

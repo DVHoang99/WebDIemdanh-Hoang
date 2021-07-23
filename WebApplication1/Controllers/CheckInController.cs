@@ -74,7 +74,7 @@ namespace WebApplication1.Controllers
             else
             {
                 GIANGVIEN b = (GIANGVIEN)Session["Login"];
-
+                ViewBag.name = b.TEN;
                 if (b.ROLE == 2)
                 {
                     var a = data.NHOMs;
@@ -609,9 +609,11 @@ namespace WebApplication1.Controllers
             else
             {
                 GIANGVIEN b = (GIANGVIEN)Session["Login"];
-
+                ViewBag.name = b.TEN;
                 if (b.ROLE == 1 || b.ROLE == 2 )
                 {
+                    var ketqua = data.TKBs.Where(x => x.ID.Equals(id)).FirstOrDefault();
+                    ViewBag.tenmonhoc = ketqua.MONHOC.TENMONHOC;
                     ViewBag.id = id;
                     return View();
                 }
@@ -623,7 +625,6 @@ namespace WebApplication1.Controllers
         }
 
         public ActionResult LoadData1(int id)
-
         {
 
             try
@@ -658,13 +659,13 @@ namespace WebApplication1.Controllers
                 var dssp = new List<CheckIn>();
                 foreach (var item in kq)
                 {
-                    int dem = 0;
                     CheckIn sp = new CheckIn();
                     sp.mathoikhoabieu = item.tkb.ToString();
                     //sp.tenmonhoc = item.TKB.MONHOC.TENMONHOC;
                     sp.MASINHVIEN = item.masv;
                     sp.SoBuoiDiemDanh = item.count.ToString();
                     sp.TENSINHVIEN = item.name;
+                    //sp.DiemDiemDanh ()
                    // sp.tengiangvien = item.TKB.GIANGVIEN.TEN;
                     //var dk = data.DIEMDANHs.Where(x => x.IDTKB == id && x.MASINHVIEN.Equals(item.MASINHVIEN));
                     //foreach (var item1 in dk)
@@ -692,11 +693,15 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login", "Account");
             else
             {
-                TAIKHOAN b = (TAIKHOAN)Session["Login"];
+                GIANGVIEN b = (GIANGVIEN)Session["Login"];
+                ViewBag.name = b.TEN;
 
-                if (b.ROLE1 == 1 || b.ROLE1 == 2)
+                if (b.ROLE == 1 || b.ROLE == 2)
                 {
                     var a = data.DIEMDANHs.Where(x => x.MASINHVIEN.Equals(id) && x.IDTKB == idtkb);
+                    var b1 = data.DIEMDANHs.Where(x => x.MASINHVIEN.Equals(id) && x.IDTKB == idtkb).FirstOrDefault();
+                    ViewBag.tensv = b1.SINHVIEN.TEN;
+                    ViewBag.tenmh = b1.TKB.MONHOC.TENMONHOC;
                     return View(a);
                 }
                 else

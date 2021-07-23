@@ -41,7 +41,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="~/Manage/Logout">Đăng xuất</a>
 
-                        <input type="text" style=""  name="name" value="@ViewBag.name" id="name" />
+                        <input type="text" style="display:none"  name="name" value="@ViewBag.name" id="name" />
                     </div>
                 </li>
 
@@ -94,7 +94,7 @@
 
                             <div id="admin" class="nav__dropdown-collapse" style="display:none">
                                 <div class="nav__dropdown-content">
-                                    <a href="~/Manage/ManageAccount" class="nav__dropdown-item">Quản lý tài khoản</a>
+                                    @*<a href="~/Manage/ManageAccount" class="nav__dropdown-item">Quản lý tài khoản</a>*@
                                     <a href="~/manage/ManageStudent" class="nav__dropdown-item">Quản lý sinh viên</a>
                                     <a href="~/manage/ManageTeacher" class="nav__dropdown-item">Quản lý giảng viên</a>
                                     <a href="~/Manage/ManageSchedule/0" class="nav__dropdown-item">Quản lý thời khóa biểu</a>

@@ -156,7 +156,7 @@ namespace WebApplication1.Controllers
             {
 
                 string senderEmail = "hoang080699@gmail.com";
-                string passw = "LNDtue2401";
+                string passw = "Hoang_99_99";
 
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                 client.EnableSsl = true;
@@ -177,9 +177,9 @@ namespace WebApplication1.Controllers
 
         public ActionResult FindAccount(string id) 
         {
-            var datadb = data.TAIKHOANs.Where(x => x.PASSWORD.Equals(id)).FirstOrDefault();
-            ViewBag.nameacc = datadb.Name;
-            ViewBag.id = datadb.USERNAME;
+            var datadb = data.GIANGVIENs.Where(x => x.PASSWORD.Equals(id)).FirstOrDefault();
+            ViewBag.nameacc = datadb.TEN;
+            ViewBag.id = datadb.ID;
             return View();
         }
 

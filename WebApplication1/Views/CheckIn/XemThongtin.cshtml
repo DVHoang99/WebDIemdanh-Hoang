@@ -5,29 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>XemThongtin</h2>
+<h2>Xem Thông tin điểm danh của sinh viên: @ViewBag.tensv -môn học: @ViewBag.tenmh  </h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TENSINHVIEN)
+           Tên Sinh Viên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NGAYDIEMDANH)
+            Ngày điểm danh
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TKB.MAMH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GIANGVIEN.TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SINHVIEN.TEN)
-        </th>
-        <th></th>
+
     </tr>
 
 @foreach (var item in Model) {
@@ -37,20 +26,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NGAYDIEMDANH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TKB.MAMH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MAGIANGVIEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SINHVIEN.TEN)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }
